@@ -1,0 +1,16 @@
+venv/
+__pycache__
+.env
+temp.pdf
+temp.xlsx
+*.sqlite3
+test*.json
+test.json
+testim.py
+debug.log
+testim.py
+celerybeat-schedule
+celery@b32a73f14763
+.venv/
+celerybeat-schedule
+/uv.lock

@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: python review_parser/manage.py runserver 0.0.0.0:8000
+    working_dir: /code/review_parser
+    volumes:
+      - .:/code/review_parser
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      
+
+  redis:
+    image: redis:latest
+    command: redis-server --save "" --appendonly no
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+
+  celery:
+    build: .
+    command: celery -A review_parser worker --loglevel=info --pool=solo --concurrency=1
+    volumes:
+      - .:/code
+    depends_on: 
+      - redis
+      - web
+    environment:
+      - PYTHONUNBUFFERED=1
+    
+  celery_beat:
+    build: .
+    command: celery -A review_parser beat --loglevel=info
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+
+
+volumes:
+  redis_data:

@@ -1,0 +1,20 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+ 
+{% block object-tools %}
+{% if original.pk %}
+<form action="{% url 'admin:common_parser_playlist_change' original.pk %}parse/" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="{% trans 'Парсинг' %}" name="_parse"/>
+ </form>
+ <form action="{% url 'admin:common_parser_playlist_change' original.pk %}parse-youtube/" method="POST">
+   {% csrf_token %}
+   <input type="submit" value="{% trans 'Парсинг ютуб' %}" name="_parse"/>
+</form>
+<form action="{% url 'admin:common_parser_playlist_change' original.pk %}parse-vk/" method="POST">
+   {% csrf_token %}
+   <input type="submit" value="{% trans 'Парсинг вк' %}" name="_parse"/>
+</form>
+ {% endif %}
+    {{ block.super }}
+{% endblock %}
