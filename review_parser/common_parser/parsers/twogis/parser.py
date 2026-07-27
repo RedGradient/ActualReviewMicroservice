@@ -1,47 +1,22 @@
 from __future__ import annotations
 
 import json
-import os
-import re
 from datetime import datetime
 from typing import Any, Callable
 
 from loguru import logger
 from requests import Response
 
-from common_parser.models import BranchPlatform, Branch, Organization
-from common_parser.services.http_client import get as http_get
+from common_parser.models import BranchPlatform, Review
+from common_parser.parsers.twogis.helpers import get_reviews, firm_id_from_url, _update_branch_platform, _review_exists
 from common_parser.types import ReviewsBundle, ParseResult
 
 from common_parser.tools.create_objects import (
     create_review,
-    get_or_create_Branch,
     get_or_create_Organization, get_or_create_branch_platform,
 )
 from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
 
-TWOGIS_API_KEY = os.getenv("TWOGIS_API_KEY", "37c04fe6-a560-4549-b459-02309cf643ad")
-
-
-def get_reviews(firm_id: str, limit: int, offset: int = 0) -> Response:
-    return http_get(_build_api_url(firm_id, limit=limit, offset=offset))
-
-
-
-
-def firm_id_from_url(url: str) -> str | None:
-    match = re.search(r"/firm/(\d+)", url)
-    return match.group(1) if match else None
-
-
-def _build_api_url(firm_id: str, *, limit: int = 50, offset: int = 0) -> str:
-    return (
-        f"https://public-api.reviews.2gis.com/2.0/branches/{firm_id}/reviews"
-        f"?limit={limit}&offset={offset}&is_advertiser=true"
-        f"&fields=meta.branch_rating,meta.branch_reviews_count,meta.total_count"
-        f"&without_my_first_review=false&rated=true&sort_by=date_edited"
-        f"&key={TWOGIS_API_KEY}&locale=ru_RU"
-    )
 
 def fetch_all_reviews(
     firm_id: str,
@@ -77,6 +52,48 @@ def fetch_all_reviews(
     )
 
 
+def fetch_new_reviews(
+        firm_id: str,
+        branch_platform: BranchPlatform,
+        limit: int = 50,
+        get_reviews_page: Callable[[str, int, int], Response] = get_reviews
+) -> ReviewsBundle:
+    first: ReviewsBundle | None = None
+    all_reviews: list[dict[str, Any]] = []
+
+    while True:
+        response = get_reviews_page(firm_id, limit, offset=len(all_reviews))
+        response.raise_for_status()
+
+        bundle = parse(response.text)
+        if first is None:
+            first = bundle
+
+        for review in bundle.reviews:
+            if _review_exists(branch_platform, review):
+                return ReviewsBundle(
+                    rating=first.rating,
+                    count=first.count,
+                    reviews=all_reviews,
+                )
+            all_reviews.append(review)
+
+        if not bundle.reviews or len(bundle.reviews) < limit:
+            break
+
+        if first.count is not None and len(all_reviews) >= first.count:
+            break
+
+    if first is None:
+        raise TwoGisParseError("2GIS returned no data")
+
+    return ReviewsBundle(
+        rating=first.rating,
+        count=first.count,
+        reviews=all_reviews,
+    )
+
+
 def create_2gis_reviews(
     url: str,
     inn: str,
@@ -87,20 +104,16 @@ def create_2gis_reviews(
     if (firm_id := firm_id_from_url(url)) is None:
         raise ValueError(f"Invalid 2GIS url: {url!r}")
 
-    bundle = fetch_all_reviews(firm_id, limit=count)
-    fetched_count = len(bundle.reviews)
-
+    organization = get_or_create_Organization(inn, org_name)
     branch_platform = get_or_create_branch_platform(
-        organization=get_or_create_Organization(inn, org_name),
+        organization=organization,
         address=address,
         provider="2gis",
         url=url,
-        org_id=None,
-        review_count=bundle.count if bundle.count is not None else fetched_count,
-        review_avg=str(bundle.rating) if bundle.rating is not None else "",
-        parsed_at=datetime.now(),
     )
 
+    bundle = fetch_new_reviews(firm_id, branch_platform, limit=count)
+    _update_branch_platform(branch_platform, bundle)
     branch_platform.save()
 
     cnt = 0
@@ -114,6 +127,7 @@ def create_2gis_reviews(
         ):
             cnt += 1
 
+    fetched_count = len(bundle.reviews)
     logger.info(
         "2GIS create finished: url={} branch_address={} parsed={} created={}",
         url,

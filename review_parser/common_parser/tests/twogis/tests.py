@@ -13,12 +13,11 @@ from common_parser.tests.twogis.helpers import (
 )
 from common_parser.parsers.twogis.parser import (
     TwoGisParseError,
-    _build_api_url,
     create_2gis_reviews,
     fetch_all_reviews,
-    firm_id_from_url,
     parse,
 )
+from common_parser.parsers.twogis.helpers import firm_id_from_url, _build_api_url
 from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
 
 
