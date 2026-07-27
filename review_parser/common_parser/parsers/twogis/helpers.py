@@ -2,13 +2,11 @@ from __future__ import annotations
 
 import os
 import re
-from datetime import datetime
 
 from requests import Response
 
 from common_parser.models import BranchPlatform, Review
 from common_parser.services.http_client import get as http_get
-from common_parser.types import ReviewsBundle
 
 TWOGIS_API_KEY = os.getenv("TWOGIS_API_KEY", "37c04fe6-a560-4549-b459-02309cf643ad")
 
@@ -38,14 +36,3 @@ def _review_exists(branch_platform: BranchPlatform, review) -> bool:
         author=review["user"]["name"],
         content=review["text"]
     ).exists()
-
-
-def _update_branch_platform(branch_platform: BranchPlatform, bundle: ReviewsBundle) -> BranchPlatform:
-    fetched_count = len(bundle.reviews)
-
-    branch_platform.review_count = bundle.count if bundle.count is not None else fetched_count
-    if bundle.rating is not None:
-        branch_platform.review_avg = str(bundle.rating)
-    branch_platform.parsed_at = datetime.now()
-
-    return branch_platform

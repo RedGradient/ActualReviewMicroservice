@@ -8,7 +8,8 @@ from loguru import logger
 from requests import Response
 
 from common_parser.models import BranchPlatform, Review
-from common_parser.parsers.twogis.helpers import get_reviews, firm_id_from_url, _update_branch_platform, _review_exists
+from common_parser.parsers.twogis.helpers import get_reviews, firm_id_from_url, _review_exists
+from common_parser.parsers.helpers import _update_branch_platform
 from common_parser.types import ReviewsBundle, ParseResult
 
 from common_parser.tools.create_objects import (
