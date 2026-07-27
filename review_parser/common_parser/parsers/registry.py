@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from common_parser.parsers.protocol import ReviewParser
-from twogis_parser.tools.parser import TwoGisParser
-from vl_parser.tools.parser import VlruParser
+from common_parser.parsers.twogis.parser import TwoGisParser
+from common_parser.parsers.vlru.parser import VlruParser
 
 REVIEW_PARSERS: list[ReviewParser] = [
     TwoGisParser(),
