@@ -5,8 +5,12 @@ from django.test import TestCase
 from requests import HTTPError
 
 from common_parser.types import ReviewsBundle
-from common_parser.tests.fixtures.twogis import twogis_api_response
-from common_parser.tests.helpers.twogis.helpers import FakeGetReviews, fake_get_reviews_page, make_reviews_page
+from common_parser.tests.twogis.helpers import (
+    FakeGetReviews,
+    fake_get_reviews_page,
+    make_reviews_page,
+    twogis_api_response,
+)
 from common_parser.parsers.twogis.parser import (
     TwoGisParseError,
     _build_api_url,

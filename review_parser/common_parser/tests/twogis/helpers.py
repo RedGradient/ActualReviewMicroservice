@@ -1,10 +1,18 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 from typing import Any
 from unittest.mock import Mock
 
 from requests import Response
+
+_FIXTURES_DIR = Path(__file__).resolve().parent / "fixtures"
+
+
+def twogis_api_response() -> str:
+    """Текст JSON-ответа 2GIS Reviews API (одна страница, один отзыв)."""
+    return (_FIXTURES_DIR / "twogis_api_response.json").read_text(encoding="utf-8")
 
 
 def make_response(text: str, *, status_code: int = 200) -> Response:

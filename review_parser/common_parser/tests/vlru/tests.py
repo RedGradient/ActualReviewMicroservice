@@ -4,7 +4,9 @@ from django.test import TestCase
 from requests import HTTPError
 
 from common_parser.types import ReviewsBundle
-from common_parser.tests.fixtures.vlru import (
+from common_parser.tests.vlru.helpers import (
+    FakeVLClient,
+    make_json_response,
     vlru_avg_history,
     vlru_avg_history_low,
     vlru_comments_second_page,
@@ -12,7 +14,6 @@ from common_parser.tests.fixtures.vlru import (
     vlru_thread_first_page,
     vlru_thread_last_page,
 )
-from common_parser.tests.vlru.helpers import FakeVLClient, make_json_response
 from common_parser.parsers.vlru.parser import (
     _apply_avg_rating_from_history,
     create_vlru_reviews,
