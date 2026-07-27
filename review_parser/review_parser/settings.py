@@ -50,8 +50,6 @@ INSTALLED_APPS = [
     'yandex_parser',
     'common_parser',
     'youtube_parser',
-    'vkvideo_parser',
-
 ]
 
 MIDDLEWARE = [
