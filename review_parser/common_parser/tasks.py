@@ -8,7 +8,6 @@ from django.shortcuts import get_object_or_404
 from loguru import logger
 from time import perf_counter
 from common_parser.parsers.yandex.parser import create_yandex_reviews
-from common_parser.tools.parse_videos import parse_youtube_videos, parse_vk_videos
 
 
 @shared_task(name='common_parser.tasks.weekly_parsing')
@@ -99,6 +98,8 @@ def parse_2gis_async(branch_id):
 
 @shared_task(name='parse_youtube_videos_async')
 def parse_youtube_videos_async(playlist_id):
+    from common_parser.tools.parse_videos import parse_youtube_videos
+
     t0 = perf_counter()
     playlist = get_object_or_404(Playlist, id=playlist_id)
     results = parse_youtube_videos(playlist.url)
@@ -110,6 +111,8 @@ def parse_youtube_videos_async(playlist_id):
 
 @shared_task(name='parse_vk_videos_async')
 def parse_vk_videos_async(playlist_id):
+    from common_parser.tools.parse_videos import parse_vk_videos
+
     t0 = perf_counter()
     playlist = get_object_or_404(Playlist, id=playlist_id)
     results = parse_vk_videos(playlist.url)
