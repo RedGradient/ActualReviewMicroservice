@@ -1,7 +1,7 @@
 import json
 from typing import Any, Iterable
 
-from django.db.models import Count, Q, QuerySet, Case, When, Value, IntegerField
+from django.db.models import Count, Q, QuerySet, Case, When, Value, IntegerField, F
 
 from common_parser.models import Branch, Review
 
@@ -141,7 +141,11 @@ def get_reviews_response_for_branches(*, branches: Iterable[Branch], query_param
         reviews_list: list[Review] = []
         for prov in providers:
             provider_name = prov.get("provider")
-            predata = Review.objects.filter(branch__in=branches_list, provider=provider_name, rating__gte=4)
+            predata = Review.objects.filter(
+                branch_platform__branch__in=branches_list,
+                branch_platform__provider=provider_name,
+                rating__gte=4,
+            )
 
             if sort_photos:
                 predata = predata.order_by(
@@ -172,7 +176,9 @@ def get_reviews_response_for_branches(*, branches: Iterable[Branch], query_param
             provider_to_exclude = [item["provider"] for item in providers if item.get("provider")]
             # preserve legacy behavior (no explicit ordering here)
             reviews_list += list(
-                Review.objects.filter(branch__in=branches_list).exclude(provider__in=provider_to_exclude)
+                Review.objects.filter(branch_platform__branch__in=branches_list).exclude(
+                    branch_platform__provider__in=provider_to_exclude
+                )
             )
 
         reviews_data = reviews_list
@@ -181,7 +187,7 @@ def get_reviews_response_for_branches(*, branches: Iterable[Branch], query_param
         limit = _parse_int(query_params.get("limit"))
         filters = query_params.get("filters") or ""
 
-        reviews = Review.objects.filter(branch__in=branches_list, rating__gte=4)
+        reviews = Review.objects.filter(branch_platform__branch__in=branches_list, rating__gte=4)
 
         if sort_photos:
             reviews = reviews.order_by(
@@ -208,9 +214,11 @@ def get_reviews_response_for_branches(*, branches: Iterable[Branch], query_param
         reviews_data = reviews
 
     provider_reviews_count = (
-        Review.objects.filter(branch__in=branches_list)
-        .values("provider")
+        Review.objects.filter(branch_platform__branch__in=branches_list)
+        .values("branch_platform__provider")
         .annotate(review_count=Count("id"))
+        .annotate(provider=F("branch_platform__provider"))
+        .values("provider", "review_count")
     )
 
     return {

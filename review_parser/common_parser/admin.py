@@ -83,8 +83,8 @@ class OrganizationAdmin(NestedModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(NestedModelAdmin):
-    list_display = ('id', 'branch', 'author', 'rating', 'published_date')
-    list_filter = ('branch', 'rating')     
+    list_display = ('id', 'branch_platform', 'author', 'rating', 'published_date')
+    list_filter = ('branch_platform', 'rating')     
     search_fields = ['author', 'content']  
     date_hierarchy = 'published_date'      
     ordering = ['-published_date']        

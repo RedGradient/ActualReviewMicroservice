@@ -1,25 +1,30 @@
-from common_parser.serializers import ReviewSerializer, OrganizationSerializer, BranchSerializer, VideoSerializer
-from common_parser.models import Review, Organization, Branch, Video, Playlist
+from datetime import datetime
+from decimal import Decimal, InvalidOperation
+from typing import Any
+
+from common_parser.serializers import ReviewSerializer, OrganizationSerializer, BranchSerializer, BranchPlatformSerializer, VideoSerializer
+from common_parser.models import Review, Organization, Branch, Video, Playlist, BranchPlatform
+
 
 def create_review(data: dict)->bool:
     """Создает отзыв, если уже есть такой отзыв возвращает False"""
+    branch_platform = data["branch_platform"]
     existing_review = Review.objects.filter(
-        branch=data["branch"],
+        branch_platform=branch_platform,
         author=data["author"],
         content=data["content"]
     ).exists()
 
     if existing_review:
         return False
-    
+
     data_rewiew={
-                    'branch': data["branch"].id,
+                    'branch_platform': branch_platform.id,
                     'author': data["author"],
                     'avatar': data["avatar"],
                     'rating': data["rating"],
                     'content': data["content"],
                     'published_date': data["published_date"],
-                    'provider': data['provider']
                 }
     
     if "photos" in data:
@@ -69,7 +74,7 @@ def get_or_create_Branch(organization: str, address: str, url_name: str, url: st
             setattr(branch, review_avg_name, review_avg)
         branch.save()
     except Branch.DoesNotExist:
-        serializer_branch = BranchSerializer(data={
+        serializer_branch = BranchPlatformSerializer(data={
             'organization': organization.id,
             'address': address or "",
             url_name: url
@@ -78,7 +83,7 @@ def get_or_create_Branch(organization: str, address: str, url_name: str, url: st
             branch = serializer_branch.save()
         else:
             return None
-    
+
     return branch
 
 
@@ -119,3 +124,73 @@ def create_video(data: dict)-> bool:
     else:
         print("Ошибки сериализатора:", serializer_video.errors)
         return False
+
+
+def get_or_create_branch(organization: Organization, address: str | None) -> Branch:
+    branch, _ = Branch.objects.get_or_create(
+        organization=organization,
+        address=address or "",
+    )
+    return branch
+
+
+def get_or_create_branch_platform(
+    organization: Organization,
+    address: str,
+    provider: str,
+    url: str | None = None,
+    org_id: str | None = None,
+    review_count: int | None = None,
+    review_avg: float | int | str | None = None,
+    parsed_at: datetime | None = None,
+) -> BranchPlatform:
+    branch = get_or_create_branch(organization, address)
+    platform, created = BranchPlatform.objects.get_or_create(
+        branch=branch,
+        provider=provider,
+        defaults=_platform_defaults(
+            url=url,
+            org_id=org_id,
+            review_count=review_count,
+            review_avg=review_avg,
+            parsed_at=parsed_at,
+        ),
+    )
+    if not created:
+        _update_platform_fields(
+            platform,
+            url=url,
+            org_id=org_id,
+            review_count=review_count,
+            review_avg=review_avg,
+            parsed_at=parsed_at,
+        )
+    return platform
+
+
+def _platform_defaults(**kwargs: Any) -> dict[str, Any]:
+    return {key: value for key, value in kwargs.items() if value is not None}
+
+
+def _update_platform_fields(platform: BranchPlatform, **kwargs: Any) -> None:
+    updated: list[str] = []
+    for field, value in kwargs.items():
+        if value is None:
+            continue
+        if field == "review_avg":
+            value = _coerce_review_avg(value)
+        if getattr(platform, field) != value:
+            setattr(platform, field, value)
+            updated.append(field)
+    if updated:
+        platform.save(update_fields=updated)
+
+
+def _coerce_review_avg(value: float | int | str) -> Decimal | None:
+    try:
+        avg = Decimal(str(value))
+    except (InvalidOperation, ValueError):
+        return None
+    if avg < 0:
+        return None
+    return avg
