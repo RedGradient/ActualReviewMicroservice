@@ -1,0 +1,748 @@
+{
+  "meta": {
+    "branch_rating": 4.8,
+    "branch_rating_is_confirmed": false,
+    "branch_reviews_count": 495,
+    "code": 200,
+    "next_link": "https://public-api.reviews.2gis.com/2.0/branches/70000001041081959/reviews?fields=meta.branch_rating%2Cmeta.branch_reviews_count%2Cmeta.total_count&is_advertiser=true&key=37c04fe6-a560-4549-b459-02309cf643ad&limit=10&locale=ru_RU&offset=11&rated=true&sort_by=date_edited&without_my_first_review=false",
+    "total_count": 472
+  },
+  "reviews": [
+    {
+      "additional_data": {
+        "external_id": null,
+        "filtered_facts": null,
+        "has_unresolved_complaints": false,
+        "ip": "",
+        "is_liked": null,
+        "is_unrated_permanently": null,
+        "pin_status": "none",
+        "status_history": [],
+        "user_agent": ""
+      },
+      "comments_count": 0,
+      "date_created": "2026-07-23T22:26:37.146391+07:00",
+      "date_edited": null,
+      "hiding_reason": null,
+      "hiding_type": null,
+      "id": "260869980",
+      "is_hidden": false,
+      "is_rated": true,
+      "is_verified": false,
+      "likes_count": 0,
+      "object": {
+        "id": "70000001041081959",
+        "type": "branch"
+      },
+      "official_answer": null,
+      "on_moderation": false,
+      "photos": [],
+      "provider": "2gis",
+      "rating": 5,
+      "region_id": 32,
+      "source": null,
+      "text": "Шикарный ресторан, уютная атмосфера, вежливый персонал! НО самое главное это безумно вкусная еда, настоящая грузинская кухня, повара большие молодцы! Встречались с коллегами после работы и пообщались и покушали и атмосферно отдохнули! \nСпасибо за ваш трут! Вы большие молодцы!",
+      "url": "",
+      "user": {
+        "additional_data": {
+          "email": null
+        },
+        "first_name": "Анна Чернецкая",
+        "id": "74877068",
+        "last_name": null,
+        "name": "Анна Чернецкая",
+        "photo_preview_urls": {
+          "1920x": "",
+          "320x": "",
+          "640x": "",
+          "64x64": "",
+          "url": ""
+        },
+        "provider": "2gis",
+        "public_id": "1c72c9bb278f480692f50435d9b360f5",
+        "reviews_count": 1,
+        "url": ""
+      }
+    },
+    {
+      "additional_data": {
+        "external_id": null,
+        "filtered_facts": null,
+        "has_unresolved_complaints": false,
+        "ip": "",
+        "is_liked": null,
+        "is_unrated_permanently": null,
+        "pin_status": "none",
+        "status_history": [],
+        "user_agent": ""
+      },
+      "comments_count": 1,
+      "date_created": "2026-07-19T06:53:14.923627+07:00",
+      "date_edited": "2026-07-19T06:53:37.085802+07:00",
+      "hiding_reason": null,
+      "hiding_type": null,
+      "id": "259498397",
+      "is_hidden": false,
+      "is_rated": true,
+      "is_verified": false,
+      "likes_count": 1,
+      "object": {
+        "id": "70000001041081959",
+        "type": "branch"
+      },
+      "official_answer": {
+        "date_created": "2026-07-21T05:20:23.164741+07:00",
+        "id": "69405965",
+        "logo_preview_urls": {
+          "1920x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_1920.png",
+          "320x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_320.png",
+          "640x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_640.png",
+          "64x64": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_64_64.png",
+          "url": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image.png"
+        },
+        "org_name": "Мегрелия, ресторан грузинской кухни",
+        "text": "Здравствуйте!\nОГРОМНОЕ СПАСИБО Вам за высокую оценку!\nДля нас главную цель работы составляет комфорт, гастрономическое удовольствие и радость гостя, вот почему мы искренне рады знать, что Вы остались с приятными воспоминаниями от посещения нашего заведения.\nЖелаем Вам мира, здоровья, любви, добра!\nБудем счастливы видеть Вас снова!\nС наилучшими пожеланиями,\nдружный коллектив ресторана \"Мегрелия\""
+      },
+      "on_moderation": false,
+      "photos": [],
+      "provider": "2gis",
+      "rating": 5,
+      "region_id": 32,
+      "source": null,
+      "text": "Хороший ресторан",
+      "url": "",
+      "user": {
+        "additional_data": {
+          "email": null
+        },
+        "first_name": "N. L. O. ..",
+        "id": "28712913",
+        "last_name": null,
+        "name": "N. L. O. ..",
+        "photo_preview_urls": {
+          "1920x": "",
+          "320x": "",
+          "640x": "",
+          "64x64": "",
+          "url": ""
+        },
+        "provider": "2gis",
+        "public_id": "eae5dc75bec24774a230f0628548f7bc",
+        "reviews_count": 36,
+        "url": ""
+      }
+    },
+    {
+      "additional_data": {
+        "external_id": null,
+        "filtered_facts": null,
+        "has_unresolved_complaints": false,
+        "ip": "",
+        "is_liked": null,
+        "is_unrated_permanently": null,
+        "pin_status": "none",
+        "status_history": [],
+        "user_agent": ""
+      },
+      "comments_count": 1,
+      "date_created": "2026-07-13T22:15:48.534961+07:00",
+      "date_edited": "2026-07-13T22:17:23.379945+07:00",
+      "hiding_reason": null,
+      "hiding_type": null,
+      "id": "258003932",
+      "is_hidden": false,
+      "is_rated": true,
+      "is_verified": false,
+      "likes_count": 1,
+      "object": {
+        "id": "70000001041081959",
+        "type": "branch"
+      },
+      "official_answer": {
+        "date_created": "2026-07-17T04:06:13.523+07:00",
+        "id": "69197729",
+        "logo_preview_urls": {
+          "1920x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_1920.png",
+          "320x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_320.png",
+          "640x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_640.png",
+          "64x64": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_64_64.png",
+          "url": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image.png"
+        },
+        "org_name": "Мегрелия, ресторан грузинской кухни",
+        "text": "Alexandr, нам ценно, что вы отметили атмосферу, кухню и наше домашнее вино — очень рады, что всё пришлось по душе."
+      },
+      "on_moderation": false,
+      "photos": [],
+      "provider": "2gis",
+      "rating": 5,
+      "region_id": 32,
+      "source": null,
+      "text": "Приятная отмосфера, вкусная еда, внимательный персонал, понравилось домашнее грузинское вино",
+      "url": "",
+      "user": {
+        "additional_data": {
+          "email": null
+        },
+        "first_name": "Alexandr Dering",
+        "id": "16865367",
+        "last_name": null,
+        "name": "Alexandr Dering",
+        "photo_preview_urls": {
+          "1920x": "https://i7.photo.2gis.com/images/profile/844424967117847_2087_1920x.jpg",
+          "320x": "https://i7.photo.2gis.com/images/profile/844424967117847_2087_320x.jpg",
+          "640x": "https://i7.photo.2gis.com/images/profile/844424967117847_2087_640x.jpg",
+          "64x64": "https://i7.photo.2gis.com/images/profile/844424967117847_2087_64x64.jpg",
+          "url": "https://i7.photo.2gis.com/images/profile/844424967117847_2087.jpg"
+        },
+        "provider": "2gis",
+        "public_id": "7279a1eb0b7c4eb4a93344608f795065",
+        "reviews_count": 5,
+        "url": ""
+      }
+    },
+    {
+      "additional_data": {
+        "external_id": null,
+        "filtered_facts": null,
+        "has_unresolved_complaints": false,
+        "ip": "",
+        "is_liked": null,
+        "is_unrated_permanently": null,
+        "pin_status": "none",
+        "status_history": [],
+        "user_agent": ""
+      },
+      "comments_count": 1,
+      "date_created": "2026-07-10T03:06:27.610909+07:00",
+      "date_edited": null,
+      "hiding_reason": null,
+      "hiding_type": null,
+      "id": "257003595",
+      "is_hidden": false,
+      "is_rated": true,
+      "is_verified": false,
+      "likes_count": 2,
+      "object": {
+        "id": "70000001041081959",
+        "type": "branch"
+      },
+      "official_answer": {
+        "date_created": "2026-07-10T10:03:36.959467+07:00",
+        "id": "68829877",
+        "logo_preview_urls": {
+          "1920x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_1920.png",
+          "320x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_320.png",
+          "640x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_640.png",
+          "64x64": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image_64_64.png",
+          "url": "https://ams2-cdn.2gis.com/previews/1084739178987520003/0b68f396-2b09-46df-9a28-104dd01fb27e/1/ru/image.png"
+        },
+        "org_name": "Мегрелия, ресторан грузинской кухни",
+        "text": "Светлана, замечательно, что наше место помогло вам отвлечься от грусти и порадовало свежестью и вкусом. Ждём вас снова."
+      },
+      "on_moderation": false,
+      "photos": [],
+      "provider": "2gis",
+      "rating": 5,
+      "region_id": 32,
+      "source": null,
+      "text": "Такое красивое место ,которое разряжает от грусти,печали,тоски …Так все вкусно и свежо …❤️❤️❤️🍾💎",
+      "url": "",
+      "user": {
+        "additional_data": {
+          "email": null
+        },
+        "first_name": "Светлана Захарова",
+        "id": "100058373",
+        "last_name": null,
+        "name": "Светлана Захарова",
+        "photo_preview_urls": {
+          "1920x": "",
+          "320x": "",
+          "640x": "",
+          "64x64": "",
+          "url": ""
+        },
+        "provider": "2gis",
+        "public_id": "db2acbb575b748eeb8bbdd601f772b6d",
+        "reviews_count": 1,
+        "url": ""
+      }
+    },
+    {
+      "additional_data": {
+        "external_id": null,
+        "filtered_facts": null,
+        "has_unresolved_complaints": false,
+        "ip": "",
+        "is_liked": null,
+        "is_unrated_permanently": null,
+        "pin_status": "none",
+        "status_history": [],
+        "user_agent": ""
+      },
+      "comments_count": 1,
+      "date_created": "2026-06-27T01:42:54.239136+07:00",
+      "date_edited": "2026-06-27T01:43:22.708517+07:00",
+      "hiding_reason": null,
+      "hiding_type": null,
+      "id": "253378705",
+      "is_hidden": false,
+      "is_rated": true,
+      "is_verified": false,
+      "likes_count": 2,
+      "object": {
+        "id": "70000001041081959",
+        "type": "branch"
+      },
+      "official_answer": {
+        "date_created": "2026-06-27T16:22:18.408751+07:00",
+        "id": "68161872",
+        "logo_preview_urls": {
+          "1920x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_1920.png",
+          "320x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_320.png",
+          "640x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_640.png",
+          "64x64": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_64_64.png",
+          "url": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image.png"
+        },
+        "org_name": "Мегрелия, ресторан грузинской кухни",
+        "text": "Здравствуйте, Ako!\nМы искренне рады, что наша кухня пришлась Вам по душе.\nОгромное спасибо, что рекомендуете нас!\nУ нас огромный выбор наивкуснейших блюд - предлагаем Вам попробовать всё разнообразие нашей яркой и сочной кухни!\nБудем с нетерпением ждать Вас снова!\nДо встречи!\nС наилучшими пожеланиями,\n«Мегрелия»"
+      },
+      "on_moderation": false,
+      "photos": [],
+      "provider": "2gis",
+      "rating": 5,
+      "region_id": 32,
+      "source": null,
+      "text": "Очень вкусно, отличные специи и качественные продукты 👌 приятный персонал, рекомендую ☺️ по стоимости блюд - очень приятные цены",
+      "url": "",
+      "user": {
+        "additional_data": {
+          "email": null
+        },
+        "first_name": "Ako",
+        "id": "6271606",
+        "last_name": null,
+        "name": "Ako",
+        "photo_preview_urls": {
+          "1920x": "",
+          "320x": "",
+          "640x": "",
+          "64x64": "",
+          "url": ""
+        },
+        "provider": "2gis",
+        "public_id": "e15540474882477a9257c0e66ea43583",
+        "reviews_count": 28,
+        "url": ""
+      }
+    },
+    {
+      "additional_data": {
+        "external_id": null,
+        "filtered_facts": null,
+        "has_unresolved_complaints": false,
+        "ip": "",
+        "is_liked": null,
+        "is_unrated_permanently": null,
+        "pin_status": "none",
+        "status_history": [],
+        "user_agent": ""
+      },
+      "comments_count": 2,
+      "date_created": "2026-06-25T19:28:14.549619+07:00",
+      "date_edited": "2026-06-26T22:52:31.179475+07:00",
+      "hiding_reason": null,
+      "hiding_type": null,
+      "id": "253017012",
+      "is_hidden": false,
+      "is_rated": true,
+      "is_verified": false,
+      "likes_count": 3,
+      "object": {
+        "id": "70000001041081959",
+        "type": "branch"
+      },
+      "official_answer": {
+        "date_created": "2026-06-26T03:33:04.400414+07:00",
+        "id": "68093038",
+        "logo_preview_urls": {
+          "1920x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_1920.png",
+          "320x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_320.png",
+          "640x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_640.png",
+          "64x64": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_64_64.png",
+          "url": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image.png"
+        },
+        "org_name": "Мегрелия, ресторан грузинской кухни",
+        "text": "Здравствуйте, Марк!\nБлагодарим, что уделили время и поделились своими впечатлениями. Отдельное спасибо, что рекомендуете нас! Невероятно приятно знать, что наши блюда оставили у Вас столь позитивные эмоции и порадовали Вас своим вкусом. Будем счастливы видеть Вас снова, чтобы вновь подарить гастрономическое удовольствие.\nС наилучшими пожеланиями,\nдружный коллектив ресторана «Мегрелия»"
+      },
+      "on_moderation": false,
+      "photos": [
+        {
+          "date_created": "2026-06-25T19:28:14.58805+07:00",
+          "id": "33517635",
+          "preview_urls": {
+            "1920x": "https://cachizer1.2gis.com/reviews-photos/ed0ff13d-9a0c-4975-b136-2c99f272f6d2.jpg?w=1920",
+            "320x": "https://cachizer1.2gis.com/reviews-photos/ed0ff13d-9a0c-4975-b136-2c99f272f6d2.jpg?w=320",
+            "640x": "https://cachizer1.2gis.com/reviews-photos/ed0ff13d-9a0c-4975-b136-2c99f272f6d2.jpg?w=640",
+            "64x64": "https://cachizer1.2gis.com/reviews-photos/ed0ff13d-9a0c-4975-b136-2c99f272f6d2.jpg?h=64&w=64",
+            "url": "https://cachizer1.2gis.com/reviews-photos/ed0ff13d-9a0c-4975-b136-2c99f272f6d2.jpg"
+          },
+          "processing_status": "finished",
+          "visibility_status": "visible"
+        },
+        {
+          "date_created": "2026-06-25T19:30:15.107267+07:00",
+          "id": "33517783",
+          "preview_urls": {
+            "1920x": "https://cachizer1.2gis.com/reviews-photos/6d6d54fb-3baa-4ae6-bef6-833dea63b9ff.jpg?w=1920",
+            "320x": "https://cachizer1.2gis.com/reviews-photos/6d6d54fb-3baa-4ae6-bef6-833dea63b9ff.jpg?w=320",
+            "640x": "https://cachizer1.2gis.com/reviews-photos/6d6d54fb-3baa-4ae6-bef6-833dea63b9ff.jpg?w=640",
+            "64x64": "https://cachizer1.2gis.com/reviews-photos/6d6d54fb-3baa-4ae6-bef6-833dea63b9ff.jpg?h=64&w=64",
+            "url": "https://cachizer1.2gis.com/reviews-photos/6d6d54fb-3baa-4ae6-bef6-833dea63b9ff.jpg"
+          },
+          "processing_status": "finished",
+          "visibility_status": "visible"
+        },
+        {
+          "date_created": "2026-06-25T19:30:15.107267+07:00",
+          "id": "33517784",
+          "preview_urls": {
+            "1920x": "https://cachizer2.2gis.com/reviews-photos/eca61c98-5b56-44ca-ae84-ce30bee6b494.jpg?w=1920",
+            "320x": "https://cachizer2.2gis.com/reviews-photos/eca61c98-5b56-44ca-ae84-ce30bee6b494.jpg?w=320",
+            "640x": "https://cachizer2.2gis.com/reviews-photos/eca61c98-5b56-44ca-ae84-ce30bee6b494.jpg?w=640",
+            "64x64": "https://cachizer2.2gis.com/reviews-photos/eca61c98-5b56-44ca-ae84-ce30bee6b494.jpg?h=64&w=64",
+            "url": "https://cachizer2.2gis.com/reviews-photos/eca61c98-5b56-44ca-ae84-ce30bee6b494.jpg"
+          },
+          "processing_status": "finished",
+          "visibility_status": "visible"
+        }
+      ],
+      "provider": "2gis",
+      "rating": 5,
+      "region_id": 32,
+      "source": null,
+      "text": "Очень вкусные хинкали в которых осетинка подчёркивает вкус блюда! , люля-кебаб аджапсандал и многое другое. Приветливый персонал. Спасибо шефам! РЕКОМЕНДУЮ К ПОСЕЩЕНИЮ! ❤️❤️",
+      "url": "",
+      "user": {
+        "additional_data": {
+          "email": null
+        },
+        "first_name": "Марк Сергеев",
+        "id": "54878018",
+        "last_name": null,
+        "name": "Марк Сергеев",
+        "photo_preview_urls": {
+          "1920x": "",
+          "320x": "",
+          "640x": "",
+          "64x64": "",
+          "url": ""
+        },
+        "provider": "2gis",
+        "public_id": "d243b0cb28194c9da0c35f1ea6e6d1c0",
+        "reviews_count": 5,
+        "url": ""
+      }
+    },
+    {
+      "additional_data": {
+        "external_id": null,
+        "filtered_facts": null,
+        "has_unresolved_complaints": false,
+        "ip": "",
+        "is_liked": null,
+        "is_unrated_permanently": null,
+        "pin_status": "none",
+        "status_history": [],
+        "user_agent": ""
+      },
+      "comments_count": 1,
+      "date_created": "2026-06-24T02:48:36.359195+07:00",
+      "date_edited": "2026-06-24T02:48:54.91129+07:00",
+      "hiding_reason": null,
+      "hiding_type": null,
+      "id": "252529632",
+      "is_hidden": false,
+      "is_rated": true,
+      "is_verified": false,
+      "likes_count": 2,
+      "object": {
+        "id": "70000001041081959",
+        "type": "branch"
+      },
+      "official_answer": {
+        "date_created": "2026-06-24T03:43:59.221129+07:00",
+        "id": "67977178",
+        "logo_preview_urls": {
+          "1920x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_1920.png",
+          "320x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_320.png",
+          "640x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_640.png",
+          "64x64": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_64_64.png",
+          "url": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image.png"
+        },
+        "org_name": "Мегрелия, ресторан грузинской кухни",
+        "text": "Здравствуйте, Анна!\nБольшое спасибо за отзыв и такую сочную фотографию! Вы, наверное, прирождённый фотограф. Нам хочется, чтобы у нас было побольше таких кадров. Если у Вас есть ещё, то пришлите, пожалуйста.\nБудем ждать Вас с нетерпением снова! В следующий раз попросим Вас побольше сфотографировать ))\nС наилучшими пожеланиями,\n\"Мегрелия\""
+      },
+      "on_moderation": false,
+      "photos": [
+        {
+          "date_created": "2026-06-24T02:48:36.463003+07:00",
+          "id": "33418524",
+          "preview_urls": {
+            "1920x": "https://cachizer3.2gis.com/reviews-photos/bacdc97e-8b97-44b1-b4ca-9b7bf201dc82.jpg?w=1920",
+            "320x": "https://cachizer3.2gis.com/reviews-photos/bacdc97e-8b97-44b1-b4ca-9b7bf201dc82.jpg?w=320",
+            "640x": "https://cachizer3.2gis.com/reviews-photos/bacdc97e-8b97-44b1-b4ca-9b7bf201dc82.jpg?w=640",
+            "64x64": "https://cachizer3.2gis.com/reviews-photos/bacdc97e-8b97-44b1-b4ca-9b7bf201dc82.jpg?h=64&w=64",
+            "url": "https://cachizer3.2gis.com/reviews-photos/bacdc97e-8b97-44b1-b4ca-9b7bf201dc82.jpg"
+          },
+          "processing_status": "finished",
+          "visibility_status": "visible"
+        }
+      ],
+      "provider": "2gis",
+      "rating": 5,
+      "region_id": 32,
+      "source": null,
+      "text": "Потрясающий банкет: изобилие всячески блюд, разнообразие ярких красок и вкуса! Всем рекомендую отмечать праздники в \"Мегрелии\"!\n ",
+      "url": "",
+      "user": {
+        "additional_data": {
+          "email": null
+        },
+        "first_name": "Анна Жуковская",
+        "id": "51218250",
+        "last_name": null,
+        "name": "Анна Жуковская",
+        "photo_preview_urls": {
+          "1920x": "",
+          "320x": "",
+          "640x": "",
+          "64x64": "",
+          "url": ""
+        },
+        "provider": "2gis",
+        "public_id": "2a9d85af310a4da986655d80abb29712",
+        "reviews_count": 5,
+        "url": ""
+      }
+    },
+    {
+      "additional_data": {
+        "external_id": null,
+        "filtered_facts": null,
+        "has_unresolved_complaints": false,
+        "ip": "",
+        "is_liked": null,
+        "is_unrated_permanently": null,
+        "pin_status": "none",
+        "status_history": [],
+        "user_agent": ""
+      },
+      "comments_count": 1,
+      "date_created": "2026-06-23T18:03:07.835935+07:00",
+      "date_edited": null,
+      "hiding_reason": null,
+      "hiding_type": null,
+      "id": "252415898",
+      "is_hidden": false,
+      "is_rated": true,
+      "is_verified": false,
+      "likes_count": 2,
+      "object": {
+        "id": "70000001041081959",
+        "type": "branch"
+      },
+      "official_answer": {
+        "date_created": "2026-06-26T03:50:56.329158+07:00",
+        "id": "68093202",
+        "logo_preview_urls": {
+          "1920x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_1920.png",
+          "320x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_320.png",
+          "640x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_640.png",
+          "64x64": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_64_64.png",
+          "url": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image.png"
+        },
+        "org_name": "Мегрелия, ресторан грузинской кухни",
+        "text": "Здравствуйте, Ольга!\nБлагодарим Вас за высокую оценку и отличный отзыв!\nНам нравится создавать праздничную атмосферу и заботиться о гостях.\nМы очень рады, что Вы приятно провели время и по достоинству оценили традиционную грузинскую кухню в исполнении наших мастеров.\nЕщё раз поздравляем именинницу с Днём рождения! Желаем мира, любви и добра!\nБудем счастливы видеть Вашу компанию вновь и вновь - обязуемся делать каждый Ваш вечер в нашем заведении ярким и сочным :)\nС наилучшими пожеланиями,\nдружная команда ресторана \"Мегрелия\""
+      },
+      "on_moderation": false,
+      "photos": [],
+      "provider": "2gis",
+      "rating": 5,
+      "region_id": 32,
+      "source": null,
+      "text": "Вчера с подругами отмечали день рождения в \"Мегрелии\". Заказывали хачапури и шашлык, всё очень вкусно. Обслуживание тоже порадовало, официанты внимательные. Хорошее место для посиделок.",
+      "url": "",
+      "user": {
+        "additional_data": {
+          "email": null
+        },
+        "first_name": "Ольга Сафонова",
+        "id": "103166559",
+        "last_name": null,
+        "name": "Ольга Сафонова",
+        "photo_preview_urls": {
+          "1920x": "https://i7.photo.2gis.com/images/profile/30258560321118213_1496_1920x.jpg",
+          "320x": "https://i7.photo.2gis.com/images/profile/30258560321118213_1496_320x.jpg",
+          "640x": "https://i7.photo.2gis.com/images/profile/30258560321118213_1496_640x.jpg",
+          "64x64": "https://i7.photo.2gis.com/images/profile/30258560321118213_1496_64x64.jpg",
+          "url": "https://i7.photo.2gis.com/images/profile/30258560321118213_1496.jpg"
+        },
+        "provider": "2gis",
+        "public_id": "c5bc7e4769c6478aaa2140a33e1c65d6",
+        "reviews_count": 3,
+        "url": ""
+      }
+    },
+    {
+      "additional_data": {
+        "external_id": null,
+        "filtered_facts": null,
+        "has_unresolved_complaints": false,
+        "ip": "",
+        "is_liked": null,
+        "is_unrated_permanently": null,
+        "pin_status": "none",
+        "status_history": [],
+        "user_agent": ""
+      },
+      "comments_count": 1,
+      "date_created": "2026-06-21T02:57:55.675132+07:00",
+      "date_edited": null,
+      "hiding_reason": null,
+      "hiding_type": null,
+      "id": "251791447",
+      "is_hidden": false,
+      "is_rated": true,
+      "is_verified": false,
+      "likes_count": 2,
+      "object": {
+        "id": "70000001041081959",
+        "type": "branch"
+      },
+      "official_answer": {
+        "date_created": "2026-06-21T14:30:53.50947+07:00",
+        "id": "67802176",
+        "logo_preview_urls": {
+          "1920x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_1920.png",
+          "320x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_320.png",
+          "640x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_640.png",
+          "64x64": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_64_64.png",
+          "url": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image.png"
+        },
+        "org_name": "Мегрелия, ресторан грузинской кухни",
+        "text": "Здравствуйте, Даша!\nОгромное спасибо Вам за высокую оценку!\nДля нас главную цель работы составляет комфорт, гастрономическое удовольствие и радость гостя, вот почему мы искренне рады знать, что Вы остались с приятными воспоминаниями от посещения нашего заведения. \nЖелаем Вам мира, здоровья, любви, добра!\nБудем счастливы видеть Вас снова!\n\"Мегрелия\""
+      },
+      "on_moderation": false,
+      "photos": [],
+      "provider": "2gis",
+      "rating": 5,
+      "region_id": 32,
+      "source": null,
+      "text": "Всё очень вкусно,приятные цены и интерьер,прекрасное место,спасибо!",
+      "url": "",
+      "user": {
+        "additional_data": {
+          "email": null
+        },
+        "first_name": "Даша Д",
+        "id": "28850681",
+        "last_name": null,
+        "name": "Даша Д",
+        "photo_preview_urls": {
+          "1920x": "https://i5.photo.2gis.com/images/profile/30258560110012068_126f_1920x.jpg",
+          "320x": "https://i5.photo.2gis.com/images/profile/30258560110012068_126f_320x.jpg",
+          "640x": "https://i5.photo.2gis.com/images/profile/30258560110012068_126f_640x.jpg",
+          "64x64": "https://i5.photo.2gis.com/images/profile/30258560110012068_126f_64x64.jpg",
+          "url": "https://i5.photo.2gis.com/images/profile/30258560110012068_126f.jpg"
+        },
+        "provider": "2gis",
+        "public_id": "464a465751914e9fa75b9b9acabffac7",
+        "reviews_count": 21,
+        "url": ""
+      }
+    },
+    {
+      "additional_data": {
+        "external_id": null,
+        "filtered_facts": null,
+        "has_unresolved_complaints": false,
+        "ip": "",
+        "is_liked": null,
+        "is_unrated_permanently": null,
+        "pin_status": "none",
+        "status_history": [],
+        "user_agent": ""
+      },
+      "comments_count": 1,
+      "date_created": "2026-06-17T06:19:33.979076+07:00",
+      "date_edited": null,
+      "hiding_reason": null,
+      "hiding_type": null,
+      "id": "250644977",
+      "is_hidden": false,
+      "is_rated": true,
+      "is_verified": false,
+      "likes_count": 2,
+      "object": {
+        "id": "70000001041081959",
+        "type": "branch"
+      },
+      "official_answer": {
+        "date_created": "2026-06-17T18:59:15.177502+07:00",
+        "id": "67629891",
+        "logo_preview_urls": {
+          "1920x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_1920.png",
+          "320x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_320.png",
+          "640x": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_640.png",
+          "64x64": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image_64_64.png",
+          "url": "https://ams2-cdn.2gis.com/previews/1084739178987520003/5c23d361-8665-4893-bb63-24f1a6b7210d/1/ru/image.png"
+        },
+        "org_name": "Мегрелия, ресторан грузинской кухни",
+        "text": "Здравствуйте, Елена!\nИскренне благодарим Вас за прекрасный отзыв!\nМы счастливы, что Вам всё понравилось!\nДушевная атмосфера, которая царит в «Мегрелии» и которую отмечают наши посетители, получается оттого, что мы любим свою работу и от всего сердца рады гостям!\nБудем рады вновь видеть Вас в нашем заведении!\nЖдём Вашу компанию на кофе ))\nС наилучшими пожеланиями,\nдружный коллектив ресторана «Мегрелия»"
+      },
+      "on_moderation": false,
+      "photos": [
+        {
+          "date_created": "2026-06-17T06:19:34.028502+07:00",
+          "id": "32982901",
+          "preview_urls": {
+            "1920x": "https://cachizer1.2gis.com/reviews-photos/3c4e9c8e-6d9b-4ebe-a9fe-7d6f13bf00a5.jpg?w=1920",
+            "320x": "https://cachizer1.2gis.com/reviews-photos/3c4e9c8e-6d9b-4ebe-a9fe-7d6f13bf00a5.jpg?w=320",
+            "640x": "https://cachizer1.2gis.com/reviews-photos/3c4e9c8e-6d9b-4ebe-a9fe-7d6f13bf00a5.jpg?w=640",
+            "64x64": "https://cachizer1.2gis.com/reviews-photos/3c4e9c8e-6d9b-4ebe-a9fe-7d6f13bf00a5.jpg?h=64&w=64",
+            "url": "https://cachizer1.2gis.com/reviews-photos/3c4e9c8e-6d9b-4ebe-a9fe-7d6f13bf00a5.jpg"
+          },
+          "processing_status": "finished",
+          "visibility_status": "visible"
+        }
+      ],
+      "provider": "2gis",
+      "rating": 5,
+      "region_id": 32,
+      "source": null,
+      "text": "Прекрасно посидели компанией. Сочные мясные блюда под грузинское вино, комфортное обслуживание, внимательное отношение со стороны официантов - приятно провели время.\nОтдельно хочется выделить их новый салат - имерули. Попробуйте - это гастрономическое удовольствие.\nНадеемся прийти сюда еще раз, чтобы выпить кофе с десертом на их уютной летней веранде.",
+      "url": "",
+      "user": {
+        "additional_data": {
+          "email": null
+        },
+        "first_name": "Елена",
+        "id": "62755891",
+        "last_name": null,
+        "name": "Елена",
+        "photo_preview_urls": {
+          "1920x": "",
+          "320x": "",
+          "640x": "",
+          "64x64": "",
+          "url": ""
+        },
+        "provider": "2gis",
+        "public_id": "910bab5f272e4e84937d5f473e6445b6",
+        "reviews_count": 3,
+        "url": ""
+      }
+    }
+  ]
+}
