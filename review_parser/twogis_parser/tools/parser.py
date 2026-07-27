@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import os
 import re
@@ -7,16 +9,16 @@ from typing import Any, Callable
 from loguru import logger
 from requests import Response
 
+from common_parser.models import BranchPlatform, Branch, Organization
 from common_parser.services.http_client import get as http_get
-from common_parser.types import ReviewsBundle
+from common_parser.types import ReviewsBundle, ParseResult
 
 from common_parser.tools.create_objects import (
-        create_review,
-        get_or_create_Branch,
-        get_or_create_Organization,
-    )
+    create_review,
+    get_or_create_Branch,
+    get_or_create_Organization, get_or_create_branch_platform,
+)
 from twogis_parser.tools.to_reviews import convert_2gis_reviews_to_model_data
-
 
 TWOGIS_API_KEY = os.getenv("TWOGIS_API_KEY", "37c04fe6-a560-4549-b459-02309cf643ad")
 
@@ -88,24 +90,27 @@ def create_2gis_reviews(
     bundle = fetch_all_reviews(firm_id, limit=count)
     fetched_count = len(bundle.reviews)
 
-    branch = get_or_create_Branch(
+    branch_platform = get_or_create_branch_platform(
         organization=get_or_create_Organization(inn, org_name),
         address=address,
-        url_name="twogis_map_url",
+        provider="2gis",
         url=url,
-        review_count_name="twogis_review_count",
-        review_count=str(bundle.count if bundle.count is not None else fetched_count),
-        review_avg_name="twogis_review_avg",
+        org_id=None,
+        review_count=bundle.count if bundle.count is not None else fetched_count,
         review_avg=str(bundle.rating) if bundle.rating is not None else "",
+        parsed_at=datetime.now(),
     )
 
-    branch.twogis_parse_date = datetime.now()
-    branch.save()
+    branch_platform.save()
 
     cnt = 0
     for review in bundle.reviews:
         if create_review(
-            convert_2gis_reviews_to_model_data(branch=branch, review_data=review, url=url)
+                convert_2gis_reviews_to_model_data(
+                    branch_platform=branch_platform,
+                    review_data=review,
+                    url=url,
+                )
         ):
             cnt += 1
 
@@ -140,3 +145,25 @@ def parse(response_text: str) -> ReviewsBundle:
     except KeyError as exc:
         logger.error("Unexpected 2GIS response structure, missing key: {}", exc)
         raise TwoGisParseError("2GIS response has unexpected structure") from exc
+
+
+class TwoGisParser:
+    provider = "2gis"
+
+    def run(
+            self,
+            url: str,
+            inn: str,
+            *,
+            org_name: str = "",
+            address: str = "",
+            limit: int = 50,
+    ) -> ParseResult:
+        parsed, created = create_2gis_reviews(
+            url=url,
+            inn=inn,
+            org_name=org_name,
+            address=address,
+            count=limit,
+        )
+        return ParseResult(parsed, created)

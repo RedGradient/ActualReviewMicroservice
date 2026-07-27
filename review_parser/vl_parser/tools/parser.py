@@ -12,10 +12,10 @@ from requests import Response
 from common_parser.services.http_client import get as http_get
 from common_parser.tools.create_objects import (
     create_review,
-    get_or_create_Branch,
     get_or_create_Organization,
+    get_or_create_branch_platform,
 )
-from common_parser.types import ReviewsBundle
+from common_parser.types import ReviewsBundle, ParseResult
 
 HttpGet = Callable[..., Response]
 
@@ -114,7 +114,6 @@ def parse_vlru_reviews(html_content: str) -> list[dict[str, Any]]:
                     "published_date": published_date,
                     "rating": rating,
                     "content": content,
-                    "provider": "vlru",
                 }
             )
         except Exception as exc:
@@ -158,7 +157,7 @@ def fetch_all_reviews(company: str, *, client: VLClient | None = None) -> Review
     )
 
 
-def _apply_avg_rating_from_history(branch, response: Response) -> None:
+def _apply_avg_rating_from_history(branch_platform, response: Response) -> None:
     response.raise_for_status()
     response_dict = json.loads(response.text)
 
@@ -166,7 +165,8 @@ def _apply_avg_rating_from_history(branch, response: Response) -> None:
         avg = float(item)
         if avg < 4:
             avg = 4
-        branch.vlru_review_avg = avg
+        branch_platform.review_avg = avg
+        branch_platform.save(update_fields=["review_avg"])
         break
 
 
@@ -185,25 +185,23 @@ def create_vlru_reviews(
     client = client or VLClient()
     bundle = fetch_all_reviews(company, client=client)
 
-    branch = get_or_create_Branch(
+    branch_platform = get_or_create_branch_platform(
         organization=get_or_create_Organization(inn, org_name),
         address=address,
-        url_name="vlru_url",
+        provider="vlru",
         url=url,
-        review_count_name="vlru_review_count",
         review_count=bundle.count,
-        review_avg_name="vlru_review_avg",
-        review_avg=-1,
+        parsed_at=datetime.now(),
     )
 
-    if branch.vlru_org_id:
-        _apply_avg_rating_from_history(branch, client.get_avg_history(branch.vlru_org_id))
-
-    branch.vlru_parse_date = datetime.now()
-    branch.save()
+    if branch_platform.org_id:
+        _apply_avg_rating_from_history(
+            branch_platform,
+            client.get_avg_history(branch_platform.org_id),
+        )
 
     for review in bundle.reviews:
-        review["branch"] = branch
+        review["branch_platform"] = branch_platform
 
     created_count = 0
     for review in bundle.reviews:
@@ -218,3 +216,29 @@ def create_vlru_reviews(
         created_count,
     )
     return len(bundle.reviews), created_count
+
+
+class VlruParser:
+    provider = "vlru"
+
+    def __init__(self, *, client: VLClient | None = None) -> None:
+        self._client = client
+
+    def run(
+        self,
+        url: str,
+        inn: str,
+        *,
+        org_name: str = "",
+        address: str = "",
+        limit: int = 50,
+    ) -> ParseResult:
+        parsed, created = create_vlru_reviews(
+            url=url,
+            inn=inn,
+            org_name=org_name,
+            address=address,
+            count=limit,
+            client=self._client,
+        )
+        return ParseResult(parsed, created)
