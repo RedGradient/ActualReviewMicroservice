@@ -1,17 +1,14 @@
 from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
-from common_parser.tools.parse import (
-    parse_all_providers,
-    create_yandex_reviews,
-    create_2gis_reviews,
-    create_vlru_reviews,
-)
-from common_parser.tools.parse_videos import parse_youtube_videos, parse_vk_videos
+from common_parser.parsers import get_review_parser
+from common_parser.tools.parse import parse_all_providers
 from common_parser.models import Branch, Playlist
 from django.shortcuts import get_object_or_404
 from loguru import logger
 from time import perf_counter
+from yandex_parser.tools.parser import create_yandex_reviews
+from common_parser.tools.parse_videos import parse_youtube_videos, parse_vk_videos
 
 
 @shared_task(name='common_parser.tasks.weekly_parsing')
@@ -73,7 +70,12 @@ def parse_yandex_async(branch_id):
 def parse_vlru_async(branch_id):
     t0 = perf_counter()
     branch = get_object_or_404(Branch, id=branch_id)
-    results = create_vlru_reviews(branch.vlru_url, branch.organization.inn, address=branch.address)
+    parser = get_review_parser("vlru")
+    results = parser.run(
+        url=branch.vlru_url,
+        inn=branch.organization.inn,
+        address=branch.address,
+    )
     logger.info(
         f"parse_vlru_async finished: branch_id={branch_id} duration_ms={int((perf_counter()-t0)*1000)}"
     )
@@ -83,7 +85,12 @@ def parse_vlru_async(branch_id):
 def parse_2gis_async(branch_id):
     t0 = perf_counter()
     branch = get_object_or_404(Branch, id=branch_id)
-    results = create_2gis_reviews(url=branch.twogis_map_url, inn=branch.organization.inn, address=branch.address)
+    parser = get_review_parser("2gis")
+    results = parser.run(
+        url=branch.twogis_map_url,
+        inn=branch.organization.inn,
+        address=branch.address,
+    )
     logger.info(
         f"parse_2gis_async finished: branch_id={branch_id} duration_ms={int((perf_counter()-t0)*1000)}"
     )
