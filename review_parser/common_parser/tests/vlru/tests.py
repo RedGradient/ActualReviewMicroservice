@@ -1,8 +1,10 @@
+from datetime import datetime
 from unittest.mock import Mock, patch
 
 from django.test import TestCase
 from requests import HTTPError
 
+from common_parser.models import Branch, BranchPlatform, Organization, Review
 from common_parser.types import ReviewsBundle
 from common_parser.tests.vlru.helpers import (
     FakeVLClient,
@@ -18,6 +20,7 @@ from common_parser.parsers.vlru.parser import (
     _apply_avg_rating_from_history,
     create_vlru_reviews,
     fetch_all_reviews,
+    fetch_new_reviews,
     get_company_from_url,
     parse_vlru_reviews,
 )
@@ -169,3 +172,77 @@ class CreateVlruReviewsTests(TestCase):
         mock_fetch.assert_called_once()
         mock_create_review.assert_called_once()
         mock_get_branch_platform.assert_called_once()
+
+
+class FetchNewReviewsTests(TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        cls.first_page = vlru_thread_first_page()
+        cls.second_page = vlru_comments_second_page()
+        cls.last_page = vlru_thread_last_page()
+        cls.page_one_reviews = parse_vlru_reviews(cls.first_page["data"]["content"])
+        cls.page_two_reviews = parse_vlru_reviews(cls.second_page["data"]["content"])
+
+    @classmethod
+    def _make_branch_platform(cls, *, inn: str = "123456789012") -> BranchPlatform:
+        organization = Organization.objects.create(inn=inn, name="Test Org")
+        branch = Branch.objects.create(organization=organization, address="Test address")
+        return BranchPlatform.objects.create(
+            branch=branch,
+            provider="vlru",
+            url="https://www.vl.ru/trinity",
+        )
+
+    @staticmethod
+    def _save_vlru_review(branch_platform: BranchPlatform, review: dict) -> None:
+        Review.objects.create(
+            branch_platform=branch_platform,
+            author=review["author"],
+            content=review["content"],
+            rating=int(review["rating"]),
+            published_date=datetime(2026, 1, 1),
+        )
+
+    def test_returns_all_when_db_empty(self) -> None:
+        branch_platform = self._make_branch_platform()
+        client = FakeVLClient(
+            thread_payload=self.first_page,
+            comment_pages=[self.last_page],
+        )
+
+        bundle = fetch_new_reviews("trinity", branch_platform, client=client)
+
+        self.assertEqual(len(bundle.reviews), len(self.page_one_reviews))
+        self.assertEqual(bundle.rating, 5)
+        self.assertEqual(bundle.count, len(self.page_one_reviews))
+
+    def test_mixed_page_returns_only_new_before_stop(self) -> None:
+        branch_platform = self._make_branch_platform()
+        page_reviews = self.page_one_reviews[:3]
+        self._save_vlru_review(branch_platform, page_reviews[2])
+
+        client = FakeVLClient(
+            thread_payload=self.first_page,
+            comment_pages=[self.last_page],
+        )
+
+        bundle = fetch_new_reviews("trinity", branch_platform, client=client)
+
+        self.assertEqual(len(bundle.reviews), 2)
+        self.assertEqual(bundle.reviews[0]["author"], page_reviews[0]["author"])
+        self.assertEqual(bundle.reviews[1]["author"], page_reviews[1]["author"])
+
+    def test_pagination_stops_on_second_page(self) -> None:
+        branch_platform = self._make_branch_platform()
+        self._save_vlru_review(branch_platform, self.page_two_reviews[0])
+
+        client = FakeVLClient(
+            thread_payload=self.first_page,
+            comment_pages=[self.second_page, self.last_page],
+        )
+
+        bundle = fetch_new_reviews("trinity", branch_platform, client=client)
+
+        self.assertEqual(len(bundle.reviews), len(self.page_one_reviews))
+        self.assertEqual(len(client.comments_calls), 1)
