@@ -9,6 +9,8 @@ from bs4 import BeautifulSoup
 from loguru import logger
 from requests import Response
 
+from common_parser.models import BranchPlatform, Review
+from common_parser.parsers.helpers import _update_branch_platform
 from common_parser.services.http_client import get as http_get
 from common_parser.tools.create_objects import (
     create_review,
@@ -157,6 +159,57 @@ def fetch_all_reviews(company: str, *, client: VLClient | None = None) -> Review
     )
 
 
+def _review_exists(branch_platform: BranchPlatform, review: dict[str, Any]) -> bool:
+    return Review.objects.filter(
+        branch_platform=branch_platform,
+        author=review["author"],
+        content=review["content"],
+    ).exists()
+
+
+def fetch_new_reviews(
+    company: str,
+    branch_platform: BranchPlatform,
+    *,
+    client: VLClient | None = None,
+) -> ReviewsBundle:
+    client = client or VLClient()
+    all_reviews: list[dict[str, Any]] = []
+
+    response = client.get_thread(company)
+    response.raise_for_status()
+
+    data = response.json()
+    thread_id = data["data"]["threadId"]
+
+    while True:
+        for review in parse_vlru_reviews(data["data"]["content"]):
+            if _review_exists(branch_platform, review):
+                count = len(all_reviews)
+                logger.info("VL new reviews: company={} count={}", company, count)
+                return ReviewsBundle(rating=5, count=count, reviews=all_reviews)
+            all_reviews.append(review)
+
+        if not (
+            data["data"]["lastCommentId"]
+            and data["data"]["commentsCount"]
+            and response.status_code == 200
+        ):
+            break
+
+        response = client.get_comments_page(
+            company,
+            thread_id,
+            data["data"]["lastCommentId"],
+        )
+        response.raise_for_status()
+        data = response.json()
+
+    count = len(all_reviews)
+    logger.info("VL new reviews: company={} count={}", company, count)
+    return ReviewsBundle(rating=5, count=count, reviews=all_reviews)
+
+
 def _apply_avg_rating_from_history(branch_platform, response: Response) -> None:
     response.raise_for_status()
     response_dict = json.loads(response.text)
@@ -183,16 +236,18 @@ def create_vlru_reviews(
         raise ValueError(f"Invalid VL.ru url: {url!r}")
 
     client = client or VLClient()
-    bundle = fetch_all_reviews(company, client=client)
 
+    organization = get_or_create_Organization(inn, org_name)
     branch_platform = get_or_create_branch_platform(
-        organization=get_or_create_Organization(inn, org_name),
+        organization=organization,
         address=address,
         provider="vlru",
         url=url,
-        review_count=bundle.count,
-        parsed_at=datetime.now(),
     )
+
+    bundle = fetch_new_reviews(company, branch_platform, client=client)
+    _update_branch_platform(branch_platform, bundle)
+    branch_platform.save()
 
     if branch_platform.org_id:
         _apply_avg_rating_from_history(
@@ -200,22 +255,21 @@ def create_vlru_reviews(
             client.get_avg_history(branch_platform.org_id),
         )
 
-    for review in bundle.reviews:
-        review["branch_platform"] = branch_platform
-
     created_count = 0
     for review in bundle.reviews:
+        review["branch_platform"] = branch_platform
         if create_review(review):
             created_count += 1
 
+    fetched_count = len(bundle.reviews)
     logger.info(
         "VL create finished: url={} branch_address={} parsed={} created={}",
         url,
         address,
-        len(bundle.reviews),
+        fetched_count,
         created_count,
     )
-    return len(bundle.reviews), created_count
+    return fetched_count, created_count
 
 
 class VlruParser:

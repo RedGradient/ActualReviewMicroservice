@@ -131,7 +131,7 @@ class CreateVlruReviewsTests(TestCase):
     @patch("common_parser.parsers.vlru.parser.create_review", return_value=True)
     @patch("common_parser.parsers.vlru.parser.get_or_create_branch_platform")
     @patch("common_parser.parsers.vlru.parser.get_or_create_Organization")
-    @patch("common_parser.parsers.vlru.parser.fetch_all_reviews")
+    @patch("common_parser.parsers.vlru.parser.fetch_new_reviews")
     def test_creates_reviews_from_bundle(
         self,
         mock_fetch,
