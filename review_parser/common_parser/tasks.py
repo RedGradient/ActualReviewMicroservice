@@ -7,7 +7,7 @@ from common_parser.models import Branch, Playlist
 from django.shortcuts import get_object_or_404
 from loguru import logger
 from time import perf_counter
-from yandex_parser.tools.parser import create_yandex_reviews
+from common_parser.parsers.yandex.parser import create_yandex_reviews
 from common_parser.tools.parse_videos import parse_youtube_videos, parse_vk_videos
 
 

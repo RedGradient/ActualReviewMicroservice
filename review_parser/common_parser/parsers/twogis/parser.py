@@ -18,7 +18,7 @@ from common_parser.tools.create_objects import (
     get_or_create_Branch,
     get_or_create_Organization, get_or_create_branch_platform,
 )
-from twogis_parser.tools.to_reviews import convert_2gis_reviews_to_model_data
+from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
 
 TWOGIS_API_KEY = os.getenv("TWOGIS_API_KEY", "37c04fe6-a560-4549-b459-02309cf643ad")
 

@@ -4,8 +4,8 @@ from common_parser.parsers.registry import (
     REVIEW_PARSERS_BY_PROVIDER,
     get_review_parser,
 )
-from twogis_parser.tools.parser import TwoGisParser
-from vl_parser.tools.parser import VlruParser
+from common_parser.parsers.twogis.parser import TwoGisParser
+from common_parser.parsers.vlru.parser import VlruParser
 
 __all__ = [
     "ReviewParser",

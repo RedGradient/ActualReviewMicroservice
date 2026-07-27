@@ -16,7 +16,7 @@ from common_parser.tasks import (
     parse_youtube_videos_async,
     parse_vk_videos_async,
 )
-from yandex_parser.tools.parser import create_yandex_reviews
+from common_parser.parsers.yandex.parser import create_yandex_reviews
 from django.shortcuts import get_object_or_404
 from django_celery_results.admin import TaskResultAdmin
 from django_celery_results.models import TaskResult

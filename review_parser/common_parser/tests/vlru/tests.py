@@ -4,7 +4,7 @@ from django.test import TestCase
 from requests import HTTPError
 
 from common_parser.types import ReviewsBundle
-from vl_parser.tests.fixtures import (
+from common_parser.tests.fixtures.vlru import (
     vlru_avg_history,
     vlru_avg_history_low,
     vlru_comments_second_page,
@@ -12,8 +12,8 @@ from vl_parser.tests.fixtures import (
     vlru_thread_first_page,
     vlru_thread_last_page,
 )
-from vl_parser.tests.helpers import FakeVLClient, make_json_response
-from vl_parser.tools.parser import (
+from common_parser.tests.vlru.helpers import FakeVLClient, make_json_response
+from common_parser.parsers.vlru.parser import (
     _apply_avg_rating_from_history,
     create_vlru_reviews,
     fetch_all_reviews,
@@ -127,10 +127,10 @@ class CreateVlruReviewsTests(TestCase):
         with self.assertRaises(ValueError):
             create_vlru_reviews(url="https://www.vl.ru/", inn="123456789012")
 
-    @patch("vl_parser.tools.parser.create_review", return_value=True)
-    @patch("vl_parser.tools.parser.get_or_create_branch_platform")
-    @patch("vl_parser.tools.parser.get_or_create_Organization")
-    @patch("vl_parser.tools.parser.fetch_all_reviews")
+    @patch("common_parser.parsers.vlru.parser.create_review", return_value=True)
+    @patch("common_parser.parsers.vlru.parser.get_or_create_branch_platform")
+    @patch("common_parser.parsers.vlru.parser.get_or_create_Organization")
+    @patch("common_parser.parsers.vlru.parser.fetch_all_reviews")
     def test_creates_reviews_from_bundle(
         self,
         mock_fetch,

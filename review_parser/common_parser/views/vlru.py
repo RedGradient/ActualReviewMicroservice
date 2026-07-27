@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from vl_parser.tools.parser import create_vlru_reviews
+from common_parser.parsers.vlru.parser import create_vlru_reviews
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 

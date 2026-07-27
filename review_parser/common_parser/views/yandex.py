@@ -8,7 +8,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework.permissions import AllowAny
 from common_parser.tools.parse_date_string import parse_date_string
-from yandex_parser.tools.parser import parse, create_yandex_reviews
+from common_parser.parsers.yandex.parser import parse, create_yandex_reviews
 from rest_framework.decorators import api_view
 
 

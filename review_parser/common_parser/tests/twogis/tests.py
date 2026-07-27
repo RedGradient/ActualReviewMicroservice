@@ -5,9 +5,9 @@ from django.test import TestCase
 from requests import HTTPError
 
 from common_parser.types import ReviewsBundle
-from twogis_parser.tests.fixtures import twogis_api_response
-from twogis_parser.tests.helpers import FakeGetReviews, fake_get_reviews_page, make_reviews_page
-from twogis_parser.tools.parser import (
+from common_parser.tests.fixtures.twogis import twogis_api_response
+from common_parser.tests.helpers.twogis.helpers import FakeGetReviews, fake_get_reviews_page, make_reviews_page
+from common_parser.parsers.twogis.parser import (
     TwoGisParseError,
     _build_api_url,
     create_2gis_reviews,
@@ -15,7 +15,7 @@ from twogis_parser.tools.parser import (
     firm_id_from_url,
     parse,
 )
-from twogis_parser.tools.to_reviews import convert_2gis_reviews_to_model_data
+from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
 
 
 class ParseTests(TestCase):
@@ -193,10 +193,10 @@ class Create2gisReviewsTests(TestCase):
         with self.assertRaises(ValueError):
             create_2gis_reviews(url="https://example.com/no-firm", inn="123456789012")
 
-    @patch("twogis_parser.tools.parser.create_review", return_value=True)
-    @patch("twogis_parser.tools.parser.get_or_create_branch_platform")
-    @patch("twogis_parser.tools.parser.get_or_create_Organization")
-    @patch("twogis_parser.tools.parser.fetch_all_reviews")
+    @patch("common_parser.parsers.twogis.parser.create_review", return_value=True)
+    @patch("common_parser.parsers.twogis.parser.get_or_create_branch_platform")
+    @patch("common_parser.parsers.twogis.parser.get_or_create_Organization")
+    @patch("common_parser.parsers.twogis.parser.fetch_all_reviews")
     def test_creates_reviews_from_bundle(
         self,
         mock_fetch,

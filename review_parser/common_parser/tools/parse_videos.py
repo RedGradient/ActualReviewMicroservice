@@ -1,2 +1,2 @@
-from youtube_parser.tools.parser import parse_youtube_videos
-from vkvideo_parser.tools.parser import parse_vk_videos
+from common_parser.parsers.youtube.parser import parse_youtube_videos
+from common_parser.parsers.vkvideo.parser import parse_vk_videos
