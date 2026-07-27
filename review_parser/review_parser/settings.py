@@ -49,7 +49,6 @@ INSTALLED_APPS = [
 
     'yandex_parser',
     'common_parser',
-    'vl_parser',
     'youtube_parser',
     'vkvideo_parser',
 
