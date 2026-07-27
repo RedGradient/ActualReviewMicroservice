@@ -5,7 +5,7 @@ from common_parser.views import webhook
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/yandex/', include('yandex_parser.urls')),
+    path('api/yandex/', include('common_parser.urls.yandex')),
     path('api/twogis/', include('common_parser.urls.twogis')),
     path('api/vlru/', include('common_parser.urls.vlru')),
     path('api/common/', include('common_parser.urls')),
