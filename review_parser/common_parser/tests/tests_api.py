@@ -1,53 +1,54 @@
 from datetime import datetime, timedelta
 
-from django.urls import reverse
 from rest_framework.test import APITestCase
 
-from common_parser.models import Branch, Organization, Review, BranchIPMapping
+from common_parser.models import Branch, BranchIPMapping, BranchPlatform, Organization, Review
 
 
 class ReviewsApiTests(APITestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls) -> None:
         org = Organization.objects.create(inn="123456789012", name="Org")
         cls.branch = Branch.objects.create(
             organization=org,
             address="Addr",
-            yandex_map_url="https://yandex.ru/maps/org/x",
-            twogis_map_url="https://2gis.ru/firm/123",
-            vlru_url="https://www.vl.ru/test",
+        )
+        cls.yandex_platform = BranchPlatform.objects.create(
+            branch=cls.branch,
+            provider="yandex",
+            url="https://yandex.ru/maps/org/x",
+        )
+        cls.vlru_platform = BranchPlatform.objects.create(
+            branch=cls.branch,
+            provider="vlru",
+            url="https://www.vl.ru/test",
         )
 
-        # older
         Review.objects.create(
-            branch=cls.branch,
+            branch_platform=cls.yandex_platform,
             author="a1",
             rating=3,
             content="c1",
-            provider="yandex",
             published_date=datetime.now() - timedelta(days=2),
         )
-        # newer
         Review.objects.create(
-            branch=cls.branch,
+            branch_platform=cls.yandex_platform,
             author="a2",
             rating=5,
             content="c2",
-            provider="yandex",
             published_date=datetime.now() - timedelta(days=1),
         )
         Review.objects.create(
-            branch=cls.branch,
+            branch_platform=cls.vlru_platform,
             author="v1",
             rating=4,
             content="vc1",
-            provider="vlru",
             published_date=datetime.now(),
         )
 
         BranchIPMapping.objects.create(branch=cls.branch, ip_address="1.2.3.4")
 
-    def test_get_reviews_v1_basic_and_pagination(self):
+    def test_get_reviews_v1_basic_and_pagination(self) -> None:
         resp = self.client.get("/api/common/get_reviews/", {"branch_id": self.branch.id})
         self.assertEqual(resp.status_code, 200)
         self.assertIn("reviews", resp.data)
@@ -59,7 +60,7 @@ class ReviewsApiTests(APITestCase):
         self.assertEqual(resp2.status_code, 200)
         self.assertEqual(len(resp2.data["reviews"]), 1)
 
-    def test_reviews_v2_providers_csv_only_providers(self):
+    def test_reviews_v2_providers_csv_only_providers(self) -> None:
         resp = self.client.get(
             "/api/common/v2/reviews",
             {
@@ -70,12 +71,14 @@ class ReviewsApiTests(APITestCase):
             },
         )
         self.assertEqual(resp.status_code, 200)
-        # 1 yandex + all vlru (1)
-        self.assertEqual(len(resp.data["reviews"]), 2)
-        providers = {r["provider"] for r in resp.data["reviews"]}
-        self.assertEqual(providers, {"yandex", "vlru"})
+        reviews = resp.data["reviews"]
+        self.assertEqual(len(reviews), 2)
+        self.assertIn("yandex", reviews)
+        self.assertIn("vlru", reviews)
+        self.assertEqual(len(reviews["yandex"]), 1)
+        self.assertEqual(len(reviews["vlru"]), 1)
 
-    def test_reviews_v2_provider_filters(self):
+    def test_reviews_v2_provider_filters(self) -> None:
         resp = self.client.get(
             "/api/common/v2/reviews",
             {
@@ -86,9 +89,10 @@ class ReviewsApiTests(APITestCase):
             },
         )
         self.assertEqual(resp.status_code, 200)
-        self.assertTrue(all(float(r["rating"]) > 4 for r in resp.data["reviews"]))
+        yandex_reviews = resp.data["reviews"]["yandex"]
+        self.assertTrue(all(float(r["rating"]) > 4 for r in yandex_reviews))
 
-    def test_reviews_by_ip_v2(self):
+    def test_reviews_by_ip_v2(self) -> None:
         resp = self.client.get(
             "/api/common/v2/reviews_by_ip",
             {},
@@ -97,4 +101,3 @@ class ReviewsApiTests(APITestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertIn("branches", resp.data)
         self.assertGreaterEqual(len(resp.data["reviews"]), 1)
-

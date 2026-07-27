@@ -1,11 +1,10 @@
-import json
 from unittest.mock import Mock, patch
 
 from django.test import TestCase
 from requests import HTTPError
 
 from common_parser.types import ReviewsBundle
-from vl_parser.fixtures import (
+from vl_parser.tests.fixtures import (
     vlru_avg_history,
     vlru_avg_history_low,
     vlru_comments_second_page,
@@ -13,7 +12,7 @@ from vl_parser.fixtures import (
     vlru_thread_first_page,
     vlru_thread_last_page,
 )
-from vl_parser.test_doubles import FakeVLClient, make_json_response
+from vl_parser.tests.helpers import FakeVLClient, make_json_response
 from vl_parser.tools.parser import (
     _apply_avg_rating_from_history,
     create_vlru_reviews,
@@ -43,7 +42,6 @@ class ParseVlruReviewsTests(TestCase):
 
         self.assertEqual(len(reviews), 1)
         review = reviews[0]
-        self.assertEqual(review["provider"], "vlru")
         self.assertTrue(review["author"])
         self.assertGreater(review["rating"], 0)
         self.assertTrue(review["content"])
@@ -107,20 +105,21 @@ class FetchAllReviewsTests(TestCase):
 
 class ApplyAvgRatingTests(TestCase):
     def test_sets_avg_from_first_history_value(self) -> None:
-        branch = Mock()
+        branch_platform = Mock()
         response = make_json_response(vlru_avg_history())
 
-        _apply_avg_rating_from_history(branch, response)
+        _apply_avg_rating_from_history(branch_platform, response)
 
-        self.assertEqual(branch.vlru_review_avg, 4.0)
+        self.assertEqual(branch_platform.review_avg, 4.0)
+        branch_platform.save.assert_called_once_with(update_fields=["review_avg"])
 
     def test_clamps_low_avg_to_four(self) -> None:
-        branch = Mock()
+        branch_platform = Mock()
         response = make_json_response(vlru_avg_history_low())
 
-        _apply_avg_rating_from_history(branch, response)
+        _apply_avg_rating_from_history(branch_platform, response)
 
-        self.assertEqual(branch.vlru_review_avg, 4)
+        self.assertEqual(branch_platform.review_avg, 4)
 
 
 class CreateVlruReviewsTests(TestCase):
@@ -129,14 +128,14 @@ class CreateVlruReviewsTests(TestCase):
             create_vlru_reviews(url="https://www.vl.ru/", inn="123456789012")
 
     @patch("vl_parser.tools.parser.create_review", return_value=True)
-    @patch("vl_parser.tools.parser.get_or_create_Branch")
+    @patch("vl_parser.tools.parser.get_or_create_branch_platform")
     @patch("vl_parser.tools.parser.get_or_create_Organization")
     @patch("vl_parser.tools.parser.fetch_all_reviews")
     def test_creates_reviews_from_bundle(
         self,
         mock_fetch,
         mock_get_org,
-        mock_get_branch,
+        mock_get_branch_platform,
         mock_create_review,
     ) -> None:
         mock_fetch.return_value = ReviewsBundle(
@@ -149,16 +148,14 @@ class CreateVlruReviewsTests(TestCase):
                     "published_date": Mock(),
                     "rating": 5,
                     "content": "ok",
-                    "provider": "vlru",
                 }
             ],
             count=1,
             rating=5,
         )
-        branch = Mock()
-        branch.vlru_org_id = None
-        branch.save = Mock()
-        mock_get_branch.return_value = branch
+        branch_platform = Mock()
+        branch_platform.org_id = None
+        mock_get_branch_platform.return_value = branch_platform
 
         fetched, created = create_vlru_reviews(
             url="https://www.vl.ru/trinity",
@@ -170,4 +167,4 @@ class CreateVlruReviewsTests(TestCase):
         self.assertEqual(created, 1)
         mock_fetch.assert_called_once()
         mock_create_review.assert_called_once()
-        branch.save.assert_called()
+        mock_get_branch_platform.assert_called_once()

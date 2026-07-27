@@ -5,8 +5,8 @@ from django.test import TestCase
 from requests import HTTPError
 
 from common_parser.types import ReviewsBundle
-from twogis_parser.fixtures import twogis_api_response
-from twogis_parser.test_doubles import FakeGetReviews, fake_get_reviews_page, make_reviews_page
+from twogis_parser.tests.fixtures import twogis_api_response
+from twogis_parser.tests.helpers import FakeGetReviews, fake_get_reviews_page, make_reviews_page
 from twogis_parser.tools.parser import (
     TwoGisParseError,
     _build_api_url,
@@ -170,22 +170,22 @@ class Convert2gisReviewsTests(TestCase):
         cls.review_data = json.loads(twogis_api_response())["reviews"][0]
 
     def test_convert_maps_main_fields(self) -> None:
-        branch = Mock()
-        branch.id = 1
+        branch_platform = Mock()
+        branch_platform.id = 1
         url = "https://2gis.ru/firm/12345"
 
         data = convert_2gis_reviews_to_model_data(
-            branch=branch,
+            branch_platform=branch_platform,
             review_data=self.review_data,
             url=url,
         )
 
-        self.assertEqual(data["branch"], branch)
-        self.assertEqual(data["provider"], "2gis")
+        self.assertEqual(data["branch_platform"], branch_platform)
         self.assertEqual(data["author"], self.review_data["user"]["name"])
         self.assertEqual(data["rating"], self.review_data["rating"])
         self.assertEqual(data["content"], self.review_data["text"])
         self.assertIn("/tab/reviews/review/", data["review_url"])
+        self.assertNotIn("provider", data)
 
 
 class Create2gisReviewsTests(TestCase):
@@ -194,14 +194,14 @@ class Create2gisReviewsTests(TestCase):
             create_2gis_reviews(url="https://example.com/no-firm", inn="123456789012")
 
     @patch("twogis_parser.tools.parser.create_review", return_value=True)
-    @patch("twogis_parser.tools.parser.get_or_create_Branch")
+    @patch("twogis_parser.tools.parser.get_or_create_branch_platform")
     @patch("twogis_parser.tools.parser.get_or_create_Organization")
     @patch("twogis_parser.tools.parser.fetch_all_reviews")
     def test_creates_reviews_from_bundle(
         self,
         mock_fetch,
         mock_get_org,
-        mock_get_branch,
+        mock_get_branch_platform,
         mock_create_review,
     ) -> None:
         mock_fetch.return_value = ReviewsBundle(
@@ -209,9 +209,8 @@ class Create2gisReviewsTests(TestCase):
             count=1,
             rating=4.5,
         )
-        branch = Mock()
-        branch.save = Mock()
-        mock_get_branch.return_value = branch
+        branch_platform = Mock()
+        mock_get_branch_platform.return_value = branch_platform
 
         fetched, created = create_2gis_reviews(
             url="https://2gis.ru/firm/12345",
@@ -223,4 +222,4 @@ class Create2gisReviewsTests(TestCase):
         self.assertEqual(created, 1)
         mock_fetch.assert_called_once_with("12345", limit=50)
         mock_create_review.assert_called_once()
-        branch.save.assert_called()
+        mock_get_branch_platform.assert_called_once()
