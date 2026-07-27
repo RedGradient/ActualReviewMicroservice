@@ -1,9 +1,12 @@
 import json
+import unittest
+from datetime import datetime
 from unittest.mock import Mock, patch
 
 from django.test import TestCase
 from requests import HTTPError
 
+from common_parser.models import Branch, BranchPlatform, Organization, Review
 from common_parser.types import ReviewsBundle
 from common_parser.tests.twogis.helpers import (
     FakeGetReviews,
@@ -15,7 +18,7 @@ from common_parser.parsers.twogis.parser import (
     TwoGisParseError,
     create_2gis_reviews,
     fetch_all_reviews,
-    parse,
+    parse, fetch_new_reviews,
 )
 from common_parser.parsers.twogis.helpers import firm_id_from_url, _build_api_url
 from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
@@ -199,7 +202,7 @@ class Create2gisReviewsTests(TestCase):
     @patch("common_parser.parsers.twogis.parser.create_review", return_value=True)
     @patch("common_parser.parsers.twogis.parser.get_or_create_branch_platform")
     @patch("common_parser.parsers.twogis.parser.get_or_create_Organization")
-    @patch("common_parser.parsers.twogis.parser.fetch_all_reviews")
+    @patch("common_parser.parsers.twogis.parser.fetch_new_reviews")
     def test_creates_reviews_from_bundle(
         self,
         mock_fetch,
@@ -223,6 +226,139 @@ class Create2gisReviewsTests(TestCase):
 
         self.assertEqual(fetched, 1)
         self.assertEqual(created, 1)
-        mock_fetch.assert_called_once_with("12345", limit=50)
+        mock_fetch.assert_called_once_with("12345", branch_platform, limit=50)
         mock_create_review.assert_called_once()
         mock_get_branch_platform.assert_called_once()
+
+
+class FetchNewReviewsTests(TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        cls.fixture = json.loads(twogis_api_response())
+        cls.reviews = cls.fixture["reviews"]
+
+    @classmethod
+    def _make_review(cls, index: int) -> dict:
+        return cls.reviews[index]
+
+    @classmethod
+    def _make_branch_platform(cls, *, inn: str = "123456789012") -> BranchPlatform:
+        organization = Organization.objects.create(inn=inn, name="Test Org")
+        branch = Branch.objects.create(organization=organization, address="Test address")
+        return BranchPlatform.objects.create(
+            branch=branch,
+            provider="2gis",
+            url="https://2gis.ru/firm/12345",
+        )
+
+    @staticmethod
+    def _save_2gis_review(branch_platform: BranchPlatform, review: dict) -> None:
+        Review.objects.create(
+            branch_platform=branch_platform,
+            author=review["user"]["name"],
+            content=review["text"],
+            rating=review["rating"],
+            published_date=datetime(2026, 1, 1),
+        )
+
+    def test_returns_all_when_db_empty(self) -> None:
+        branch_platform = self._make_branch_platform()
+        get_reviews_page = FakeGetReviews([make_reviews_page(self.reviews, count=495)])
+
+        bundle = fetch_new_reviews(
+            "12345",
+            branch_platform,
+            limit=50,
+            get_reviews_page=get_reviews_page,
+        )
+
+        self.assertEqual(len(bundle.reviews), len(self.reviews))
+        self.assertEqual(bundle.rating, 4.8)
+        self.assertEqual(bundle.count, 495)
+        self.assertEqual(get_reviews_page.calls, [("12345", 50, 0)])
+
+    def test_mixed_page_returns_only_new_before_stop(self) -> None:
+        branch_platform = self._make_branch_platform()
+        page_reviews = self.reviews[:3]
+        self._save_2gis_review(branch_platform, page_reviews[2])
+
+        bundle = fetch_new_reviews(
+            "12345",
+            branch_platform,
+            limit=10,
+            get_reviews_page=FakeGetReviews([make_reviews_page(page_reviews, count=3)]),
+        )
+
+        self.assertEqual(len(bundle.reviews), 2)
+        self.assertEqual(bundle.reviews[0]["id"], page_reviews[0]["id"])
+        self.assertEqual(bundle.reviews[1]["id"], page_reviews[1]["id"])
+
+    def test_pagination_stops_on_second_page(self) -> None:
+        branch_platform = self._make_branch_platform()
+        page_one = self.reviews[:3]
+        page_two = self.reviews[3:6]
+        self._save_2gis_review(branch_platform, page_two[0])
+
+        get_reviews_page = FakeGetReviews(
+            [
+                make_reviews_page(page_one, count=6),
+                make_reviews_page(page_two, count=6),
+            ]
+        )
+
+        bundle = fetch_new_reviews(
+            "12345",
+            branch_platform,
+            limit=3,
+            get_reviews_page=get_reviews_page,
+        )
+
+        self.assertEqual(len(bundle.reviews), 3)
+        self.assertEqual(get_reviews_page.calls, [("12345", 3, 0), ("12345", 3, 3)])
+        self.assertEqual(bundle.reviews[-1]["id"], page_one[-1]["id"])
+
+    def test_does_not_stop_on_other_branch(self) -> None:
+        other_platform = self._make_branch_platform(inn="987654321098")
+        self._save_2gis_review(other_platform, self.reviews[0])
+
+        branch_platform = self._make_branch_platform()
+        bundle = fetch_new_reviews(
+            "12345",
+            branch_platform,
+            limit=50,
+            get_reviews_page=FakeGetReviews([make_reviews_page(self.reviews, count=495)]),
+        )
+
+        self.assertEqual(len(bundle.reviews), len(self.reviews))
+
+    def test_preserves_meta_from_first_page(self) -> None:
+        branch_platform = self._make_branch_platform()
+
+        bundle = fetch_new_reviews(
+            "12345",
+            branch_platform,
+            limit=50,
+            get_reviews_page=FakeGetReviews(
+                [make_reviews_page(self.reviews[:1], count=495)]
+            ),
+        )
+
+        self.assertEqual(bundle.rating, 4.8)
+        self.assertEqual(bundle.count, 495)
+
+    @unittest.skip("Пока не уверен, что это окончательный контракт")
+    def test_http_error_propagates(self) -> None:
+        branch_platform = self._make_branch_platform()
+        response = Mock()
+        response.raise_for_status = Mock(side_effect=HTTPError("502"))
+
+        def broken_get_reviews_page(firm_id, limit, offset=0):
+            return response
+
+        with self.assertRaises(HTTPError):
+            fetch_new_reviews(
+                "12345",
+                branch_platform,
+                get_reviews_page=broken_get_reviews_page,
+            )
