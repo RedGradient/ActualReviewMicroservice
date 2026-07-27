@@ -1,52 +1,46 @@
-from twogis_parser.tools.parser import create_2gis_reviews
-from yandex_parser.tools.parser import create_yandex_reviews
-from vl_parser.tools.parser import create_vlru_reviews
+from __future__ import annotations
+
+from typing import Any
+
+from loguru import logger
+
+from common_parser.models import Branch
+from common_parser.parsers import REVIEW_PARSERS
 
 
-def parse_all_providers(branch):
+def parse_all_providers(branch: Branch) -> dict[str, Any]:
     success_count = 0
     try_count = 0
-    dict_results: dict[str, object] = {}
+    results: dict[str, Any] = {}
 
-    try:
-        if branch.twogis_map_url:
-            try_count += 1
-            dict_results["2gis"] = create_2gis_reviews(
-                url=branch.twogis_map_url,
+    platforms_by_provider = {
+        platform.provider: platform
+        for platform in branch.source.all()
+    }
+
+    for parser in REVIEW_PARSERS:
+        platform = platforms_by_provider.get(parser.provider)
+        if not platform or not platform.url:
+            continue
+
+        try_count += 1
+        try:
+            result = parser.run(
+                url=platform.url,
                 inn=branch.organization.inn,
+                org_name=branch.organization.name or "",
                 address=branch.address,
             )
-            if dict_results["2gis"]:
+            results[parser.provider] = result
+            if result:
                 success_count += 1
-    except Exception:
-        print(Exception)
-
-    try:
-        if branch.vlru_url:
-            try_count += 1
-            dict_results["vlru"] = create_vlru_reviews(
-                branch.vlru_url,
-                branch.organization.inn,
-                address=branch.address,
+        except Exception:
+            logger.exception(
+                "Failed to parse {} for branch_id={}",
+                parser.provider,
+                branch.id,
             )
-            if dict_results["vlru"]:
-                success_count += 1
-    except Exception:
-        print(Exception)
 
-    try:
-        if branch.yandex_map_url:
-            try_count += 1
-            dict_results["yandex"] = create_yandex_reviews(
-                url=branch.yandex_map_url,
-                inn=branch.organization.inn,
-                address=branch.address,
-            )
-            if dict_results["yandex"]:
-                success_count += 1
-    except Exception:
-        print(Exception)
-
-    dict_results["tryes"] = try_count
-    dict_results["success"] = success_count
-    return dict_results
+    results["tryes"] = try_count
+    results["success"] = success_count
+    return results
