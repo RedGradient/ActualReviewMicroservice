@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "message": "",
+  "total": 0,
+  "data": {
+    "content": "<ul id='CommentsList'></ul>",
+    "firstCommentId": null,
+    "lastCommentId": null,
+    "commentsCount": 0,
+    "threadId": 35
+  }
+}
