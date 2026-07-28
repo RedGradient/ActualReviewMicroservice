@@ -23,24 +23,36 @@ from common_parser.types import ReviewsBundle, ParseResult
 HttpGet = Callable[..., Response]
 
 
-def get_company_rating(html: str) -> str | None:
+def get_company_rating(html: str) -> float | None:
     soup = BeautifulSoup(html, "html.parser")
     rating_el = soup.find("ul", class_="stars control")
-    if isinstance(rating_el, bs4.Tag):
-        rating = rating_el.get("data-default")
-        if isinstance(rating, str):
-            return rating
-    return None
+    if not isinstance(rating_el, bs4.Tag):
+        return None
+    rating = rating_el.get("data-default")
+    if not isinstance(rating, str):
+        return None
+    try:
+        return float(rating.replace(",", "."))
+    except ValueError:
+        logger.warning("VL company rating: invalid data-default={!r}", rating)
+        return None
 
 
-def get_company_review_count(html: str) -> str | None:
+def get_company_review_count(html: str) -> int | None:
     soup = BeautifulSoup(html, "html.parser")
     rev_count_el = soup.find("a", class_="hash-link", href="#comments")
-    if isinstance(rev_count_el, bs4.Tag):
-        text = rev_count_el.get_text(strip=True)
-        count = text.split(" ")[-1]
-        return count
-    return None
+    if not isinstance(rev_count_el, bs4.Tag):
+        return None
+    text = rev_count_el.get_text(" ", strip=True)
+    match = re.search(r"(\d+)", text)
+    if not match:
+        logger.warning("VL company review count: no digits in {!r}", text)
+        return None
+    try:
+        return int(match.group(1))
+    except ValueError:
+        logger.warning("VL company review count: invalid value {!r}", match.group(1))
+        return None
 
 
 
@@ -203,6 +215,12 @@ def fetch_new_reviews(
     client = client or VLClient()
     all_reviews: list[dict[str, Any]] = []
 
+    response = client.get_company_page(company)
+    response.raise_for_status()
+
+    company_review_count = get_company_review_count(html=response.text)
+    company_rating = get_company_rating(html=response.text)
+
     response = client.get_thread(company)
     response.raise_for_status()
 
@@ -214,7 +232,11 @@ def fetch_new_reviews(
             if _review_exists(branch_platform, review):
                 count = len(all_reviews)
                 logger.info("VL new reviews: company={} count={}", company, count)
-                return ReviewsBundle(rating=None, count=count, reviews=all_reviews)
+                return ReviewsBundle(
+                    rating=company_rating,
+                    count=company_review_count,
+                    reviews=all_reviews
+                )
             all_reviews.append(review)
 
         if not (
@@ -234,7 +256,11 @@ def fetch_new_reviews(
 
     count = len(all_reviews)
     logger.info("VL new reviews: company={} count={}", company, count)
-    return ReviewsBundle(rating=None, count=count, reviews=all_reviews)
+    return ReviewsBundle(
+        rating=company_rating,
+        count=company_review_count,
+        reviews=all_reviews
+    )
 
 
 def _apply_avg_rating_from_history(branch_platform, response: Response) -> None:
