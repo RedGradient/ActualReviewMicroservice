@@ -33,6 +33,5 @@ def _build_api_url(firm_id: str, *, limit: int = 50, offset: int = 0) -> str:
 def _review_exists(branch_platform: BranchPlatform, review) -> bool:
     return Review.objects.filter(
         branch_platform=branch_platform,
-        author=review["user"]["name"],
-        content=review["text"]
+        external_id=review["id"],
     ).exists()

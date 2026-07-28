@@ -84,6 +84,7 @@ class BranchPlatform(models.Model):
 
 class Review(models.Model):
     branch_platform = models.ForeignKey(BranchPlatform, on_delete=models.CASCADE, related_name="reviews")
+    external_id = models.CharField(max_length=64, null=True, blank=True)
     author = models.CharField(max_length=255)
     avatar = models.URLField(null=True, blank=True)
     video = models.URLField(null=True, blank=True)

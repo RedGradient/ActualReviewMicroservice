@@ -4,6 +4,7 @@ from datetime import datetime
 from unittest.mock import Mock, patch
 
 from django.test import TestCase
+from pyasn1_modules.rfc2985 import extensionRequest
 from requests import HTTPError
 
 from common_parser.models import Branch, BranchPlatform, Organization, Review
@@ -256,6 +257,7 @@ class FetchNewReviewsTests(TestCase):
     def _save_2gis_review(branch_platform: BranchPlatform, review: dict) -> None:
         Review.objects.create(
             branch_platform=branch_platform,
+            external_id=review["id"],
             author=review["user"]["name"],
             content=review["text"],
             rating=review["rating"],
@@ -331,6 +333,29 @@ class FetchNewReviewsTests(TestCase):
         )
 
         self.assertEqual(len(bundle.reviews), len(self.reviews))
+
+    def test_stops_on_existing_external_id(self) -> None:
+        branch_platform = self._make_branch_platform()
+        existing = self.reviews[0]
+        Review.objects.create(
+            branch_platform=branch_platform,
+            external_id=existing["id"],
+            author=existing["user"]["name"],
+            content=existing["text"],
+            rating=existing["rating"],
+            published_date=datetime(2026, 1, 1),
+        )
+
+        bundle = fetch_new_reviews(
+            "12345",
+            branch_platform,
+            limit=50,
+            get_reviews_page=FakeGetReviews(
+                [make_reviews_page(self.reviews, count=495)]
+            ),
+        )
+
+        self.assertEqual(bundle.reviews, [])
 
     def test_preserves_meta_from_first_page(self) -> None:
         branch_platform = self._make_branch_platform()
