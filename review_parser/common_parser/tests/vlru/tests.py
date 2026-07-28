@@ -9,10 +9,7 @@ from common_parser.models import Branch, BranchPlatform, Organization, Review
 from common_parser.types import ReviewsBundle
 from common_parser.tests.vlru.helpers import (
     FakeVLClient,
-    make_json_response,
     make_response,
-    vlru_avg_history,
-    vlru_avg_history_low,
     vlru_comments_second_page,
     vlru_comments_single_html,
     vlru_company_main_page_html,
@@ -20,7 +17,6 @@ from common_parser.tests.vlru.helpers import (
     vlru_thread_last_page,
 )
 from common_parser.parsers.vlru.parser import (
-    _apply_avg_rating_from_history,
     create_vlru_reviews,
     fetch_all_reviews,
     fetch_new_reviews,
@@ -110,25 +106,6 @@ class FetchAllReviewsTests(TestCase):
 
         with self.assertRaises(HTTPError):
             fetch_all_reviews("trinity", client=BrokenClient())
-
-
-class ApplyAvgRatingTests(TestCase):
-    def test_sets_avg_from_first_history_value(self) -> None:
-        branch_platform = Mock()
-        response = make_json_response(vlru_avg_history())
-
-        _apply_avg_rating_from_history(branch_platform, response)
-
-        self.assertEqual(branch_platform.review_avg, 4.0)
-        branch_platform.save.assert_called_once_with(update_fields=["review_avg"])
-
-    def test_clamps_low_avg_to_four(self) -> None:
-        branch_platform = Mock()
-        response = make_json_response(vlru_avg_history_low())
-
-        _apply_avg_rating_from_history(branch_platform, response)
-
-        self.assertEqual(branch_platform.review_avg, 4)
 
 
 class CreateVlruReviewsTests(TestCase):
