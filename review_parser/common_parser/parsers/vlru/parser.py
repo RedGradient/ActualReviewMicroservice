@@ -263,17 +263,17 @@ def fetch_new_reviews(
     )
 
 
-def _apply_avg_rating_from_history(branch_platform, response: Response) -> None:
-    response.raise_for_status()
-    response_dict = json.loads(response.text)
-
-    for item in response_dict["history"].values():
-        avg = float(item)
-        if avg < 4:
-            avg = 4
-        branch_platform.review_avg = avg
-        branch_platform.save(update_fields=["review_avg"])
-        break
+# def _apply_avg_rating_from_history(branch_platform, response: Response) -> None:
+#     response.raise_for_status()
+#     response_dict = json.loads(response.text)
+#
+#     for item in response_dict["history"].values():
+#         avg = float(item)
+#         if avg < 4:
+#             avg = 4
+#         branch_platform.review_avg = avg
+#         branch_platform.save(update_fields=["review_avg"])
+#         break
 
 
 def create_vlru_reviews(
@@ -302,11 +302,11 @@ def create_vlru_reviews(
     _update_branch_platform(branch_platform, bundle)
     branch_platform.save()
 
-    if branch_platform.org_id:
-        _apply_avg_rating_from_history(
-            branch_platform,
-            client.get_avg_history(branch_platform.org_id),
-        )
+    # if branch_platform.org_id:
+    #     _apply_avg_rating_from_history(
+    #         branch_platform,
+    #         client.get_avg_history(branch_platform.org_id),
+    #     )
 
     created_count = 0
     for review in bundle.reviews:
