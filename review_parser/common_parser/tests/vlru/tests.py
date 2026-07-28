@@ -180,6 +180,7 @@ class FetchNewReviewsTests(TestCase):
     def _save_vlru_review(branch_platform: BranchPlatform, review: dict) -> None:
         Review.objects.create(
             branch_platform=branch_platform,
+            external_id=review["comment_id"],
             author=review["author"],
             content=review["content"],
             rating=int(review["rating"]),
@@ -199,6 +200,27 @@ class FetchNewReviewsTests(TestCase):
         self.assertEqual(bundle.rating, 0.8215)
         self.assertEqual(bundle.count, 309)
         self.assertEqual(client.company_pages_calls, ["trinity"])
+
+    def test_stops_on_existing_external_id(self) -> None:
+        branch_platform = self._make_branch_platform()
+        existing = self.page_one_reviews[0]
+        Review.objects.create(
+            branch_platform=branch_platform,
+            external_id=existing["comment_id"],
+            author=existing["author"],
+            content=existing["content"],
+            rating=int(existing["rating"]),
+            published_date=datetime(2026, 1, 1),
+        )
+
+        client = FakeVLClient(
+            thread_payload=self.first_page,
+            comment_pages=[self.last_page],
+        )
+
+        bundle = fetch_new_reviews("trinity", branch_platform, client=client)
+
+        self.assertEqual(bundle.reviews, [])
 
     def test_mixed_page_returns_only_new_before_stop(self) -> None:
         branch_platform = self._make_branch_platform()
