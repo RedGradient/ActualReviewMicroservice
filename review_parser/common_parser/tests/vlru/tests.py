@@ -1,6 +1,7 @@
 from datetime import datetime
 from unittest.mock import Mock, patch
 
+import bs4
 from django.test import TestCase
 from requests import HTTPError
 
@@ -9,10 +10,12 @@ from common_parser.types import ReviewsBundle
 from common_parser.tests.vlru.helpers import (
     FakeVLClient,
     make_json_response,
+    make_response,
     vlru_avg_history,
     vlru_avg_history_low,
     vlru_comments_second_page,
     vlru_comments_single_html,
+    vlru_company_main_page_html,
     vlru_thread_first_page,
     vlru_thread_last_page,
 )
@@ -22,6 +25,8 @@ from common_parser.parsers.vlru.parser import (
     fetch_all_reviews,
     fetch_new_reviews,
     get_company_from_url,
+    get_company_rating,
+    get_company_review_count,
     parse_vlru_reviews,
 )
 
@@ -214,8 +219,9 @@ class FetchNewReviewsTests(TestCase):
         bundle = fetch_new_reviews("trinity", branch_platform, client=client)
 
         self.assertEqual(len(bundle.reviews), len(self.page_one_reviews))
-        self.assertEqual(bundle.rating, 5)
-        self.assertEqual(bundle.count, len(self.page_one_reviews))
+        self.assertEqual(bundle.rating, 0.8215)
+        self.assertEqual(bundle.count, 309)
+        self.assertEqual(client.company_pages_calls, ["trinity"])
 
     def test_mixed_page_returns_only_new_before_stop(self) -> None:
         branch_platform = self._make_branch_platform()
@@ -246,3 +252,130 @@ class FetchNewReviewsTests(TestCase):
 
         self.assertEqual(len(bundle.reviews), len(self.page_one_reviews))
         self.assertEqual(len(client.comments_calls), 1)
+
+    def test_stops_on_first_existing(self) -> None:
+        branch_platform = self._make_branch_platform()
+        self._save_vlru_review(branch_platform, self.page_one_reviews[0])
+
+        client = FakeVLClient(
+            thread_payload=self.first_page,
+            comment_pages=[self.last_page],
+        )
+
+        bundle = fetch_new_reviews("trinity", branch_platform, client=client)
+
+        self.assertEqual(bundle.reviews, [])
+        self.assertEqual(bundle.rating, 0.8215)
+        self.assertEqual(bundle.count, 309)
+
+    def test_does_not_stop_on_other_branch(self) -> None:
+        other_platform = self._make_branch_platform(inn="987654321098")
+        self._save_vlru_review(other_platform, self.page_one_reviews[0])
+
+        branch_platform = self._make_branch_platform()
+        client = FakeVLClient(
+            thread_payload=self.first_page,
+            comment_pages=[self.last_page],
+        )
+
+        bundle = fetch_new_reviews("trinity", branch_platform, client=client)
+
+        self.assertEqual(len(bundle.reviews), len(self.page_one_reviews))
+
+    def test_preserves_meta_when_stops_early(self) -> None:
+        branch_platform = self._make_branch_platform()
+        self._save_vlru_review(branch_platform, self.page_one_reviews[0])
+
+        client = FakeVLClient(
+            thread_payload=self.first_page,
+            comment_pages=[self.last_page],
+        )
+
+        bundle = fetch_new_reviews("trinity", branch_platform, client=client)
+
+        self.assertEqual(bundle.rating, 0.8215)
+        self.assertEqual(bundle.count, 309)
+
+    def test_http_error_on_company_page_propagates(self) -> None:
+        response = Mock()
+        response.raise_for_status = Mock(side_effect=HTTPError("502"))
+
+        class BrokenClient:
+            def get_company_page(self, company: str):
+                return response
+
+        with self.assertRaises(HTTPError):
+            fetch_new_reviews(
+                "trinity",
+                self._make_branch_platform(),
+                client=BrokenClient(),
+            )
+
+    def test_http_error_on_thread_propagates(self) -> None:
+        company_response = make_response(vlru_company_main_page_html())
+        error_response = Mock()
+        error_response.raise_for_status = Mock(side_effect=HTTPError("502"))
+
+        class BrokenClient:
+            def get_company_page(self, company: str):
+                return company_response
+
+            def get_thread(self, company: str):
+                return error_response
+
+        with self.assertRaises(HTTPError):
+            fetch_new_reviews(
+                "trinity",
+                self._make_branch_platform(),
+                client=BrokenClient(),
+            )
+
+
+class GetCompanyRatingTests(TestCase):
+    def test_returns_rating_from_fixture(self) -> None:
+        result = get_company_rating(vlru_company_main_page_html())
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result, 0.8215)
+
+    @patch("common_parser.parsers.vlru.parser.BeautifulSoup")
+    def test_returns_none_when_element_is_not_tag(self, mock_bs) -> None:
+        mock_bs.return_value.find.return_value = "unexpected"
+
+        self.assertIsNone(get_company_rating("<html></html>"))
+
+    @patch("common_parser.parsers.vlru.parser.BeautifulSoup")
+    def test_returns_none_when_data_default_is_not_string(self, mock_bs) -> None:
+        html = '<ul class="stars control" data-default="0,5"></ul>'
+        soup = bs4.BeautifulSoup(html, "html.parser")
+        rating_el = soup.find("ul")
+        assert rating_el is not None
+
+        with patch.object(rating_el, "get", return_value=42):
+            mock_bs.return_value.find.return_value = rating_el
+            self.assertIsNone(get_company_rating(html))
+
+    def test_returns_none_when_data_default_is_not_numeric(self) -> None:
+        html = '<ul class="stars control" data-default="n/a"></ul>'
+        self.assertIsNone(get_company_rating(html))
+
+
+class GetCompanyReviewCountTests(TestCase):
+    def test_returns_count_from_fixture(self) -> None:
+        result = get_company_review_count(vlru_company_main_page_html())
+
+        self.assertIsNotNone(result)
+        self.assertEqual(result, 309)
+
+    @patch("common_parser.parsers.vlru.parser.BeautifulSoup")
+    def test_returns_none_when_comments_link_is_not_tag(self, mock_bs) -> None:
+        mock_bs.return_value.find.return_value = "unexpected"
+        self.assertIsNone(get_company_review_count("<html></html>"))
+
+    def test_returns_none_when_link_text_has_no_digits(self) -> None:
+        html = '<a href="#comments" class="hash-link">Отзывы</a>'
+        self.assertIsNone(get_company_review_count(html))
+
+    def test_returns_first_number_from_link_text(self) -> None:
+        html = '<a href="#comments" class="hash-link">Всего отзывов: 309</a>'
+        self.assertEqual(get_company_review_count(html), 309)

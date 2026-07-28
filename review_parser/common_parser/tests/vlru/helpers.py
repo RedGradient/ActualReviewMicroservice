@@ -43,19 +43,24 @@ def vlru_comments_single_html() -> str:
     """Фрагмент HTML с одним отзывом из trinity."""
     return (_FIXTURES_DIR / "vlru_comments_single.html").read_text(encoding="utf-8")
 
+def vlru_company_main_page_html() -> str:
+    """Полная HTML главной страницы компании trinity."""
+    return (_FIXTURES_DIR / "vlru_company_main_page.html").read_text(encoding="utf-8")
+
 
 def make_response(text: str, *, status_code: int = 200) -> Response:
     response = Mock(spec=Response)
     response.status_code = status_code
     response.text = text
-    response.json = Mock(return_value=json.loads(text))
     response.raise_for_status = Mock()
     return response
 
 
 def make_json_response(payload: dict[str, Any] | str, *, status_code: int = 200) -> Response:
     text = payload if isinstance(payload, str) else json.dumps(payload, ensure_ascii=False)
-    return make_response(text, status_code=status_code)
+    response = make_response(text, status_code=status_code)
+    response.json = Mock(return_value=json.loads(text))
+    return response
 
 
 class FakeVLClient:
@@ -74,6 +79,7 @@ class FakeVLClient:
         self.thread_calls: list[str] = []
         self.comments_calls: list[tuple[str, int | str, int | str]] = []
         self.avg_calls: list[int | str] = []
+        self.company_pages_calls: list[str] = []
 
     def get_thread(self, company: str) -> Response:
         self.thread_calls.append(company)
@@ -97,3 +103,7 @@ class FakeVLClient:
         if self.avg_history_payload is None:
             raise AssertionError("avg_history_payload is not configured")
         return make_json_response(self.avg_history_payload)
+
+    def get_company_page(self, company: str) -> Response:
+        self.company_pages_calls.append(company)
+        return make_response(vlru_company_main_page_html())
