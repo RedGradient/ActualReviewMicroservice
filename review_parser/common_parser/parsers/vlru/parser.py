@@ -5,6 +5,7 @@ import re
 from datetime import datetime
 from typing import Any, Callable
 
+import bs4
 from bs4 import BeautifulSoup
 from loguru import logger
 from requests import Response
@@ -20,6 +21,28 @@ from common_parser.tools.create_objects import (
 from common_parser.types import ReviewsBundle, ParseResult
 
 HttpGet = Callable[..., Response]
+
+
+def get_company_rating(html: str) -> str | None:
+    soup = BeautifulSoup(html, "html.parser")
+    rating_el = soup.find("ul", class_="stars control")
+    if isinstance(rating_el, bs4.Tag):
+        rating = rating_el.get("data-default")
+        if isinstance(rating, str):
+            return rating
+    return None
+
+
+def get_company_review_count(html: str) -> str | None:
+    soup = BeautifulSoup(html, "html.parser")
+    rev_count_el = soup.find("a", class_="hash-link", href="#comments")
+    if isinstance(rev_count_el, bs4.Tag):
+        text = rev_count_el.get_text(strip=True)
+        count = text.split(" ")[-1]
+        return count
+    return None
+
+
 
 
 class VLClient:
@@ -61,6 +84,10 @@ class VLClient:
             headers=self._ajax_headers(),
             params={"companyId": company_id},
         )
+
+    def get_company_page(self, company: str) -> Response:
+        url = f"https://www.vl.ru/{company}"
+        return self._http_get(url)
 
 
 def get_company_from_url(url: str) -> str | None:
@@ -187,7 +214,7 @@ def fetch_new_reviews(
             if _review_exists(branch_platform, review):
                 count = len(all_reviews)
                 logger.info("VL new reviews: company={} count={}", company, count)
-                return ReviewsBundle(rating=5, count=count, reviews=all_reviews)
+                return ReviewsBundle(rating=None, count=count, reviews=all_reviews)
             all_reviews.append(review)
 
         if not (
@@ -207,7 +234,7 @@ def fetch_new_reviews(
 
     count = len(all_reviews)
     logger.info("VL new reviews: company={} count={}", company, count)
-    return ReviewsBundle(rating=5, count=count, reviews=all_reviews)
+    return ReviewsBundle(rating=None, count=count, reviews=all_reviews)
 
 
 def _apply_avg_rating_from_history(branch_platform, response: Response) -> None:
