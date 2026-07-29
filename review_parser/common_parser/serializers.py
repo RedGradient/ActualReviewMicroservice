@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from common_parser.views import VALID_PROVIDERS
+
 from .models import Branch, BranchPlatform, Organization, Playlist, Review, Video
 
 
@@ -43,3 +45,19 @@ class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Playlist
         fields = "__all__"
+
+
+class GetReviewsSerializer(serializers.Serializer):
+    branch_id = serializers.IntegerField()
+    provider = serializers.ChoiceField(choices=VALID_PROVIDERS)
+    limit = serializers.IntegerField(default=50, min_value=1, max_value=500)
+    offset = serializers.IntegerField(default=0, min_value=0)
+
+
+class SyncReviewsSerializer(serializers.Serializer):
+    organization_id = serializers.IntegerField()
+    branch_id = serializers.IntegerField()
+    providers = serializers.ListField(
+        child=serializers.ChoiceField(choices=VALID_PROVIDERS),
+        allow_empty=False,
+    )
