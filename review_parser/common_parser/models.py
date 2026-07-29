@@ -30,12 +30,12 @@ class Branch(models.Model):
 
 
 class BranchPlatform(models.Model):
-    PROVIDER_CHOICES = [
+    PROVIDER_CHOICES = (
         ("google", "Google"),
         ("yandex", "Yandex"),
         ("2gis", "2GIS"),
         ("vlru", "VL.ru"),
-    ]
+    )
 
     branch = models.ForeignKey(
         Branch,
@@ -104,10 +104,10 @@ class BranchIPMapping(models.Model):
 
 
 class Playlist(models.Model):
-    PROVIDER_CHOICES = [
+    PROVIDER_CHOICES = (
         ("youtube", "Ютуб"),
         ("vk", "Вк"),
-    ]
+    )
 
     title = models.CharField(max_length=255, blank=True, null=True)
     count = models.PositiveIntegerField(blank=True, null=True, default=None)
