@@ -8,8 +8,10 @@ from common_parser.parsers.twogis.parser import TwoGisParser
 from common_parser.parsers.vlru.parser import VlruParser
 
 __all__ = [
-    "ReviewParser",
     "REVIEW_PARSERS",
     "REVIEW_PARSERS_BY_PROVIDER",
+    "ReviewParser",
+    "TwoGisParser",
+    "VlruParser",
     "get_review_parser",
 ]
