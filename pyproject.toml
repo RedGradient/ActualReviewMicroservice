@@ -29,6 +29,8 @@ select = [
     "SIM", # simplify
     "RUF", # ruff-specific
 ]
+# RUF002/RUF003: русские docstring и комментарии содержат кириллицу, похожую на латиницу (с/c, а/a и т.д.)
+ignore = ["RUF001", "RUF002", "RUF003"]
 
 [tool.ruff.lint.per-file-ignores]
 "**/migrations/*.py" = ["ALL"]
