@@ -50,7 +50,7 @@ def get_token(url: str) -> dict:
         page.goto(url, wait_until="networkidle", timeout=30000)
 
         # Ждем немного для загрузки всех запросов
-        for i in range(15):
+        for _ in range(15):
             if token_data:
                 break
             page.wait_for_timeout(1000)
