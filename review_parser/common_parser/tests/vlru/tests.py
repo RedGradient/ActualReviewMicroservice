@@ -6,16 +6,6 @@ from django.test import TestCase
 from requests import HTTPError
 
 from common_parser.models import Branch, BranchPlatform, Organization, Review
-from common_parser.types import ReviewsBundle
-from common_parser.tests.vlru.helpers import (
-    FakeVLClient,
-    make_response,
-    vlru_comments_second_page,
-    vlru_comments_single_html,
-    vlru_company_main_page_html,
-    vlru_thread_first_page,
-    vlru_thread_last_page,
-)
 from common_parser.parsers.vlru.parser import (
     create_vlru_reviews,
     fetch_all_reviews,
@@ -25,6 +15,16 @@ from common_parser.parsers.vlru.parser import (
     get_company_review_count,
     parse_vlru_reviews,
 )
+from common_parser.tests.vlru.helpers import (
+    FakeVLClient,
+    make_response,
+    vlru_comments_second_page,
+    vlru_comments_single_html,
+    vlru_company_main_page_html,
+    vlru_thread_first_page,
+    vlru_thread_last_page,
+)
+from common_parser.types import ReviewsBundle
 
 
 class GetCompanyFromUrlTests(TestCase):

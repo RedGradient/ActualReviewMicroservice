@@ -1,39 +1,30 @@
 from django.db import models
-from django.utils.timezone import now
 from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.db.transaction import on_commit
+from django.dispatch import receiver
+from django.utils.timezone import now
+
 
 class Organization(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     inn = models.CharField(max_length=12, null=False, blank=False, unique=True)
-    
+
     def __str__(self):
-        return self.name or f'Организация #{self.id}'
+        return self.name or f"Организация #{self.id}"
 
 
 class Branch(models.Model):
-    organization = models.ForeignKey(
-        Organization,
-        on_delete=models.CASCADE,
-        related_name="branches"
-    )
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name="branches")
     address = models.TextField()
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['organization', 'address'],
-                name='unique_organization_address'
-            )
-        ]
+        constraints = [models.UniqueConstraint(fields=["organization", "address"], name="unique_organization_address")]
 
     def __str__(self):
-        return f'{self.id} : {self.organization}: {self.address[:50]}'
+        return f"{self.id} : {self.organization}: {self.address[:50]}"
 
 
 class BranchPlatform(models.Model):
-
     PROVIDER_CHOICES = [
         ("google", "Google"),
         ("yandex", "Yandex"),
@@ -97,79 +88,63 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.author}'s review for {self.branch_platform.branch}"
-    
 
 
 class BranchIPMapping(models.Model):
-    branch = models.ForeignKey(
-        Branch,
-        on_delete=models.CASCADE,
-        related_name='ip_mappings'
-    )
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, related_name="ip_mappings")
     ip_address = models.GenericIPAddressField()
-    
+
     def __str__(self):
         return f"{self.ip_address} → Филиал {self.branch.id} : {self.branch.address}"
-    
-
 
 
 class Playlist(models.Model):
-
     PROVIDER_CHOICES = [
-        ('youtube', 'Ютуб'),
-        ('vk', 'Вк'),
+        ("youtube", "Ютуб"),
+        ("vk", "Вк"),
     ]
 
     title = models.CharField(max_length=255, blank=True, null=True)
     count = models.PositiveIntegerField(blank=True, null=True, default=None)
     url = models.URLField(unique=True)
     parse_date = models.DateTimeField(blank=True, null=True)
-    provider = models.CharField(
-        max_length=50,
-        choices=PROVIDER_CHOICES,
-        null=True, blank=True
-    )
-    
+    provider = models.CharField(max_length=50, choices=PROVIDER_CHOICES, null=True, blank=True)
+
     def __str__(self):
         return self.title or self.url
 
 
 class Video(models.Model):
-    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name='videos')
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="videos")
     url = models.URLField()
     title = models.CharField(max_length=255, blank=True, null=True)
     author = models.CharField(max_length=255, blank=True, null=True)
     date = models.DateTimeField(blank=True, null=True)
     preview = models.URLField(max_length=1000, blank=True, null=True)
     duration = models.IntegerField(blank=True, null=True, default=None)
-    
+
     def __str__(self):
         return self.title or self.url
-    
+
 
 class PlaylistIPMapping(models.Model):
-    playlist = models.ForeignKey(
-        Playlist,
-        on_delete=models.CASCADE,
-        related_name='ip_mappings_playlist'
-    )
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="ip_mappings_playlist")
     ip_address = models.GenericIPAddressField()
-    
+
     def __str__(self):
         return f"{self.ip_address} → Playlist {self.playlist.id} : {self.playlist.title}"
-
-
 
 
 # -----------------
 # --- RECEIVERS ---
 # -----------------
 
+
 @receiver(post_save, sender=Playlist)
 def send_notification(sender, instance, created, **kwargs):
     if created:
-        from common_parser.tasks import parse_youtube_videos_async, parse_vk_videos_async
+        from common_parser.tasks import parse_vk_videos_async, parse_youtube_videos_async
+
         if "youtube" in instance.url:
             on_commit(lambda: parse_youtube_videos_async.delay(instance.id))
         elif "vk" in instance.url:
@@ -180,4 +155,5 @@ def send_notification(sender, instance, created, **kwargs):
 def send_notification(sender, instance, created, **kwargs):
     if created:
         from common_parser.tasks import parse_all_providers_async_on_create
+
         on_commit(lambda: parse_all_providers_async_on_create.delay(instance.organization.id, instance.address))

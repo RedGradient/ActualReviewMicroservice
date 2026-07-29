@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import json
 import re
+from collections.abc import Callable
 from datetime import datetime
-from typing import Any, Callable
+from typing import Any
 
 import bs4
 from bs4 import BeautifulSoup
@@ -15,10 +15,10 @@ from common_parser.parsers.helpers import _update_branch_platform
 from common_parser.services.http_client import get as http_get
 from common_parser.tools.create_objects import (
     create_review,
-    get_or_create_Organization,
     get_or_create_branch_platform,
+    get_or_create_Organization,
 )
-from common_parser.types import ReviewsBundle, ParseResult
+from common_parser.types import ParseResult, ReviewsBundle
 
 HttpGet = Callable[..., Response]
 
@@ -53,8 +53,6 @@ def get_company_review_count(html: str) -> int | None:
     except ValueError:
         logger.warning("VL company review count: invalid value {!r}", match.group(1))
         return None
-
-
 
 
 class VLClient:
@@ -175,11 +173,7 @@ def fetch_all_reviews(company: str, *, client: VLClient | None = None) -> Review
     reviews = parse_vlru_reviews(data["data"]["content"])
     thread_id = data["data"]["threadId"]
 
-    while (
-        data["data"]["lastCommentId"]
-        and data["data"]["commentsCount"]
-        and response.status_code == 200
-    ):
+    while data["data"]["lastCommentId"] and data["data"]["commentsCount"] and response.status_code == 200:
         response = client.get_comments_page(
             company,
             thread_id,
@@ -232,18 +226,10 @@ def fetch_new_reviews(
             if _review_exists(branch_platform, review):
                 count = len(all_reviews)
                 logger.info("VL new reviews: company={} count={}", company, count)
-                return ReviewsBundle(
-                    rating=company_rating,
-                    count=company_review_count,
-                    reviews=all_reviews
-                )
+                return ReviewsBundle(rating=company_rating, count=company_review_count, reviews=all_reviews)
             all_reviews.append(review)
 
-        if not (
-            data["data"]["lastCommentId"]
-            and data["data"]["commentsCount"]
-            and response.status_code == 200
-        ):
+        if not (data["data"]["lastCommentId"] and data["data"]["commentsCount"] and response.status_code == 200):
             break
 
         response = client.get_comments_page(
@@ -256,11 +242,7 @@ def fetch_new_reviews(
 
     count = len(all_reviews)
     logger.info("VL new reviews: company={} count={}", company, count)
-    return ReviewsBundle(
-        rating=company_rating,
-        count=company_review_count,
-        reviews=all_reviews
-    )
+    return ReviewsBundle(rating=company_rating, count=company_review_count, reviews=all_reviews)
 
 
 # def _apply_avg_rating_from_history(branch_platform, response: Response) -> None:

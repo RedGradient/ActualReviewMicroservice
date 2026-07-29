@@ -1,18 +1,16 @@
 import re
 from datetime import datetime
-from typing import Optional
 
-import requests
 from bs4 import BeautifulSoup
+from loguru import logger
 
+from common_parser.services.http_client import get as http_get
 from common_parser.tools.create_objects import (
     create_review,
     get_or_create_Branch,
     get_or_create_Organization,
 )
 from common_parser.tools.parse_date_string import parse_date_string
-from loguru import logger
-from common_parser.services.http_client import get as http_get
 
 HEADERS = {
     "User-Agent": (
@@ -25,7 +23,7 @@ HEADERS = {
 
 
 @logger.catch
-def parse(url: str, limit: Optional[int] = None) -> dict:
+def parse(url: str, limit: int | None = None) -> dict:
     logger.info(f"Yandex parse started: url={url} limit={limit}")
     response = http_get(url, headers=HEADERS)
     response.raise_for_status()
@@ -44,8 +42,7 @@ def parse(url: str, limit: Optional[int] = None) -> dict:
     stars_block = soup.select_one(".business-summary-rating-badge-view")
     if stars_block:
         rating_parts = [
-            el.get_text(strip=True)
-            for el in stars_block.select(".business-summary-rating-badge-view__rating-text")
+            el.get_text(strip=True) for el in stars_block.select(".business-summary-rating-badge-view__rating-text")
         ]
         if rating_parts:
             rating_text = "".join(rating_parts)
@@ -83,9 +80,7 @@ def parse(url: str, limit: Optional[int] = None) -> dict:
                 image_srcs.append(src)
         photos = ", ".join(image_srcs)
 
-        stars_count = len(
-            review_block.select(".business-rating-badge-view__star._full")
-        )
+        stars_count = len(review_block.select(".business-rating-badge-view__star._full"))
 
         review_text_el = review_block.select_one(".business-review-view__body")
         review_text = review_text_el.text.strip() if review_text_el else ""
@@ -118,17 +113,11 @@ def parse(url: str, limit: Optional[int] = None) -> dict:
     }
 
 
-def create_yandex_reviews(
-    url: str, inn: str, org_name: str = "", address: str = "", count: str = 50
-) -> int:
+def create_yandex_reviews(url: str, inn: str, org_name: str = "", address: str = "", count: str = 50) -> int:
     dict_yandex = parse(url)
 
     if dict_yandex is None:
-        dict_yandex = {
-            "count": 0,
-            "rating": -1,
-            "reviews": []
-        }
+        dict_yandex = {"count": 0, "rating": -1, "reviews": []}
 
     branch = get_or_create_Branch(
         organization=get_or_create_Organization(inn, org_name),
@@ -157,4 +146,3 @@ def create_yandex_reviews(
         f"Yandex create finished: url={url} branch_address={address} parsed={len(dict_yandex['reviews'])} created={cnt}"
     )
     return (len(dict_yandex["reviews"]), cnt)
-

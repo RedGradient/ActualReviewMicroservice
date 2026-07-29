@@ -1,12 +1,11 @@
+from django.db.models import Case, Count, IntegerField, Q, Value, When
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
-
-from django.db.models import Count, Case, When, Q, Value, IntegerField
 
 from common_parser.models import Branch, BranchIPMapping, Review
 from common_parser.serializers import BranchSerializer, ReviewSerializer
-from common_parser.services.reviews_query import _parse_int, _parse_bool
+from common_parser.services.reviews_query import _parse_bool, _parse_int
 
 
 @api_view(["GET"])
@@ -29,11 +28,7 @@ def reviews_v2(request):
     providers_param = request.query_params.get("providers", "")
     sort_photos = _parse_bool(request.query_params.get("sort_photos"), default=False)
 
-    provider_reviews_count = (
-        Review.objects.filter(branch=branch)
-        .values("provider")
-        .annotate(review_count=Count("id"))
-    )
+    provider_reviews_count = Review.objects.filter(branch=branch).values("provider").annotate(review_count=Count("id"))
 
     reviews_by_provider = {}
 
@@ -43,31 +38,22 @@ def reviews_v2(request):
         providers_list = [item["provider"] for item in provider_reviews_count]
 
     for provider in providers_list:
-        provider_reviews = Review.objects.filter(
-            branch=branch,
-            provider=provider,
-            rating__gte=min_rating
-        )
+        provider_reviews = Review.objects.filter(branch=branch, provider=provider, rating__gte=min_rating)
 
         if sort_photos:
             provider_reviews = provider_reviews.order_by(
                 Case(
-                    When(
-                        ~Q(photos__isnull=True) & ~Q(photos=""),
-                        then=Value(1)
-                    ),
+                    When(~Q(photos__isnull=True) & ~Q(photos=""), then=Value(1)),
                     default=Value(0),
                     output_field=IntegerField(),
                 ).desc(),
-                "-published_date"
+                "-published_date",
             )
         else:
-            provider_reviews = provider_reviews.order_by(
-                "-published_date"
-            )
+            provider_reviews = provider_reviews.order_by("-published_date")
 
         if limit is not None:
-            paginated = provider_reviews[offset:offset + limit]
+            paginated = provider_reviews[offset : offset + limit]
         elif offset:
             paginated = provider_reviews[offset:]
         else:
@@ -75,11 +61,13 @@ def reviews_v2(request):
 
         reviews_by_provider[provider] = ReviewSerializer(paginated, many=True).data
 
-    return Response({
-        "branch": BranchSerializer(branch).data,
-        "provider_reviews_count": provider_reviews_count,
-        "reviews": reviews_by_provider,
-    })
+    return Response(
+        {
+            "branch": BranchSerializer(branch).data,
+            "provider_reviews_count": provider_reviews_count,
+            "reviews": reviews_by_provider,
+        }
+    )
 
 
 @api_view(["GET"])
@@ -93,12 +81,7 @@ def reviews_by_ip_v2(request):
     branches = [m.branch for m in BranchIPMapping.objects.filter(ip_address=ip)]
 
     if not branches:
-        return Response({
-            "ip": ip,
-            "branches": [],
-            "provider_reviews_count": [],
-            "reviews": {}
-        })
+        return Response({"ip": ip, "branches": [], "provider_reviews_count": [], "reviews": {}})
 
     offset = _parse_int(request.query_params.get("offset")) or 0
     limit = _parse_int(request.query_params.get("limit"))
@@ -107,9 +90,7 @@ def reviews_by_ip_v2(request):
     sort_photos = _parse_bool(request.query_params.get("sort_photos"), default=False)
 
     provider_reviews_count = (
-        Review.objects.filter(branch__in=branches)
-        .values("provider")
-        .annotate(review_count=Count("id"))
+        Review.objects.filter(branch__in=branches).values("provider").annotate(review_count=Count("id"))
     )
 
     reviews_by_provider = {}
@@ -120,31 +101,22 @@ def reviews_by_ip_v2(request):
         providers_list = [item["provider"] for item in provider_reviews_count]
 
     for provider in providers_list:
-        provider_reviews = Review.objects.filter(
-            branch__in=branches,
-            provider=provider,
-            rating__gte=min_rating
-        )
+        provider_reviews = Review.objects.filter(branch__in=branches, provider=provider, rating__gte=min_rating)
 
         if sort_photos:
             provider_reviews = provider_reviews.order_by(
                 Case(
-                    When(
-                        ~Q(photos__isnull=True) & ~Q(photos=""),
-                        then=Value(1)
-                    ),
+                    When(~Q(photos__isnull=True) & ~Q(photos=""), then=Value(1)),
                     default=Value(0),
                     output_field=IntegerField(),
                 ).desc(),
-                "-published_date"
+                "-published_date",
             )
         else:
-            provider_reviews = provider_reviews.order_by(
-                "-published_date"
-            )
+            provider_reviews = provider_reviews.order_by("-published_date")
 
         if limit is not None:
-            paginated = provider_reviews[offset:offset + limit]
+            paginated = provider_reviews[offset : offset + limit]
         elif offset:
             paginated = provider_reviews[offset:]
         else:
@@ -152,9 +124,11 @@ def reviews_by_ip_v2(request):
 
         reviews_by_provider[provider] = ReviewSerializer(paginated, many=True).data
 
-    return Response({
-        "ip": ip,
-        "branches": BranchSerializer(branches, many=True).data,
-        "provider_reviews_count": provider_reviews_count,
-        "reviews": reviews_by_provider,
-    })
+    return Response(
+        {
+            "ip": ip,
+            "branches": BranchSerializer(branches, many=True).data,
+            "provider_reviews_count": provider_reviews_count,
+            "reviews": reviews_by_provider,
+        }
+    )

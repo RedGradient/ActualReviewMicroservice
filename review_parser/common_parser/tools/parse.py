@@ -13,10 +13,7 @@ def parse_all_providers(branch: Branch) -> dict[str, Any]:
     try_count = 0
     results: dict[str, Any] = {}
 
-    platforms_by_provider = {
-        platform.provider: platform
-        for platform in branch.source.all()
-    }
+    platforms_by_provider = {platform.provider: platform for platform in branch.source.all()}
 
     for parser in REVIEW_PARSERS:
         platform = platforms_by_provider.get(parser.provider)

@@ -9,9 +9,7 @@ REVIEW_PARSERS: list[ReviewParser] = [
     VlruParser(),
 ]
 
-REVIEW_PARSERS_BY_PROVIDER: dict[str, ReviewParser] = {
-    parser.provider: parser for parser in REVIEW_PARSERS
-}
+REVIEW_PARSERS_BY_PROVIDER: dict[str, ReviewParser] = {parser.provider: parser for parser in REVIEW_PARSERS}
 
 
 def get_review_parser(provider: str) -> ReviewParser:

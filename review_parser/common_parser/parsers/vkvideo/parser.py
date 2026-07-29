@@ -1,7 +1,6 @@
-from datetime import datetime
 import json
 import re
-from typing import Dict, Tuple
+from datetime import datetime
 
 import requests
 from loguru import logger
@@ -14,13 +13,10 @@ def get_token(url: str) -> dict:
     """Получаем токен анонимного пользователя из запросов на странице без Selenium"""
     logger.info(f"VK token fetch started: url={url}")
     with sync_playwright() as p:
-        browser = p.chromium.launch(
-            headless=True,
-            args=['--no-sandbox']
-        )
+        browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
         context = browser.new_context(
-            user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            viewport={'width': 1920, 'height': 1080}
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            viewport={"width": 1920, "height": 1080},
         )
         page = context.new_page()
 
@@ -70,10 +66,11 @@ def parse_video_data(owner_id: int, album_id: int, token: str) -> dict:
         "access_token": token,
         "v": "5.199",
         "count": 50,
-        "extended": 1
+        "extended": 1,
     }
     response = requests.get("https://api.vk.com/method/video.get", params=params)
     return response.json()
+
 
 def parse_playlist_data(owner_id: int, album_id: int, token: str) -> dict:
     params = {
@@ -85,6 +82,7 @@ def parse_playlist_data(owner_id: int, album_id: int, token: str) -> dict:
     response = requests.get("https://api.vk.com/method/video.getAlbumById", params=params)
     return response.json()
 
+
 def get_video_data(data: dict, playlist: int, author: str) -> dict:
     """собираем видео для нашей модели"""
     scale = 0
@@ -94,7 +92,7 @@ def get_video_data(data: dict, playlist: int, author: str) -> dict:
         if scale < width:
             scale = width
             prew = prewi.get("url")
-    
+
     print(prew)
 
     result = {
@@ -109,28 +107,26 @@ def get_video_data(data: dict, playlist: int, author: str) -> dict:
 
     return result
 
-def get_ids(url: str) -> Tuple[int, int]:
+
+def get_ids(url: str) -> tuple[int, int]:
     """из url получаем id автора и id плейлиста"""
-    pattern = r'(-?\d+)_(-?\d+)$'
+    pattern = r"(-?\d+)_(-?\d+)$"
     match = re.search(pattern, url)
 
     if match:
-        group1 = match.group(1) 
-        group2 = match.group(2)  
+        group1 = match.group(1)
+        group2 = match.group(2)
         print(f"group1: {group1}, group2: {group2}")
         return (int(group1), int(group2))
-    
-    
 
-def parse_vk_videos(url: str) -> Tuple[int, int]:
 
+def parse_vk_videos(url: str) -> tuple[int, int]:
     token = get_token(url).get("data", {}).get("access_token", "")
 
     if token:
-
         author_id, playlist_id = get_ids(url)
 
-        videos = parse_video_data(author_id, playlist_id, token) 
+        videos = parse_video_data(author_id, playlist_id, token)
 
         videos = videos.get("response")
 
@@ -139,21 +135,20 @@ def parse_vk_videos(url: str) -> Tuple[int, int]:
         playlist = playlist.get("response")
 
         playlist_data = {
-            'title': playlist.get('title'),
-            'count': playlist.get("count"),
-            'url': url,
-            'parse_date': datetime.now(),
-            'provider': 'vk'
-
+            "title": playlist.get("title"),
+            "count": playlist.get("count"),
+            "url": url,
+            "parse_date": datetime.now(),
+            "provider": "vk",
         }
 
         playlist = get_or_create_playlist(playlist_data)
 
         cnt = 0
 
-        author = videos.get('groups')[0].get("name")
-        for video in videos.get('items'):
-            if create_video(get_video_data(video, playlist.id,author)):
+        author = videos.get("groups")[0].get("name")
+        for video in videos.get("items"):
+            if create_video(get_video_data(video, playlist.id, author)):
                 cnt += 1
     else:
         raise ValueError("Ошибка: не удалось получить токен")

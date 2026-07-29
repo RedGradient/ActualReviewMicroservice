@@ -54,10 +54,7 @@ class FakeGetReviews:
     """Fake для пагинации: несколько страниц + история вызовов."""
 
     def __init__(self, pages: list[str | dict[str, Any]]):
-        self._pages = [
-            page if isinstance(page, str) else json.dumps(page, ensure_ascii=False)
-            for page in pages
-        ]
+        self._pages = [page if isinstance(page, str) else json.dumps(page, ensure_ascii=False) for page in pages]
         self.calls: list[tuple[str, int, int]] = []
 
     def __call__(self, firm_id: str, limit: int, offset: int = 0) -> Response:

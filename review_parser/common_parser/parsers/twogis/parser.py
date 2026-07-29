@@ -1,28 +1,26 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from loguru import logger
 from requests import Response
 
-from common_parser.models import BranchPlatform, Review
-from common_parser.parsers.twogis.helpers import get_reviews, firm_id_from_url, _review_exists
+from common_parser.models import BranchPlatform
 from common_parser.parsers.helpers import _update_branch_platform
-from common_parser.types import ReviewsBundle, ParseResult
-
+from common_parser.parsers.twogis.helpers import _review_exists, firm_id_from_url, get_reviews
+from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
 from common_parser.tools.create_objects import (
     create_review,
-    get_or_create_Organization, get_or_create_branch_platform,
+    get_or_create_branch_platform,
+    get_or_create_Organization,
 )
-from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
+from common_parser.types import ParseResult, ReviewsBundle
 
 
 def fetch_all_reviews(
-    firm_id: str,
-    limit: int = 50,
-    get_reviews_page: Callable[[str, int, int], Response] = get_reviews
+    firm_id: str, limit: int = 50, get_reviews_page: Callable[[str, int, int], Response] = get_reviews
 ) -> ReviewsBundle:
     first: ReviewsBundle | None = None
     all_reviews: list[dict[str, Any]] = []
@@ -54,10 +52,10 @@ def fetch_all_reviews(
 
 
 def fetch_new_reviews(
-        firm_id: str,
-        branch_platform: BranchPlatform,
-        limit: int = 50,
-        get_reviews_page: Callable[[str, int, int], Response] = get_reviews
+    firm_id: str,
+    branch_platform: BranchPlatform,
+    limit: int = 50,
+    get_reviews_page: Callable[[str, int, int], Response] = get_reviews,
 ) -> ReviewsBundle:
     first: ReviewsBundle | None = None
     all_reviews: list[dict[str, Any]] = []
@@ -120,11 +118,11 @@ def create_2gis_reviews(
     cnt = 0
     for review in bundle.reviews:
         if create_review(
-                convert_2gis_reviews_to_model_data(
-                    branch_platform=branch_platform,
-                    review_data=review,
-                    url=url,
-                )
+            convert_2gis_reviews_to_model_data(
+                branch_platform=branch_platform,
+                review_data=review,
+                url=url,
+            )
         ):
             cnt += 1
 
@@ -166,13 +164,13 @@ class TwoGisParser:
     provider = "2gis"
 
     def run(
-            self,
-            url: str,
-            inn: str,
-            *,
-            org_name: str = "",
-            address: str = "",
-            limit: int = 50,
+        self,
+        url: str,
+        inn: str,
+        *,
+        org_name: str = "",
+        address: str = "",
+        limit: int = 50,
     ) -> ParseResult:
         parsed, created = create_2gis_reviews(
             url=url,

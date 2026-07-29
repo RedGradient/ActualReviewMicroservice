@@ -1,10 +1,10 @@
 import json
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
-from django.db.models import Count, Q, QuerySet, Case, When, Value, IntegerField, F
+from django.db.models import Case, Count, F, IntegerField, Q, QuerySet, Value, When
 
 from common_parser.models import Branch, Review
-
 
 PROVIDER_CHOICES = ["yandex", "2gis", "vlru", "google"]
 
@@ -150,14 +150,11 @@ def get_reviews_response_for_branches(*, branches: Iterable[Branch], query_param
             if sort_photos:
                 predata = predata.order_by(
                     Case(
-                        When(
-                            ~Q(photos__isnull=True) & ~Q(photos=""),
-                            then=Value(1)
-                        ),
+                        When(~Q(photos__isnull=True) & ~Q(photos=""), then=Value(1)),
                         default=Value(0),
                         output_field=IntegerField(),
                     ).desc(),
-                    "-published_date"
+                    "-published_date",
                 )
             else:
                 predata = predata.order_by("-published_date")
@@ -192,14 +189,11 @@ def get_reviews_response_for_branches(*, branches: Iterable[Branch], query_param
         if sort_photos:
             reviews = reviews.order_by(
                 Case(
-                    When(
-                        ~Q(photos__isnull=True) & ~Q(photos=""),
-                        then=Value(1)
-                    ),
+                    When(~Q(photos__isnull=True) & ~Q(photos=""), then=Value(1)),
                     default=Value(0),
                     output_field=IntegerField(),
                 ).desc(),
-                "-published_date"
+                "-published_date",
             )
         else:
             reviews = reviews.order_by("-published_date")
@@ -226,4 +220,3 @@ def get_reviews_response_for_branches(*, branches: Iterable[Branch], query_param
         "reviews": reviews_data,
         "provider_reviews_count": provider_reviews_count,
     }
-

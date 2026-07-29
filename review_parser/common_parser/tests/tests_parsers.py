@@ -9,10 +9,11 @@ from common_parser.parsers import (
     REVIEW_PARSERS_BY_PROVIDER,
     get_review_parser,
 )
+from common_parser.parsers.twogis.parser import TwoGisParser
+from common_parser.parsers.vlru.parser import VlruParser
 from common_parser.tools.parse import parse_all_providers
 from common_parser.types import ParseResult
-from common_parser.parsers.vlru.parser import VlruParser
-from common_parser.parsers.twogis.parser import TwoGisParser
+
 
 @unittest.skip
 class RegistryTests(TestCase):

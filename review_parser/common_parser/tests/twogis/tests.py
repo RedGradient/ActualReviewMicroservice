@@ -4,25 +4,25 @@ from datetime import datetime
 from unittest.mock import Mock, patch
 
 from django.test import TestCase
-from pyasn1_modules.rfc2985 import extensionRequest
 from requests import HTTPError
 
 from common_parser.models import Branch, BranchPlatform, Organization, Review
-from common_parser.types import ReviewsBundle
+from common_parser.parsers.twogis.helpers import _build_api_url, firm_id_from_url
+from common_parser.parsers.twogis.parser import (
+    TwoGisParseError,
+    create_2gis_reviews,
+    fetch_all_reviews,
+    fetch_new_reviews,
+    parse,
+)
+from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
 from common_parser.tests.twogis.helpers import (
     FakeGetReviews,
     fake_get_reviews_page,
     make_reviews_page,
     twogis_api_response,
 )
-from common_parser.parsers.twogis.parser import (
-    TwoGisParseError,
-    create_2gis_reviews,
-    fetch_all_reviews,
-    parse, fetch_new_reviews,
-)
-from common_parser.parsers.twogis.helpers import firm_id_from_url, _build_api_url
-from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
+from common_parser.types import ReviewsBundle
 
 
 class ParseTests(TestCase):
@@ -350,9 +350,7 @@ class FetchNewReviewsTests(TestCase):
             "12345",
             branch_platform,
             limit=50,
-            get_reviews_page=FakeGetReviews(
-                [make_reviews_page(self.reviews, count=495)]
-            ),
+            get_reviews_page=FakeGetReviews([make_reviews_page(self.reviews, count=495)]),
         )
 
         self.assertEqual(bundle.reviews, [])
@@ -364,9 +362,7 @@ class FetchNewReviewsTests(TestCase):
             "12345",
             branch_platform,
             limit=50,
-            get_reviews_page=FakeGetReviews(
-                [make_reviews_page(self.reviews[:1], count=495)]
-            ),
+            get_reviews_page=FakeGetReviews([make_reviews_page(self.reviews[:1], count=495)]),
         )
 
         self.assertEqual(bundle.rating, 4.8)

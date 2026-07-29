@@ -43,6 +43,7 @@ def vlru_comments_single_html() -> str:
     """Фрагмент HTML с одним отзывом из trinity."""
     return (_FIXTURES_DIR / "vlru_comments_single.html").read_text(encoding="utf-8")
 
+
 def vlru_company_main_page_html() -> str:
     """Полная HTML главной страницы компании trinity."""
     return (_FIXTURES_DIR / "vlru_company_main_page.html").read_text(encoding="utf-8")
