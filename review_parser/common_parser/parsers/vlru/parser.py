@@ -131,7 +131,6 @@ def create_vlru_reviews(
     inn: str,
     org_name: str = "",
     address: str = "",
-    count: str | int = 50,
     *,
     client: VLClient | None = None,
 ) -> tuple[int, int]:

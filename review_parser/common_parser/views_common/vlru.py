@@ -11,8 +11,7 @@ def parse_vlru(request):
     org_name = data.get("org_name")
     address = data.get("address")
     url = data.get("url")
-    count = data.get("count")
 
-    cnt = create_vlru_reviews(inn=inn, org_name=org_name, address=address, url=url, count=count)
+    cnt = create_vlru_reviews(inn=inn, org_name=org_name, address=address, url=url)
 
     return Response({"message": f"Отзывов создано: {cnt}"}, status=status.HTTP_201_CREATED)
