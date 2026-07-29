@@ -1,108 +1,26 @@
 from __future__ import annotations
 
-import re
-from collections.abc import Callable
 from datetime import datetime
 from typing import Any
 
-import bs4
 from bs4 import BeautifulSoup
 from loguru import logger
-from requests import Response
 
-from common_parser.models import BranchPlatform, Review
+from common_parser.models import BranchPlatform
 from common_parser.parsers.helpers import _update_branch_platform
-from common_parser.services.http_client import get as http_get
+from common_parser.parsers.vlru.client import VLClient
+from common_parser.parsers.vlru.helpers import (
+    _review_exists,
+    get_company_from_url,
+    get_company_rating,
+    get_company_review_count,
+)
 from common_parser.tools.create_objects import (
     create_review,
     get_or_create_branch_platform,
     get_or_create_Organization,
 )
 from common_parser.types import ParseResult, ReviewsBundle
-
-HttpGet = Callable[..., Response]
-
-
-def get_company_rating(html: str) -> float | None:
-    soup = BeautifulSoup(html, "html.parser")
-    rating_el = soup.find("ul", class_="stars control")
-    if not isinstance(rating_el, bs4.Tag):
-        return None
-    rating = rating_el.get("data-default")
-    if not isinstance(rating, str):
-        return None
-    try:
-        return float(rating.replace(",", "."))
-    except ValueError:
-        logger.warning("VL company rating: invalid data-default={!r}", rating)
-        return None
-
-
-def get_company_review_count(html: str) -> int | None:
-    soup = BeautifulSoup(html, "html.parser")
-    rev_count_el = soup.find("a", class_="hash-link", href="#comments")
-    if not isinstance(rev_count_el, bs4.Tag):
-        return None
-    text = rev_count_el.get_text(" ", strip=True)
-    match = re.search(r"(\d+)", text)
-    if not match:
-        logger.warning("VL company review count: no digits in {!r}", text)
-        return None
-    try:
-        return int(match.group(1))
-    except ValueError:
-        logger.warning("VL company review count: invalid value {!r}", match.group(1))
-        return None
-
-
-class VLClient:
-    """HTTP-клиент VL.ru Comments API."""
-
-    def __init__(self, http_get_fn: HttpGet = http_get):
-        self._http_get = http_get_fn
-
-    @staticmethod
-    def _ajax_headers(*, referer: str | None = None) -> dict[str, str]:
-        headers = {
-            "Accept": "application/json, text/javascript, */*; q=0.01",
-            "X-Requested-With": "XMLHttpRequest",
-        }
-        if referer:
-            headers["Referer"] = referer
-        return headers
-
-    def get_thread(self, company: str) -> Response:
-        url = f"https://www.vl.ru/commentsgate/ajax/thread/company/{company}/embedded"
-        return self._http_get(
-            url,
-            headers=self._ajax_headers(referer=f"https://www.vl.ru/{company}"),
-            params={"theme": "company", "moderatorMode": "1"},
-        )
-
-    def get_comments_page(self, company: str, thread_id: int | str, before: int | str) -> Response:
-        url = f"https://www.vl.ru/commentsgate/ajax/comments/{thread_id}/rendered?"
-        return self._http_get(
-            url,
-            headers=self._ajax_headers(referer=f"https://www.vl.ru/{company}"),
-            params={"theme": "company", "moderatorMode": "1", "before": str(before)},
-        )
-
-    def get_avg_history(self, company_id: int | str) -> Response:
-        url = f"https://www.vl.ru/ajax/company-history-votes?companyId={company_id}"
-        return self._http_get(
-            url,
-            headers=self._ajax_headers(),
-            params={"companyId": company_id},
-        )
-
-    def get_company_page(self, company: str) -> Response:
-        url = f"https://www.vl.ru/{company}"
-        return self._http_get(url)
-
-
-def get_company_from_url(url: str) -> str | None:
-    match = re.search(r"/([^/]+)$", url)
-    return match.group(1) if match else None
 
 
 def parse_vlru_reviews(html_content: str) -> list[dict[str, Any]]:
@@ -191,13 +109,6 @@ def fetch_all_reviews(company: str, *, client: VLClient | None = None) -> Review
         count=count,
         reviews=reviews,
     )
-
-
-def _review_exists(branch_platform: BranchPlatform, review: dict[str, Any]) -> bool:
-    return Review.objects.filter(
-        branch_platform=branch_platform,
-        external_id=review["comment_id"],
-    ).exists()
 
 
 def fetch_new_reviews(

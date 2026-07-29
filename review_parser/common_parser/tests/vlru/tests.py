@@ -6,13 +6,11 @@ from django.test import TestCase
 from requests import HTTPError
 
 from common_parser.models import Branch, BranchPlatform, Organization, Review
+from common_parser.parsers.vlru.helpers import get_company_from_url, get_company_rating, get_company_review_count
 from common_parser.parsers.vlru.parser import (
     create_vlru_reviews,
     fetch_all_reviews,
     fetch_new_reviews,
-    get_company_from_url,
-    get_company_rating,
-    get_company_review_count,
     parse_vlru_reviews,
 )
 from common_parser.tests.vlru.helpers import (
@@ -337,13 +335,13 @@ class GetCompanyRatingTests(TestCase):
         self.assertIsNotNone(result)
         self.assertEqual(result, 0.8215)
 
-    @patch("common_parser.parsers.vlru.parser.BeautifulSoup")
+    @patch("common_parser.parsers.vlru.helpers.BeautifulSoup")
     def test_returns_none_when_element_is_not_tag(self, mock_bs) -> None:
         mock_bs.return_value.find.return_value = "unexpected"
 
         self.assertIsNone(get_company_rating("<html></html>"))
 
-    @patch("common_parser.parsers.vlru.parser.BeautifulSoup")
+    @patch("common_parser.parsers.vlru.helpers.BeautifulSoup")
     def test_returns_none_when_data_default_is_not_string(self, mock_bs) -> None:
         html = '<ul class="stars control" data-default="0,5"></ul>'
         soup = bs4.BeautifulSoup(html, "html.parser")
@@ -366,7 +364,7 @@ class GetCompanyReviewCountTests(TestCase):
         self.assertIsNotNone(result)
         self.assertEqual(result, 309)
 
-    @patch("common_parser.parsers.vlru.parser.BeautifulSoup")
+    @patch("common_parser.parsers.vlru.helpers.BeautifulSoup")
     def test_returns_none_when_comments_link_is_not_tag(self, mock_bs) -> None:
         mock_bs.return_value.find.return_value = "unexpected"
         self.assertIsNone(get_company_review_count("<html></html>"))
