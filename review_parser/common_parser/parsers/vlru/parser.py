@@ -81,36 +81,6 @@ def parse_vlru_reviews(html_content: str) -> list[dict[str, Any]]:
     return reviews
 
 
-def fetch_all_reviews(company: str, *, client: VLClient | None = None) -> ReviewsBundle:
-    client = client or VLClient()
-
-    response = client.get_thread(company)
-    response.raise_for_status()
-
-    data = response.json()
-    reviews = parse_vlru_reviews(data["data"]["content"])
-    thread_id = data["data"]["threadId"]
-
-    while data["data"]["lastCommentId"] and data["data"]["commentsCount"] and response.status_code == 200:
-        response = client.get_comments_page(
-            company,
-            thread_id,
-            data["data"]["lastCommentId"],
-        )
-        response.raise_for_status()
-        data = response.json()
-        reviews.extend(parse_vlru_reviews(data["data"]["content"]))
-
-    count = len(reviews)
-    logger.info("VL parsed reviews: company={} count={}", company, count)
-
-    return ReviewsBundle(
-        rating=5,
-        count=count,
-        reviews=reviews,
-    )
-
-
 def fetch_new_reviews(
     company: str,
     branch_platform: BranchPlatform,

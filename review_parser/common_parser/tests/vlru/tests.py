@@ -9,7 +9,6 @@ from common_parser.models import Branch, BranchPlatform, Organization, Review
 from common_parser.parsers.vlru.helpers import get_company_from_url, get_company_rating, get_company_review_count
 from common_parser.parsers.vlru.parser import (
     create_vlru_reviews,
-    fetch_all_reviews,
     fetch_new_reviews,
     parse_vlru_reviews,
 )
@@ -57,53 +56,6 @@ class ParseVlruReviewsTests(TestCase):
 
     def test_empty_html(self) -> None:
         self.assertEqual(parse_vlru_reviews("<ul id='CommentsList'></ul>"), [])
-
-
-class FetchAllReviewsTests(TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        super().setUpClass()
-        cls.first_page = vlru_thread_first_page()
-        cls.second_page = vlru_comments_second_page()
-        cls.last_page = vlru_thread_last_page()
-
-    def test_single_page_when_no_pagination(self) -> None:
-        client = FakeVLClient(
-            thread_payload=self.first_page,
-            comment_pages=[self.last_page],
-        )
-
-        bundle = fetch_all_reviews("trinity", client=client)
-
-        self.assertIsInstance(bundle, ReviewsBundle)
-        self.assertEqual(client.thread_calls, ["trinity"])
-        self.assertEqual(len(client.comments_calls), 1)
-        self.assertGreater(bundle.count, 0)
-        self.assertEqual(bundle.count, len(bundle.reviews))
-
-    def test_pagination(self) -> None:
-        client = FakeVLClient(
-            thread_payload=self.first_page,
-            comment_pages=[self.second_page, self.last_page],
-        )
-
-        bundle = fetch_all_reviews("trinity", client=client)
-
-        first_count = len(parse_vlru_reviews(self.first_page["data"]["content"]))
-        second_count = len(parse_vlru_reviews(self.second_page["data"]["content"]))
-        self.assertEqual(len(client.comments_calls), 2)
-        self.assertEqual(bundle.count, first_count + second_count)
-
-    def test_http_error_propagates(self) -> None:
-        response = Mock()
-        response.raise_for_status = Mock(side_effect=HTTPError("502"))
-
-        class BrokenClient:
-            def get_thread(self, company: str):
-                return response
-
-        with self.assertRaises(HTTPError):
-            fetch_all_reviews("trinity", client=BrokenClient())
 
 
 class CreateVlruReviewsTests(TestCase):
