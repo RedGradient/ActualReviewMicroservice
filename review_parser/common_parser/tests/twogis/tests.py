@@ -11,14 +11,12 @@ from common_parser.parsers.twogis.helpers import _build_api_url, firm_id_from_ur
 from common_parser.parsers.twogis.parser import (
     TwoGisParseError,
     create_2gis_reviews,
-    fetch_all_reviews,
     fetch_new_reviews,
     parse,
 )
 from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
 from common_parser.tests.twogis.helpers import (
     FakeGetReviews,
-    fake_get_reviews_page,
     make_reviews_page,
     twogis_api_response,
 )
@@ -86,88 +84,6 @@ class BuildApiUrlTests(TestCase):
         self.assertIn("limit=20", url)
         self.assertIn("offset=40", url)
         self.assertIn("branch_reviews_count", url)
-
-
-class FetchAllReviewsTests(TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        super().setUpClass()
-        cls.api_response = twogis_api_response()
-
-    def test_single_page(self) -> None:
-        bundle = fetch_all_reviews(
-            firm_id="12345",
-            limit=20,
-            get_reviews_page=fake_get_reviews_page(self.api_response),
-        )
-
-        self.assertEqual(bundle.rating, 4.8)
-        self.assertEqual(bundle.count, 495)
-        self.assertEqual(len(bundle.reviews), 10)
-
-    def test_pagination(self) -> None:
-        fixture = json.loads(self.api_response)
-        reviews = fixture["reviews"]
-
-        get_reviews_page = FakeGetReviews(
-            [
-                make_reviews_page(reviews[:5], count=8),
-                make_reviews_page(reviews[5:8], count=8),
-            ]
-        )
-
-        bundle = fetch_all_reviews(
-            firm_id="12345",
-            limit=5,
-            get_reviews_page=get_reviews_page,
-        )
-
-        self.assertEqual(get_reviews_page.calls, [("12345", 5, 0), ("12345", 5, 5)])
-        self.assertEqual(len(bundle.reviews), 8)
-        self.assertEqual(bundle.count, 8)
-
-    def test_stops_when_count_reached(self) -> None:
-        reviews = [{"id": str(i), "text": "ok", "rating": 5} for i in range(50)]
-
-        get_reviews_page = FakeGetReviews(
-            [
-                make_reviews_page(reviews, count=50),
-                make_reviews_page([], count=50),
-            ]
-        )
-
-        bundle = fetch_all_reviews(
-            firm_id="12345",
-            limit=50,
-            get_reviews_page=get_reviews_page,
-        )
-
-        self.assertEqual(len(bundle.reviews), 50)
-        self.assertEqual(get_reviews_page.calls, [("12345", 50, 0)])
-
-    def test_empty_reviews(self) -> None:
-        payload = json.dumps(make_reviews_page([], count=0, rating=0))
-
-        bundle = fetch_all_reviews(
-            firm_id="12345",
-            get_reviews_page=fake_get_reviews_page(payload),
-        )
-
-        self.assertEqual(bundle.reviews, [])
-        self.assertEqual(bundle.count, 0)
-
-    def test_http_error_propagates(self) -> None:
-        response = Mock()
-        response.raise_for_status = Mock(side_effect=HTTPError("502"))
-
-        def broken_get_reviews_page(firm_id, limit, offset=0):
-            return response
-
-        with self.assertRaises(HTTPError):
-            fetch_all_reviews(
-                firm_id="12345",
-                get_reviews_page=broken_get_reviews_page,
-            )
 
 
 class Convert2gisReviewsTests(TestCase):

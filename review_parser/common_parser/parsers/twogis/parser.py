@@ -19,38 +19,6 @@ from common_parser.tools.create_objects import (
 from common_parser.types import ParseResult, ReviewsBundle
 
 
-def fetch_all_reviews(
-    firm_id: str, limit: int = 50, get_reviews_page: Callable[[str, int, int], Response] = get_reviews
-) -> ReviewsBundle:
-    first: ReviewsBundle | None = None
-    all_reviews: list[dict[str, Any]] = []
-
-    while True:
-        response = get_reviews_page(firm_id, limit, offset=len(all_reviews))
-        response.raise_for_status()
-
-        bundle = parse(response.text)
-        if first is None:
-            first = bundle
-
-        all_reviews.extend(bundle.reviews)
-
-        if not bundle.reviews or len(bundle.reviews) < limit:
-            break
-
-        if first.count is not None and len(all_reviews) >= first.count:
-            break
-
-    if first is None:
-        raise TwoGisParseError("2GIS returned no data")
-
-    return ReviewsBundle(
-        rating=first.rating,
-        count=first.count,
-        reviews=all_reviews,
-    )
-
-
 def fetch_new_reviews(
     firm_id: str,
     branch_platform: BranchPlatform,
