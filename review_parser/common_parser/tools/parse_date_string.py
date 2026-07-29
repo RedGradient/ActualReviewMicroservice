@@ -40,7 +40,10 @@ def replace_month_with_number(date_str):
 
 
 def parse_date_string(date_str):
-    """Парсит строку формата "DD MMMM YYYY" или "DD MMMM", возвращая объект datetime. Если год отсутствует, подставляет текущий год."""
+    """
+    Парсит строку формата "DD MMMM YYYY" или "DD MMMM", возвращая объект datetime.
+    Если год отсутствует, подставляет текущий год.
+    """
     processed_date = replace_month_with_number(date_str).strip()
     parts = processed_date.split()
 
