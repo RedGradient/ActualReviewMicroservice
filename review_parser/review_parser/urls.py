@@ -5,7 +5,7 @@ from common_parser.views import webhook
 
 from .yasg import urlpatterns as doc_urls
 
-urlpatterns = [
+urlpatterns = [  # noqa: RUF005
     path("admin/", admin.site.urls),
     path("api/yandex/", include("common_parser.urls_common.yandex")),
     path("api/twogis/", include("common_parser.urls_common.twogis")),
