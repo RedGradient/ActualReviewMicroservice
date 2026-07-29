@@ -32,7 +32,9 @@ def parse_all_providers_async_on_create(branch_org_id, branch_address):
         branch = Branch.objects.get(organization_id=branch_org_id, address=branch_address)
         result = parse_all_providers(branch)
         logger.info(
-            f"parse_all_providers_async_on_create finished: branch_id={branch.id} duration_ms={int((perf_counter() - t0) * 1000)}"
+            "parse_all_providers_async_on_create finished: branch_id={} duration_ms={}",
+            branch.id,
+            int((perf_counter() - t0) * 1000)
         )
         return result
     except Branch.DoesNotExist:
@@ -101,7 +103,9 @@ def parse_youtube_videos_async(playlist_id):
     playlist = get_object_or_404(Playlist, id=playlist_id)
     results = parse_youtube_videos(playlist.url)
     logger.info(
-        f"parse_youtube_videos_async finished: playlist_id={playlist_id} duration_ms={int((perf_counter() - t0) * 1000)}"
+        "parse_youtube_videos_async finished: playlist_id={} duration_ms={}",
+        playlist_id,
+        int((perf_counter() - t0) * 1000)
     )
     return {"playlist_id": playlist_id, "results": results}
 
