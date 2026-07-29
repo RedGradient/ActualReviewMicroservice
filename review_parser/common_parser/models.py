@@ -18,7 +18,12 @@ class Branch(models.Model):
     address = models.TextField()
 
     class Meta:
-        constraints = [models.UniqueConstraint(fields=["organization", "address"], name="unique_organization_address")]
+        constraints = (
+            models.UniqueConstraint(
+                fields=["organization", "address"],
+                name="unique_organization_address",
+            ),
+        )
 
     def __str__(self):
         return f"{self.id} : {self.organization}: {self.address[:50]}"
