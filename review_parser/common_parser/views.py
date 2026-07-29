@@ -1,4 +1,6 @@
 from django.db.models import Count, Q
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import serializers, status
@@ -289,10 +291,6 @@ def parse_filter_string(filter_str):
         conditions &= q_object
 
     return conditions
-
-
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 
 
 @csrf_exempt
