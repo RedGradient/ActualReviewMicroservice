@@ -32,12 +32,12 @@ def get_token(url: str) -> dict:
                     # Пытаемся получить JSON
                     try:
                         token_data = response.json()
-                    except:
+                    except Exception:
                         # Если не JSON, пробуем текст
                         body = response.text()
                         try:
                             token_data = json.loads(body)
-                        except:
+                        except Exception:
                             token_data = {}
                     logger.info(f"Token response received: {token_data}")
                 except Exception as e:
