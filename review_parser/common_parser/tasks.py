@@ -34,7 +34,7 @@ def parse_all_providers_async_on_create(branch_org_id, branch_address):
         logger.info(
             "parse_all_providers_async_on_create finished: branch_id={} duration_ms={}",
             branch.id,
-            int((perf_counter() - t0) * 1000)
+            int((perf_counter() - t0) * 1000),
         )
         return result
     except Branch.DoesNotExist:
@@ -105,7 +105,7 @@ def parse_youtube_videos_async(playlist_id):
     logger.info(
         "parse_youtube_videos_async finished: playlist_id={} duration_ms={}",
         playlist_id,
-        int((perf_counter() - t0) * 1000)
+        int((perf_counter() - t0) * 1000),
     )
     return {"playlist_id": playlist_id, "results": results}
 
