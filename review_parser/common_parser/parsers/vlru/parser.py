@@ -271,12 +271,6 @@ def create_vlru_reviews(
     _update_branch_platform(branch_platform, bundle)
     branch_platform.save()
 
-    # if branch_platform.org_id:
-    #     _apply_avg_rating_from_history(
-    #         branch_platform,
-    #         client.get_avg_history(branch_platform.org_id),
-    #     )
-
     created_count = 0
     for review in bundle.reviews:
         review["branch_platform"] = branch_platform
