@@ -50,7 +50,6 @@ class BranchAdmin(NestedModelAdmin):
 
     def get_urls(self):
         urls = super().get_urls()
-        info = self.model._meta.app_label, self.model._meta.model_name
         my_urls = [
             path("<path:object_id>/change/parse/", self.admin_site.admin_view(self.parsing)),
             path("<path:object_id>/change/parse-yandex/", self.admin_site.admin_view(self.parsing_yandex)),
@@ -65,18 +64,18 @@ class BranchAdmin(NestedModelAdmin):
 @admin.register(Organization)
 class OrganizationAdmin(NestedModelAdmin):
     list_display = ("id", "name", "inn")
-    search_fields = ["name"]
-    ordering = ["id"]
-    inlines = [BranchInline]
+    search_fields = ("name",)
+    ordering = ("id",)
+    inlines = (BranchInline,)
 
 
 @admin.register(Review)
 class ReviewAdmin(NestedModelAdmin):
     list_display = ("id", "branch_platform", "author", "rating", "published_date")
     list_filter = ("branch_platform", "rating")
-    search_fields = ["author", "content"]
+    search_fields = ("author", "content")
     date_hierarchy = "published_date"
-    ordering = ["-published_date"]
+    ordering = ("-published_date",)
 
 
 admin.site.register(BranchIPMapping)
@@ -97,7 +96,7 @@ class PlaylistAdmin(NestedModelAdmin):
     list_display = ("id", "title", "count")
     list_filter = ("title",)
 
-    inlines = [VideoInline]
+    inlines = (VideoInline,)
 
     def parsing(self, request, object_id=None):
         # parse_all_providers_async.delay(object_id)
@@ -116,7 +115,6 @@ class PlaylistAdmin(NestedModelAdmin):
 
     def get_urls(self):
         urls = super().get_urls()
-        info = self.model._meta.app_label, self.model._meta.model_name
         my_urls = [
             path("<path:object_id>/change/parse/", self.admin_site.admin_view(self.parsing)),
             path("<path:object_id>/change/parse-youtube/", self.admin_site.admin_view(self.parsing_youtube)),
