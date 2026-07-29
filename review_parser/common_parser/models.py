@@ -146,7 +146,7 @@ class PlaylistIPMapping(models.Model):
 
 
 @receiver(post_save, sender=Playlist)
-def send_notification(sender, instance, created, **kwargs):
+def on_playlist_created(sender, instance, created, **kwargs):
     if created:
         from common_parser.tasks import parse_vk_videos_async, parse_youtube_videos_async
 
@@ -157,7 +157,7 @@ def send_notification(sender, instance, created, **kwargs):
 
 
 @receiver(post_save, sender=Branch)
-def send_notification(sender, instance, created, **kwargs):
+def on_branch_created(sender, instance, created, **kwargs):
     if created:
         from common_parser.tasks import parse_all_providers_async_on_create
 
