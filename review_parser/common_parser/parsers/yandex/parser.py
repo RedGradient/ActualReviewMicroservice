@@ -5,7 +5,7 @@ from playwright.sync_api import Locator, sync_playwright
 
 from common_parser.models import BranchPlatform
 from common_parser.parsers.helpers import _update_branch_platform
-from common_parser.parsers.yandex.helpers import _build_url, _org_id_from_url, _review_exists
+from common_parser.parsers.yandex.helpers import _build_url, _existing_review_keys, _org_id_from_url
 from common_parser.tools.create_objects import (
     create_review,
     get_or_create_branch_platform,
@@ -80,7 +80,8 @@ def fetch_new_reviews(
     org_id: str,
     branch_platform: BranchPlatform,
 ) -> ReviewsBundle:
-    # org_id example: 1395883131
+    existing_keys = _existing_review_keys(branch_platform)
+
     with sync_playwright() as p:
         browser = p.firefox.connect("ws://localhost:3000/", headers=HEADERS)
         page = browser.new_page()
@@ -110,7 +111,8 @@ def fetch_new_reviews(
 
             for review_el in new_review_els:
                 review = parse_el(review_el)
-                if _review_exists(branch_platform, review):
+                review_key = (review["published_date"], review["content"])
+                if review_key in existing_keys:
                     return ReviewsBundle(count=len(new_reviews), rating=rating_text, reviews=new_reviews)
                 new_reviews.append(review)
                 processed += 1

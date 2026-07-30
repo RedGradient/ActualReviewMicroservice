@@ -12,6 +12,10 @@ def _org_id_from_url(url: str) -> str | None:
     return match.group(1) if match else None
 
 
+def _existing_review_keys(branch_platform: BranchPlatform) -> set[tuple[object, str]]:
+    return set(Review.objects.filter(branch_platform=branch_platform).values_list("published_date", "content"))
+
+
 def _review_exists(branch_platform: BranchPlatform, review) -> bool:
     return Review.objects.filter(
         branch_platform=branch_platform, published_date=review["published_date"], content=review["content"]
