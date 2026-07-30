@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from common_parser.views import VALID_PROVIDERS
-
 from .models import Branch, BranchPlatform, Organization, Playlist, Review, Video
+
+VALID_PROVIDERS = [choice[0] for choice in BranchPlatform.PROVIDER_CHOICES]
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
