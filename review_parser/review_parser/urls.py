@@ -10,6 +10,7 @@ urlpatterns = [  # noqa: RUF005
     path("api/yandex/", include("common_parser.urls_common.yandex")),
     path("api/twogis/", include("common_parser.urls_common.twogis")),
     path("api/vlru/", include("common_parser.urls_common.vlru")),
-    path("api/common/", include("common_parser.urls")),
+    path("api/v1/", include("common_parser.urls")),
+    # path("api/common/", include("common_parser.urls")),
     path("api/test/webhook", webhook),
 ] + doc_urls
