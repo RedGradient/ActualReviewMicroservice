@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from loguru import logger
 from playwright.sync_api import Locator, sync_playwright
 
@@ -58,13 +60,17 @@ def parse_el(review: Locator) -> dict:
     avatar = review.locator('meta[itemprop="image"]').get_attribute("content")
     rating = review.locator('meta[itemprop="ratingValue"]').get_attribute("content")
     date_iso = review.locator('meta[itemprop="datePublished"]').get_attribute("content")
+
+    published_date: datetime | None = None
+    if date_iso:
+        published_date = datetime.fromisoformat(date_iso).replace(tzinfo=None)
     text = review.locator(".business-review-view__body .spoiler-view__text-container").inner_text()
 
     return {
         "author": author,
         "avatar": avatar,
         "rating": rating,
-        "published_date": date_iso,
+        "published_date": published_date,
         "content": text,
         "photos": photos,
     }
