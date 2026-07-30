@@ -1,16 +1,15 @@
-import re
-from datetime import datetime
-
-from bs4 import BeautifulSoup
 from loguru import logger
+from playwright.sync_api import Locator, sync_playwright
 
-from common_parser.services.http_client import get as http_get
+from common_parser.models import BranchPlatform
+from common_parser.parsers.helpers import _update_branch_platform
+from common_parser.parsers.yandex.helpers import _build_url, _org_id_from_url, _review_exists
 from common_parser.tools.create_objects import (
     create_review,
-    get_or_create_Branch,
+    get_or_create_branch_platform,
     get_or_create_Organization,
 )
-from common_parser.tools.parse_date_string import parse_date_string
+from common_parser.types import ParseResult, ReviewsBundle
 
 HEADERS = {
     "User-Agent": (
@@ -22,127 +21,116 @@ HEADERS = {
 }
 
 
-@logger.catch
-def parse(url: str, limit: int | None = None) -> dict:
-    logger.info(f"Yandex parse started: url={url} limit={limit}")
-    response = http_get(url, headers=HEADERS)
-    response.raise_for_status()
+def create_yandex_reviews(
+    url: str, inn: str, org_name: str = "", address: str = "", count: str = 50
+) -> tuple[int, int]:
+    if (ogr_id := _org_id_from_url(url)) is None:
+        raise ValueError(f"Invalid Yandex Maps url: {url!r}")
 
-    soup = BeautifulSoup(response.text, "lxml")
+    organization = get_or_create_Organization(inn, org_name)
+    branch_platform = get_or_create_branch_platform(
+        organization=organization,
+        address=address,
+        provider="yandex",
+        url=url,
+    )
 
-    reviews_counter = -1
-    rating_global = -1.0
+    bundle = fetch_new_reviews(ogr_id, branch_platform)
+    _update_branch_platform(branch_platform, bundle)
+    branch_platform.save()
 
-    reviews_tab = soup.select_one(".tabs-select-view__title._name_reviews")
-    if reviews_tab:
-        counter_el = reviews_tab.select_one(".tabs-select-view__counter")
-        if counter_el and counter_el.text:
-            reviews_counter = counter_el.text.strip()
+    created = 0
+    for review in bundle.reviews:
+        if create_review(review):
+            created += 1
 
-    stars_block = soup.select_one(".business-summary-rating-badge-view")
-    if stars_block:
-        rating_parts = [
-            el.get_text(strip=True) for el in stars_block.select(".business-summary-rating-badge-view__rating-text")
-        ]
-        if rating_parts:
-            rating_text = "".join(rating_parts)
-            rating_text = rating_text.replace("\xa0", "").replace(",", ".").strip()
-            try:
-                rating_global = float(rating_text)
-            except ValueError:
-                rating_global = -1.0
+    parsed = len(bundle.reviews)
+    logger.info(f"Yandex create finished: url={url} branch_address={address} parsed={parsed} created={created}")
+    return parsed, created
 
-    result: list[dict] = []
-    count = 0
 
-    review_blocks = soup.select(".business-review-view__info")
-
-    for review_block in review_blocks:
-        avatar_img_url = ""
-        avatar_el = review_block.select_one(".user-icon-view__icon")
-        if avatar_el:
-            style_attr = avatar_el.get("style", "")
-            match = re.search(r'url\(["\']?(.*?)["\']?\)', style_attr)
-            if match:
-                avatar_img_url = match.group(1).strip('"')
-
-        author_name_el = review_block.select_one(".business-review-view__author-name")
-        author_name = author_name_el.text.strip() if author_name_el else ""
-
-        date_published_el = review_block.select_one(".business-review-view__date")
-        date_published_raw = date_published_el.text.strip() if date_published_el else ""
-
-        photos_obj = review_block.select(".business-review-media__item-img")
-        image_srcs = []
-        for photo in photos_obj:
-            src = photo.get("src")
-            if src:
-                image_srcs.append(src)
-        photos = ", ".join(image_srcs)
-
-        stars_count = len(review_block.select(".business-rating-badge-view__star._full"))
-
-        review_text_el = review_block.select_one(".business-review-view__body")
-        review_text = review_text_el.text.strip() if review_text_el else ""
-        if "Ещё" in review_text:
-            review_text = review_text.replace("Ещё", "").strip()
-
-        try:
-            result.append(
-                {
-                    "author": author_name,
-                    "avatar": avatar_img_url,
-                    "published_date": parse_date_string(date_published_raw),
-                    "rating": stars_count,
-                    "content": review_text,
-                    "provider": "yandex",
-                    "photos": photos,
-                }
-            )
-            count += 1
-        except Exception:
-            print("Ошибка при добавлении ", Exception)
-
-        if limit and limit == count:
-            break
+def parse_el(review: Locator) -> dict:
+    carousel = review.locator(".business-review-view__carousel")
+    photos = []
+    if carousel.count() > 0:
+        photos = carousel.locator("img.business-review-media__item-img").evaluate_all("els => els.map(el => el.src)")
+    author = review.locator('[itemprop="name"]').inner_text()
+    avatar = review.locator('meta[itemprop="image"]').get_attribute("content")
+    rating = review.locator('meta[itemprop="ratingValue"]').get_attribute("content")
+    date_iso = review.locator('meta[itemprop="datePublished"]').get_attribute("content")
+    text = review.locator(".business-review-view__body .spoiler-view__text-container").inner_text()
 
     return {
-        "count": reviews_counter,
-        "rating": rating_global,
-        "reviews": result,
+        "author": author,
+        "avatar": avatar,
+        "rating": rating,
+        "published_date": date_iso,
+        "content": text,
+        "photos": photos,
     }
 
 
-def create_yandex_reviews(url: str, inn: str, org_name: str = "", address: str = "", count: str = 50) -> int:
-    dict_yandex = parse(url)
+def fetch_new_reviews(
+    org_id: str,
+    branch_platform: BranchPlatform,
+) -> ReviewsBundle:
+    # org_id example: 1395883131
+    with sync_playwright() as p:
+        browser = p.firefox.connect("ws://localhost:3000/", headers=HEADERS)
+        page = browser.new_page()
+        page.goto(_build_url(org_id))
 
-    if dict_yandex is None:
-        dict_yandex = {"count": 0, "rating": -1, "reviews": []}
+        rating_text = page.locator(".business-summary-rating-badge-view__rating").inner_text()
+        scroll_container = page.locator(".scroll__container")
+        processed = 0
+        new_reviews = []
+        no_new_batches = 0
 
-    branch = get_or_create_Branch(
-        organization=get_or_create_Organization(inn, org_name),
-        address=address,
-        url_name="yandex_map_url",
-        url=url,
-        review_count_name="yandex_review_count",
-        review_count=dict_yandex["count"],
-        review_avg_name="yandex_review_avg",
-        review_avg=dict_yandex["rating"],
-    )
+        while True:
+            reviews = page.locator(".business-reviews-card-view__review")
+            all_reviews_els = reviews.all()
+            new_review_els = all_reviews_els[processed:]
 
-    branch.yandex_parse_date = datetime.now()
-    branch.save()
+            # Прекращаем скроллить после трех неудачных попыток
+            if not new_review_els:
+                scroll_container.evaluate("el => el.scrollTop = el.scrollHeight")
+                page.wait_for_timeout(1500)
+                no_new_batches += 1
+                if no_new_batches >= 3:
+                    break
+                continue
 
-    for d in dict_yandex["reviews"]:
-        d["branch"] = branch
+            no_new_batches = 0
 
-    cnt = 0
+            for review_el in new_review_els:
+                review = parse_el(review_el)
+                if _review_exists(branch_platform, review):
+                    return ReviewsBundle(count=len(new_reviews), rating=rating_text, reviews=new_reviews)
+                new_reviews.append(review)
+                processed += 1
 
-    for review in dict_yandex["reviews"]:
-        if create_review(review):
-            cnt += 1
+            scroll_container.evaluate("el => el.scrollTop = el.scrollHeight")
+            page.wait_for_timeout(1500)
 
-    logger.info(
-        f"Yandex create finished: url={url} branch_address={address} parsed={len(dict_yandex['reviews'])} created={cnt}"
-    )
-    return (len(dict_yandex["reviews"]), cnt)
+    return ReviewsBundle(count=len(new_reviews), rating=rating_text, reviews=new_reviews)
+
+
+class YandexMapParser:
+    provider = "yandex"
+
+    def run(
+        self,
+        url: str,
+        inn: str,
+        *,
+        org_name: str = "",
+        address: str = "",
+        limit: int = 50,
+    ) -> ParseResult:
+        parsed, created = create_yandex_reviews(
+            url=url,
+            inn=inn,
+            org_name=org_name,
+            address=address,
+        )
+        return ParseResult(parsed, created)
