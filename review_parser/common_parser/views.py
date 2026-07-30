@@ -58,10 +58,7 @@ def get_reviews(request) -> Response:
 @swagger_auto_schema(
     method="POST",
     operation_summary="Синхронизировать отзывы",
-    operation_description=(
-        "Запускает парсинг отзывов для указанных провайдеров филиала. "
-        "Для каждого провайдера должна быть настроена ссылка на платформу (`BranchPlatform.url`)."
-    ),
+    operation_description=("Запускает парсинг отзывов для указанных провайдеров филиала. "),
     request_body=SyncReviewsSerializer,
     responses={
         200: openapi.Response(
