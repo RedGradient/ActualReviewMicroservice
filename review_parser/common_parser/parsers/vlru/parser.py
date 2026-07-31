@@ -188,7 +188,6 @@ class VlruParser:
             inn=inn,
             org_name=org_name,
             address=address,
-            count=limit,
             client=self._client,
         )
         return ParseResult(parsed, created)
