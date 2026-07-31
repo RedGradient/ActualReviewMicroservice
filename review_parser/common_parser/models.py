@@ -86,7 +86,7 @@ class Review(models.Model):
     video = models.URLField(null=True, blank=True)
     photos = models.TextField(null=True, blank=True)
     published_date = models.DateTimeField(default=now)
-    rating = models.PositiveSmallIntegerField()
+    rating = models.CharField(null=True, blank=True)
     content = models.TextField()
 
     review_url = models.URLField(max_length=250, null=True, blank=True)
