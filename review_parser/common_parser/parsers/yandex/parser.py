@@ -113,6 +113,14 @@ def fetch_new_reviews(
 
         rating = _parse_global_rating(page)
         scroll_container = page.locator(".scroll__container")
+
+        # Установить сортировку "сначала новые"
+        page.locator(".rating-ranking-view").click()
+        new_first_button = page.locator('.rating-ranking-view__popup-line[aria-label="New first"]')
+        new_first_button.wait_for()
+        new_first_button.click()
+        page.wait_for_timeout(2000)
+
         processed = 0
         new_reviews = []
         no_new_batches = 0
