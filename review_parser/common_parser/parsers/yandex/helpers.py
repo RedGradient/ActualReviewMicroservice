@@ -45,8 +45,18 @@ def _org_id_from_url(url: str) -> str | None:
 
     return None
 
-def _existing_review_keys(branch_platform: BranchPlatform) -> set[tuple[object, str]]:
+
+def _existing_review_keys(branch_platform: BranchPlatform) -> set[tuple[datetime | None, str]]:
     return set(Review.objects.filter(branch_platform=branch_platform).values_list("published_date", "content"))
+
+
+def _parse_global_rating(page: Page) -> str | None:
+    parts = page.locator(".business-summary-rating-badge-view__rating-text").all_inner_texts()
+    if not parts:
+        return None
+
+    rating_raw = "".join(parts).replace("\xa0", "").replace(",", ".").strip()
+    return rating_raw
 
 
 def _review_exists(branch_platform: BranchPlatform, review) -> bool:

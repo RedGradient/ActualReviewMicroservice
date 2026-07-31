@@ -5,7 +5,12 @@ from playwright.sync_api import Locator, sync_playwright
 
 from common_parser.models import BranchPlatform
 from common_parser.parsers.helpers import _update_branch_platform
-from common_parser.parsers.yandex.helpers import _build_url, _existing_review_keys, _org_id_from_url
+from common_parser.parsers.yandex.helpers import (
+    _build_url,
+    _existing_review_keys,
+    _org_id_from_url,
+    _parse_global_rating,
+)
 from common_parser.tools.create_objects import (
     create_review,
     get_or_create_branch_platform,
@@ -29,6 +34,8 @@ def create_yandex_reviews(
     if (ogr_id := _org_id_from_url(url)) is None:
         raise ValueError(f"Invalid Yandex Maps url: {url!r}")
 
+    logger.info("Yandex parser started for url: {}", url)
+
     organization = get_or_create_Organization(inn, org_name)
     branch_platform = get_or_create_branch_platform(
         organization=organization,
@@ -45,6 +52,8 @@ def create_yandex_reviews(
     for review in bundle.reviews:
         if create_review(review):
             created += 1
+        else:
+            logger.warning("Yandex parser, serialization error in {}", review)
 
     parsed = len(bundle.reviews)
     logger.info(f"Yandex create finished: url={url} branch_address={address} parsed={parsed} created={created}")
@@ -102,11 +111,12 @@ def fetch_new_reviews(
         page = browser.new_page()
         page.goto(_build_url(org_id))
 
-        rating_text = page.locator(".business-summary-rating-badge-view__rating").inner_text()
+        rating = _parse_global_rating(page)
         scroll_container = page.locator(".scroll__container")
         processed = 0
         new_reviews = []
         no_new_batches = 0
+        pg = 1
 
         while True:
             reviews = page.locator(".business-reviews-card-view__review")
@@ -126,16 +136,24 @@ def fetch_new_reviews(
 
             for review_el in new_review_els:
                 review = parse_el(review_el)
+                if review is None:
+                    processed += 1
+                    continue
                 review_key = (review["published_date"], review["content"])
                 if review_key in existing_keys:
-                    return ReviewsBundle(count=len(new_reviews), rating=rating_text, reviews=new_reviews)
+                    return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
+
+                review["branch_platform"] = branch_platform
                 new_reviews.append(review)
                 processed += 1
 
             scroll_container.evaluate("el => el.scrollTop = el.scrollHeight")
             page.wait_for_timeout(1500)
 
-    return ReviewsBundle(count=len(new_reviews), rating=rating_text, reviews=new_reviews)
+            logger.info("Yandex parsing...page {}, parsed {}", pg, len(new_reviews))
+            pg += 1
+
+    return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
 
 
 class YandexMapParser:
