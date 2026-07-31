@@ -124,6 +124,7 @@ def fetch_new_reviews(
         processed = 0
         new_reviews = []
         no_new_batches = 0
+        no_new_batches_limit = 3
         pg = 1
 
         while True:
@@ -136,6 +137,9 @@ def fetch_new_reviews(
                 scroll_container.evaluate("el => el.scrollTop = el.scrollHeight")
                 page.wait_for_timeout(1500)
                 no_new_batches += 1
+                logger.info(
+                    "Yandex parser, повторная попытка получить новые отзывы {}/{}", no_new_batches, no_new_batches_limit
+                )
                 if no_new_batches >= 3:
                     break
                 continue
@@ -149,6 +153,7 @@ def fetch_new_reviews(
                     continue
                 review_key = (review["published_date"], review["content"])
                 if review_key in existing_keys:
+                    logger.info("Yandex parser, Знакомый отзыв, совпадение по {}. Парсинг остановлен", review_key)
                     return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
 
                 review["branch_platform"] = branch_platform
