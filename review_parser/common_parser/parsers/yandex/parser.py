@@ -51,28 +51,43 @@ def create_yandex_reviews(
     return parsed, created
 
 
-def parse_el(review: Locator) -> dict:
-    carousel = review.locator(".business-review-view__carousel")
-    photos = []
-    if carousel.count() > 0:
-        photos = carousel.locator("img.business-review-media__item-img").evaluate_all("els => els.map(el => el.src)")
-    author = review.locator('[itemprop="name"]').inner_text()
-    avatar = review.locator('meta[itemprop="image"]').get_attribute("content")
-    rating = review.locator('meta[itemprop="ratingValue"]').get_attribute("content")
-    date_iso = review.locator('meta[itemprop="datePublished"]').get_attribute("content")
+def parse_el(review: Locator) -> dict | None:
+    try:
+        data = review.evaluate(
+            """
+            el => {
+                const photos = [...el.querySelectorAll(
+                    ".business-review-view__carousel img.business-review-media__item-img"
+                )].map(img => img.src);
+                return {
+                    author: el.querySelector('[itemprop="name"]')?.textContent?.trim() ?? "",
+                    avatar: el.querySelector('meta[itemprop="image"]')?.getAttribute("content") ?? "",
+                    rating: el.querySelector('meta[itemprop="ratingValue"]')?.getAttribute("content") ?? "",
+                    date_iso: el.querySelector('meta[itemprop="datePublished"]')?.getAttribute("content") ?? "",
+                    text: el.querySelector(
+                        ".business-review-view__body .spoiler-view__text-container"
+                    )?.textContent?.trim() ?? "",
+                    photos,
+                };
+            }
+            """,
+            timeout=5000,
+        )
+    except Exception as exc:
+        logger.warning(f"Failed to parse review element, skipping: {exc}")
+        return None
 
     published_date: datetime | None = None
-    if date_iso:
-        published_date = datetime.fromisoformat(date_iso).replace(tzinfo=None)
-    text = review.locator(".business-review-view__body .spoiler-view__text-container").inner_text()
+    if data["date_iso"]:
+        published_date = datetime.fromisoformat(data["date_iso"]).replace(tzinfo=None)
 
     return {
-        "author": author,
-        "avatar": avatar,
-        "rating": rating,
+        "author": data["author"],
+        "avatar": data["avatar"] or None,
+        "rating": data["rating"] or None,
         "published_date": published_date,
-        "content": text,
-        "photos": photos,
+        "content": data["text"],
+        "photos": ", ".join(data["photos"]),
     }
 
 
