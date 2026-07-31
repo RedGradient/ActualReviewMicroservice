@@ -11,6 +11,7 @@ from common_parser.models import BranchPlatform, Review
 
 
 def get_company_from_url(url: str) -> str | None:
+    url = url.split("#", 1)[0].rstrip("/")
     match = re.search(r"/([^/]+)$", url)
     return match.group(1) if match else None
 
