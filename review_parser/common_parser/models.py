@@ -2,12 +2,15 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.db.transaction import on_commit
 from django.dispatch import receiver
+from django.utils import timezone
 from django.utils.timezone import now
 
 
 class Organization(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     inn = models.CharField(max_length=12, null=False, blank=False, unique=True)
+
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     def __str__(self):
         return self.name or f"Организация #{self.id}"
@@ -16,6 +19,8 @@ class Organization(models.Model):
 class Branch(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name="branches")
     address = models.TextField()
+
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     class Meta:
         constraints = (
@@ -77,6 +82,8 @@ class BranchPlatform(models.Model):
         null=True,
     )
 
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
+
 
 class Review(models.Model):
     branch_platform = models.ForeignKey(BranchPlatform, on_delete=models.CASCADE, related_name="reviews")
@@ -90,6 +97,8 @@ class Review(models.Model):
     content = models.TextField()
 
     review_url = models.URLField(max_length=250, null=True, blank=True)
+
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     def __str__(self):
         return f"{self.author}'s review for {self.branch_platform.branch}"
