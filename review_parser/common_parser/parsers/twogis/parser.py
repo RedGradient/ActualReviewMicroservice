@@ -83,7 +83,7 @@ def create_2gis_reviews(
     _update_branch_platform(branch_platform, bundle)
     branch_platform.save()
 
-    cnt = 0
+    created = 0
     for review in bundle.reviews:
         if create_review(
             convert_2gis_reviews_to_model_data(
@@ -92,18 +92,18 @@ def create_2gis_reviews(
                 url=url,
             )
         ):
-            cnt += 1
+            created += 1
 
-    fetched_count = len(bundle.reviews)
+    processed = len(bundle.reviews)
     logger.info(
         "2GIS create finished: url={} branch_address={} parsed={} created={}",
         url,
         address,
-        fetched_count,
-        cnt,
+        processed,
+        created,
     )
 
-    return fetched_count, cnt
+    return processed, created
 
 
 class TwoGisParseError(Exception):
