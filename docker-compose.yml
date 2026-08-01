@@ -26,7 +26,7 @@ services:
 
   celery:
     build: .
-    command: celery -A review_parser worker --loglevel=info --pool=solo --concurrency=1
+    command: celery -A review_parser worker --loglevel=info --concurrency=5
     volumes:
       - .:/code
     depends_on: 
