@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from celery.result import AsyncResult
 from loguru import logger
 from playwright.sync_api import Locator, sync_playwright
 
@@ -192,24 +191,3 @@ class YandexMapParser:
             address=address,
         )
         return ParseResult(parsed, created)
-
-    def run_delay(
-        self,
-        url: str,
-        inn: str,
-        *,
-        org_name: str = "",
-        address: str = "",
-    ) -> str:
-        organization = get_or_create_Organization(inn, org_name)
-        branch_platform = get_or_create_branch_platform(
-            organization=organization,
-            address=address,
-            provider="yandex",
-            url=url,
-        )
-
-        from common_parser.tasks import parse_yandex_async
-
-        task: AsyncResult = parse_yandex_async.delay(branch_platform.pk)
-        return task.id
