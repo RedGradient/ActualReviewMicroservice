@@ -122,7 +122,7 @@ def sync_reviews(request) -> Response:
     serializer = SyncReviewsSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
 
-    task = parse_providers_async.delay(
+    task: AsyncResult = parse_providers_async.delay(
         providers=serializer.validated_data["providers"],
         organization_id=serializer.validated_data["organization_id"],
         branch_id=serializer.validated_data["branch_id"],
@@ -131,7 +131,7 @@ def sync_reviews(request) -> Response:
     return Response(
         {
             "task_id": task.id,
-            "status": "pending",
+            "status": task.status,
         },
         status=status.HTTP_202_ACCEPTED,
     )
