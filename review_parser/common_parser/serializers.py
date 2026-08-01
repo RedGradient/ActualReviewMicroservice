@@ -61,3 +61,7 @@ class SyncReviewsSerializer(serializers.Serializer):
         child=serializers.ChoiceField(choices=VALID_PROVIDERS),
         allow_empty=False,
     )
+
+
+class TaskQuerySerializer(serializers.Serializer):
+    task_id = serializers.CharField()

@@ -1,3 +1,4 @@
+from celery.result import AsyncResult
 from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -6,7 +7,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from common_parser.models import Branch, BranchPlatform, Review
-from common_parser.serializers import GetReviewsSerializer, ReviewSerializer, SyncReviewsSerializer
+from common_parser.serializers import (
+    GetReviewsSerializer,
+    ReviewSerializer,
+    SyncReviewsSerializer,
+    TaskQuerySerializer,
+)
 from common_parser.tasks import parse_providers_async
 
 SYNC_ACCEPTED_SCHEMA = openapi.Schema(
@@ -20,11 +26,29 @@ SYNC_ACCEPTED_SCHEMA = openapi.Schema(
         ),
         "status": openapi.Schema(
             type=openapi.TYPE_STRING,
-            enum=["pending", "success", "error"],
+            enum=["PENDING", "STARTED", "SUCCESS", "FAILURE", "RETRY", "REVOKED"],
             description="Начальный статус задачи",
         ),
     },
     example={"task_id": "a3f2c1b0-4d8d-4e2a-9f1b-2c8d7e6f5a4b", "status": "pending"},
+)
+
+TASK_STATUS_SCHEMA = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    required=["task_id", "status"],
+    properties={
+        "task_id": openapi.Schema(
+            type=openapi.TYPE_STRING,
+            format=openapi.FORMAT_UUID,
+            description="ID Celery-задачи",
+        ),
+        "status": openapi.Schema(
+            type=openapi.TYPE_STRING,
+            enum=["PENDING", "STARTED", "SUCCESS", "FAILURE", "RETRY", "REVOKED"],
+            description="Текущий статус задачи в Celery",
+        ),
+    },
+    example={"task_id": "a3f2c1b0-4d8d-4e2a-9f1b-2c8d7e6f5a4b", "status": "SUCCESS"},
 )
 
 
@@ -69,8 +93,8 @@ def get_reviews(request) -> Response:
     operation_summary="Запустить синхронизацию отзывов (async)",
     operation_description=(
         "Ставит в очередь Celery-задачу парсинга отзывов для указанных провайдеров филиала.\n\n"
-        "Ответ **202 Accepted** содержит `task_id` — по нему можно проверить статус через Celery result backend "
-        "(`django_celery_results` / `AsyncResult`).\n\n"
+        "Ответ **202 Accepted** содержит `task_id` — статус можно проверить через `GET /api/v1/tasks/?task_id=...` "
+        "или Celery result backend (`django_celery_results` / `AsyncResult`).\n\n"
         "Ошибки по отдельным провайдерам не отменяют задачу целиком. "
         "Пример смешанного результата:\n"
         "```json\n"
@@ -111,3 +135,47 @@ def sync_reviews(request) -> Response:
         },
         status=status.HTTP_202_ACCEPTED,
     )
+
+
+@swagger_auto_schema(
+    method="GET",
+    operation_summary="Получить статус Celery-задачи",
+    operation_description=(
+        "Возвращает текущий статус фоновой задачи по query-параметру `task_id`, "
+        "полученному из `POST /api/v1/sync/`.\n\n"
+        "**Статусы Celery:**\n"
+        "- `PENDING` — в очереди или worker ещё не отметил старт\n"
+        "- `STARTED` — выполняется\n"
+        "- `SUCCESS` — завершена успешно\n"
+        "- `FAILURE` — завершена с ошибкой\n"
+        "- `RETRY` — повторная попытка\n"
+        "- `REVOKED` — отменена\n\n"
+        "Результат выполненной задачи (`parse_providers_async`) доступен через Celery result backend "
+        "(`AsyncResult(task_id).result` / таблица `django_celery_results_taskresult`)."
+    ),
+    manual_parameters=[
+        openapi.Parameter(
+            "task_id",
+            openapi.IN_QUERY,
+            description="ID Celery-задачи (UUID)",
+            type=openapi.TYPE_STRING,
+            format=openapi.FORMAT_UUID,
+            required=True,
+        ),
+    ],
+    responses={
+        200: openapi.Response(
+            description="Статус задачи",
+            schema=TASK_STATUS_SCHEMA,
+        ),
+        400: "Некорректные query-параметры",
+    },
+    tags=["sync"],
+)
+@api_view(["GET"])
+def tasks(request) -> Response:
+    serializer = TaskQuerySerializer(data=request.query_params)
+    serializer.is_valid(raise_exception=True)
+    task_id = serializer.validated_data["task_id"]
+    task = AsyncResult(task_id)
+    return Response({"task_id": task_id, "status": task.status})
