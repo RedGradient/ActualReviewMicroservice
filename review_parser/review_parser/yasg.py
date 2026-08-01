@@ -8,18 +8,13 @@ schema_view = get_schema_view(
         title="Review Parser API",
         default_version="v1",
         description="""
-API для парсинга и получения отзывов с различных платформ (Яндекс, Google, 2GIS, VL.RU)
-и видео из плейлистов (YouTube, VK).
+API для парсинга и получения отзывов с платформ (Yandex, 2GIS, VL.RU).
 
-**Основные эндпоинты:**
-- `GET /api/common/get_reviews/` — отзывы по ID филиала
-- `GET /api/common/get_reviews_by_ip` — отзывы по IP (требуется Branch IP Mapping)
-- `GET /api/common/v2/reviews` — отзывы v2 (рекомендуется, удобные query-параметры)
-- `GET /api/common/v2/reviews_by_ip` — отзывы v2 по IP (рекомендуется)
-- `GET /api/common/get_videos_by_ip` — видео по IP (требуется Playlist IP Mapping)
+**Эндпоинты v1 (`/api/v1/`):**
+- `GET /api/v1/reviews/` — отзывы филиала по провайдеру (пагинация `limit`/`offset`)
+- `POST /api/v1/sync/` — асинхронный запуск парсинга (ответ 202 + `task_id`)
 
-**Провайдеры отзывов:** yandex, 2gis, vlru (google выключен)
-**Провайдеры видео:** youtube, vk
+**Провайдеры отзывов:** yandex, 2gis, vlru, google (google без парсера)
 """,
         license=openapi.License(name="BSD License"),
     ),
