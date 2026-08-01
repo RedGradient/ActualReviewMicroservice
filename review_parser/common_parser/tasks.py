@@ -1,11 +1,11 @@
 from time import perf_counter
 
-from celery import shared_task
+from celery import chord, shared_task
 from django.shortcuts import get_object_or_404
 from loguru import logger
 
-from common_parser.models import Branch, Playlist
-from common_parser.parsers import get_review_parser
+from common_parser.models import Branch, BranchPlatform, Organization, Playlist
+from common_parser.parsers.registry import get_review_parser
 from common_parser.parsers.yandex.parser import create_yandex_reviews
 from common_parser.tools.parse import parse_all_providers
 
@@ -55,16 +55,75 @@ def parse_all_providers_async(branch_id):
 
 
 @shared_task(name="parse_yandex_async")
-def parse_yandex_async(branch_id):
+def parse_yandex_async(branch_platform_id):
     t0 = perf_counter()
-    branch = get_object_or_404(Branch, id=branch_id)
+    branch_platform = get_object_or_404(BranchPlatform, id=branch_platform_id)
     results = create_yandex_reviews(
-        url=branch.yandex_map_url,
-        inn=branch.organization.inn,
-        address=branch.address,
+        url=branch_platform.url,
+        inn=branch_platform.branch.organization.inn,
+        address=branch_platform.branch.address,
     )
-    logger.info(f"parse_yandex_async finished: branch_id={branch_id} duration_ms={int((perf_counter() - t0) * 1000)}")
-    return {"branch_id": branch_id, "results": results}
+    logger.info(
+        f"parse_yandex_async finished: branch_platform_id={branch_platform_id} "
+        f"duration_ms={int((perf_counter() - t0) * 1000)}"
+    )
+    return {"branch_platform_id": branch_platform_id, "results": results}
+
+
+@shared_task(name="parse_single_provider")
+def parse_single_provider(provider: str, organization_id: int, branch_id: int):
+    try:
+        organization = Organization.objects.get(pk=organization_id)
+        branch = Branch.objects.get(pk=branch_id, organization=organization)
+    except Organization.DoesNotExist:
+        logger.error("Organization not found: id={}", organization_id)
+        return {provider: {"error": "organization_not_found", "organization_id": organization_id}}
+    except Branch.DoesNotExist:
+        logger.error("Branch not found: id={}", branch_id)
+        return {provider: {"error": "branch_not_found", "branch_id": branch_id}}
+
+    try:
+        branch_platform = BranchPlatform.objects.get(branch=branch, provider=provider)
+    except BranchPlatform.DoesNotExist:
+        logger.error(f"Branch {branch} has no {provider} provider")
+        return {provider: {"error": "branch_platform_not_found", "provider": provider}}
+
+    if not branch_platform.url:
+        logger.error(f"Branch platform for provider {provider} has no url")
+        return {provider: {"error": "branch_platform_has_no_url", "provider": provider}}
+
+    try:
+        parser = get_review_parser(provider)
+    except KeyError:
+        logger.error("Unknown provider: {}", provider)
+        return {provider: {"error": "unknown_provider", "provider": provider}}
+
+    try:
+        parser_result = parser.run(
+            url=branch_platform.url, org_name=organization.name or "", inn=organization.inn, address=branch.address
+        )
+
+        return {provider: {"parsed": parser_result.parsed, "created": parser_result.created}}
+    except Exception:
+        logger.exception(
+            "Failed to parse {} for branch_id={}",
+            parser.provider,
+            branch.pk,
+        )
+        return {provider: {"error": "unknown_error"}}
+
+
+@shared_task(name="merge_provider_results")
+def merge_provider_results(provider_results: list[dict]) -> dict:
+    merged = {}
+    for item in provider_results:
+        merged.update(item)
+    return merged
+
+
+def parse_providers_async(providers: list[str], organization_id: int, branch_id: int):
+    header = [parse_single_provider.s(provider, organization_id, branch_id) for provider in providers]
+    return chord(header)(merge_provider_results.s())
 
 
 @shared_task(name="parse_vlru_async")

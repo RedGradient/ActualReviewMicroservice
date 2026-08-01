@@ -1,21 +1,54 @@
+from celery.result import AsyncResult
 from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from common_parser.models import Branch, BranchPlatform, Organization, Review
-from common_parser.parsers.registry import get_review_parser
-from common_parser.serializers import GetReviewsSerializer, ReviewSerializer, SyncReviewsSerializer
+from common_parser.models import Branch, BranchPlatform, Review
+from common_parser.serializers import (
+    GetReviewsSerializer,
+    ReviewSerializer,
+    SyncReviewsSerializer,
+    TaskQuerySerializer,
+)
+from common_parser.tasks import parse_providers_async
 
-VALID_PROVIDERS = [choice[0] for choice in BranchPlatform.PROVIDER_CHOICES]
-
-SYNC_RESULT_SCHEMA = openapi.Schema(
+SYNC_ACCEPTED_SCHEMA = openapi.Schema(
     type=openapi.TYPE_OBJECT,
+    required=["task_id", "status"],
     properties={
-        "parsed": openapi.Schema(type=openapi.TYPE_INTEGER, description="Количество обработанных отзывов"),
-        "created": openapi.Schema(type=openapi.TYPE_INTEGER, description="Количество новых отзывов"),
+        "task_id": openapi.Schema(
+            type=openapi.TYPE_STRING,
+            format=openapi.FORMAT_UUID,
+            description="ID Celery-задачи для отслеживания статуса",
+        ),
+        "status": openapi.Schema(
+            type=openapi.TYPE_STRING,
+            enum=["PENDING", "STARTED", "SUCCESS", "FAILURE", "RETRY", "REVOKED"],
+            description="Начальный статус задачи",
+        ),
     },
+    example={"task_id": "a3f2c1b0-4d8d-4e2a-9f1b-2c8d7e6f5a4b", "status": "pending"},
+)
+
+TASK_STATUS_SCHEMA = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    required=["task_id", "status"],
+    properties={
+        "task_id": openapi.Schema(
+            type=openapi.TYPE_STRING,
+            format=openapi.FORMAT_UUID,
+            description="ID Celery-задачи",
+        ),
+        "status": openapi.Schema(
+            type=openapi.TYPE_STRING,
+            enum=["PENDING", "STARTED", "SUCCESS", "FAILURE", "RETRY", "REVOKED"],
+            description="Текущий статус задачи в Celery",
+        ),
+    },
+    example={"task_id": "a3f2c1b0-4d8d-4e2a-9f1b-2c8d7e6f5a4b", "status": "SUCCESS"},
 )
 
 
@@ -57,41 +90,92 @@ def get_reviews(request) -> Response:
 
 @swagger_auto_schema(
     method="POST",
-    operation_summary="Синхронизировать отзывы",
-    operation_description=("Запускает парсинг отзывов для указанных провайдеров филиала. "),
+    operation_summary="Запустить синхронизацию отзывов (async)",
+    operation_description=(
+        "Ставит в очередь Celery-задачу парсинга отзывов для указанных провайдеров филиала.\n\n"
+        "Ответ **202 Accepted** содержит `task_id` — статус можно проверить через `GET /api/v1/tasks/?task_id=...` "
+        "или Celery result backend (`django_celery_results` / `AsyncResult`).\n\n"
+        "Ошибки по отдельным провайдерам не отменяют задачу целиком. "
+        "Пример смешанного результата:\n"
+        "```json\n"
+        "{\n"
+        '  "2gis": {"parsed": 10, "created": 3},\n'
+        '  "vlru": {"parsed": 5, "created": 1},\n'
+        '  "yandex": {"error": "branch_platform_not_found", "provider": "yandex"}\n'
+        "}\n"
+        "```\n\n"
+        "Если организация или филиал не найдены, задача завершится с объектом "
+        '`{"error": "organization_not_found", ...}` или `{"error": "branch_not_found", ...}`.'
+    ),
     request_body=SyncReviewsSerializer,
     responses={
-        200: openapi.Response(
-            description="Результат синхронизации по каждому провайдеру",
-            schema=openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                additional_properties=SYNC_RESULT_SCHEMA,
-                example={"2gis": {"parsed": 10, "created": 3}, "vlru": {"parsed": 5, "created": 1}},
-            ),
+        202: openapi.Response(
+            description="Задача принята в обработку",
+            schema=SYNC_ACCEPTED_SCHEMA,
         ),
-        404: "Организация, филиал или платформа не найдены",
+        400: "Некорректное тело запроса",
     },
+    tags=["sync"],
 )
 @api_view(["POST"])
 def sync_reviews(request) -> Response:
     serializer = SyncReviewsSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
 
-    organization = get_object_or_404(Organization, pk=serializer.validated_data["organization_id"])
-    branch = get_object_or_404(Branch, pk=serializer.validated_data["branch_id"])
+    task: AsyncResult = parse_providers_async(
+        providers=serializer.validated_data["providers"],
+        organization_id=serializer.validated_data["organization_id"],
+        branch_id=serializer.validated_data["branch_id"],
+    )
 
-    results = {}
-    for provider in serializer.validated_data["providers"]:
-        branch_platform = get_object_or_404(BranchPlatform, branch=branch, provider=provider)
-        if not branch_platform.url:
-            results[provider] = None
-            continue
+    return Response(
+        {
+            "task_id": task.id,
+            "status": task.status,
+        },
+        status=status.HTTP_202_ACCEPTED,
+    )
 
-        parser = get_review_parser(provider)
-        result = parser.run(
-            url=branch_platform.url, org_name=organization.name, inn=organization.inn, address=branch.address
-        )
 
-        results[provider] = result
-
-    return Response(results)
+@swagger_auto_schema(
+    method="GET",
+    operation_summary="Получить статус Celery-задачи",
+    operation_description=(
+        "Возвращает текущий статус фоновой задачи по query-параметру `task_id`, "
+        "полученному из `POST /api/v1/sync/`.\n\n"
+        "**Статусы Celery:**\n"
+        "- `PENDING` — в очереди или worker ещё не отметил старт\n"
+        "- `STARTED` — выполняется\n"
+        "- `SUCCESS` — завершена успешно\n"
+        "- `FAILURE` — завершена с ошибкой\n"
+        "- `RETRY` — повторная попытка\n"
+        "- `REVOKED` — отменена\n\n"
+        "Результат выполненной задачи (`parse_providers_async`) доступен через Celery result backend "
+        "(`AsyncResult(task_id).result` / таблица `django_celery_results_taskresult`)."
+    ),
+    manual_parameters=[
+        openapi.Parameter(
+            "task_id",
+            openapi.IN_QUERY,
+            description="ID Celery-задачи (UUID)",
+            type=openapi.TYPE_STRING,
+            format=openapi.FORMAT_UUID,
+            required=True,
+        ),
+    ],
+    responses={
+        200: openapi.Response(
+            description="Статус задачи",
+            schema=TASK_STATUS_SCHEMA,
+        ),
+        400: "Некорректные query-параметры",
+    },
+    tags=["sync"],
+)
+@api_view(["GET"])
+def tasks(request) -> Response:
+    serializer = TaskQuerySerializer(data=request.query_params)
+    serializer.is_valid(raise_exception=True)
+    task_id = serializer.validated_data["task_id"]
+    task = AsyncResult(task_id)
+    return Response({"task_id": task_id, "status": task.status})
