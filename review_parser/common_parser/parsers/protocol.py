@@ -17,3 +17,12 @@ class ReviewParser(Protocol):
         address: str = "",
         limit: int = 50,
     ) -> ParseResult: ...
+
+    def run_delay(
+        self,
+        url: str,
+        inn: str,
+        *,
+        org_name: str = "",
+        address: str = "",
+    ) -> str: ...
