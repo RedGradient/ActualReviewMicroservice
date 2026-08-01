@@ -108,7 +108,10 @@ def fetch_new_reviews(
     existing_keys = _existing_review_keys(branch_platform)
 
     with sync_playwright() as p:
-        browser = p.firefox.connect("ws://localhost:3000/", headers=HEADERS)
+        browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
+        browser = browser.new_context(
+            user_agent=HEADERS["User-Agent"],
+        )
         page = browser.new_page()
         page.goto(_build_url(org_id))
 
