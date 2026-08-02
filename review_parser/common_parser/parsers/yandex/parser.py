@@ -62,6 +62,12 @@ def create_yandex_reviews(
 
 def parse_el(review: Locator) -> dict | None:
     try:
+        expand = review.locator(".business-review-view__expand")
+        if expand.is_visible():
+            print("expand.is_visible()")
+            expand.click()
+            review.page.wait_for_timeout(200)
+
         data = review.evaluate(
             """
             el => {
