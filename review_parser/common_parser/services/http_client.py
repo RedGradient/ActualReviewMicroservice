@@ -7,7 +7,6 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-
 DEFAULT_TIMEOUT_S = float(os.getenv("HTTP_TIMEOUT_S", "15"))
 
 
@@ -41,4 +40,3 @@ def get(url: str, *, timeout: float | None = None, **kwargs) -> requests.Respons
     if timeout is None:
         timeout = DEFAULT_TIMEOUT_S
     return get_session().get(url, timeout=timeout, **kwargs)
-

@@ -1,154 +1,180 @@
 from django.db import models
-from django.utils.timezone import now
 from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.db.transaction import on_commit
+from django.dispatch import receiver
+from django.utils import timezone
+from django.utils.timezone import now
+
 
 class Organization(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     inn = models.CharField(max_length=12, null=False, blank=False, unique=True)
-    
+
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
+
     def __str__(self):
-        return self.name or f'Организация #{self.id}'
+        return self.name or f"Организация #{self.id}"
 
 
 class Branch(models.Model):
-    organization = models.ForeignKey(
-        Organization,
-        on_delete=models.CASCADE,
-        related_name="branches"
-    )
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name="branches")
     address = models.TextField()
-    google_map_url = models.URLField(max_length=1500, null=True, blank=True)
-    yandex_map_url = models.URLField(max_length=1500, null=True, blank=True)
-    twogis_map_url = models.URLField(max_length=500, null=True, blank=True)
-    vlru_url = models.URLField(max_length=500, null=True, blank=True)
-    vlru_org_id = models.CharField(max_length=16, null=True, blank=True) 
-    google_review_count = models.IntegerField(null=True, blank=True)
-    google_review_avg = models.FloatField(null=True, blank=True)
-    google_parse_date = models.DateTimeField(blank=True, null=True)
-    yandex_review_count = models.IntegerField(null=True, blank=True)
-    yandex_review_avg = models.FloatField(null=True, blank=True)
-    yandex_parse_date = models.DateTimeField(blank=True, null=True)
-    twogis_review_count = models.IntegerField(null=True, blank=True)
-    twogis_review_avg = models.FloatField(null=True, blank=True)
-    twogis_parse_date = models.DateTimeField(blank=True, null=True)
-    vlru_parse_date = models.DateTimeField(blank=True, null=True)
-    vlru_review_count = models.IntegerField(null=True, blank=True)
-    vlru_review_avg = models.FloatField(null=True, blank=True)
+
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     class Meta:
-        constraints = [
+        constraints = (
             models.UniqueConstraint(
-                fields=['organization', 'address'],
-                name='unique_organization_address'
-            )
-        ]
+                fields=["organization", "address"],
+                name="unique_organization_address",
+            ),
+        )
 
     def __str__(self):
-        return f'{self.id} : {self.organization}: {self.address[:50]}'
+        org = self.organization.name or f"ИНН {self.organization.inn}"
+        address = self.address.strip()
+        if len(address) > 60:
+            address = f"{address[:57]}..."
+        return f"#{self.pk} · {org} · {address}"
 
-@receiver(post_save, sender=Branch)
-def send_notification(sender, instance, created, **kwargs):
-    if created:
-        from common_parser.tasks import parse_all_providers_async_on_create
-        on_commit(lambda: parse_all_providers_async_on_create.delay(instance.organization.id, instance.address))
+
+class BranchPlatform(models.Model):
+    PROVIDER_CHOICES = (
+        ("google", "Google"),
+        ("yandex", "Yandex"),
+        ("2gis", "2GIS"),
+        ("vlru", "VL.ru"),
+    )
+
+    branch = models.ForeignKey(
+        Branch,
+        on_delete=models.CASCADE,
+        related_name="source",
+        null=False,
+        blank=False,
+    )
+
+    provider = models.CharField(
+        max_length=20,
+        choices=PROVIDER_CHOICES,
+        null=False,
+        blank=False,
+    )
+
+    url = models.URLField(max_length=500, null=True, blank=True)
+
+    org_id = models.CharField(
+        max_length=128,
+        blank=True,
+        null=True,
+    )
+
+    review_count = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+    )
+
+    review_avg = models.DecimalField(
+        max_digits=3,
+        decimal_places=2,
+        blank=True,
+        null=True,
+    )
+
+    parsed_at = models.DateTimeField(
+        blank=True,
+        null=True,
+    )
+
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
+
+    def __str__(self) -> str:
+        return f"{self.get_provider_display()} · {self.branch}"
 
 
 class Review(models.Model):
-
-    PROVIDER_CHOICES = [
-        ('yandex', 'Яндекс'),
-        ('google', 'Гугл'),
-        ('2gis', '2GIS'),
-        ('vlru', 'VL.RU')
-    ]
-
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, related_name="reviews")
+    branch_platform = models.ForeignKey(BranchPlatform, on_delete=models.CASCADE, related_name="reviews")
+    external_id = models.CharField(max_length=64, null=True, blank=True)
     author = models.CharField(max_length=255)
     avatar = models.URLField(null=True, blank=True)
     video = models.URLField(null=True, blank=True)
     photos = models.TextField(null=True, blank=True)
     published_date = models.DateTimeField(default=now)
-    rating = models.PositiveSmallIntegerField()
+    rating = models.CharField(null=True, blank=True)
     content = models.TextField()
 
     review_url = models.URLField(max_length=250, null=True, blank=True)
-    
-    provider = models.CharField(
-        max_length=10,
-        choices=PROVIDER_CHOICES,
-        null=True, blank=True
-    )
+
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     def __str__(self):
-        return f"{self.author}'s review for {self.branch}"
-    
+        return f"{self.author}'s review for {self.branch_platform.branch}"
 
 
 class BranchIPMapping(models.Model):
-    branch = models.ForeignKey(
-        Branch,
-        on_delete=models.CASCADE,
-        related_name='ip_mappings'
-    )
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, related_name="ip_mappings")
     ip_address = models.GenericIPAddressField()
-    
+
     def __str__(self):
         return f"{self.ip_address} → Филиал {self.branch.id} : {self.branch.address}"
-    
-
 
 
 class Playlist(models.Model):
-
-    PROVIDER_CHOICES = [
-        ('youtube', 'Ютуб'),
-        ('vk', 'Вк'),
-    ]
+    PROVIDER_CHOICES = (
+        ("youtube", "Ютуб"),
+        ("vk", "Вк"),
+    )
 
     title = models.CharField(max_length=255, blank=True, null=True)
     count = models.PositiveIntegerField(blank=True, null=True, default=None)
     url = models.URLField(unique=True)
     parse_date = models.DateTimeField(blank=True, null=True)
-    provider = models.CharField(
-        max_length=50,
-        choices=PROVIDER_CHOICES,
-        null=True, blank=True
-    )
-    
+    provider = models.CharField(max_length=50, choices=PROVIDER_CHOICES, null=True, blank=True)
+
     def __str__(self):
         return self.title or self.url
 
-@receiver(post_save, sender=Playlist)
-def send_notification(sender, instance, created, **kwargs):
-    if created:
-        from common_parser.tasks import parse_youtube_videos_async, parse_vk_videos_async
-        if "youtube" in instance.url:
-            on_commit(lambda: parse_youtube_videos_async.delay(instance.id))
-        elif "vk" in instance.url:
-            on_commit(lambda: parse_vk_videos_async.delay(instance.id))
 
 class Video(models.Model):
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="videos")
     url = models.URLField()
     title = models.CharField(max_length=255, blank=True, null=True)
     author = models.CharField(max_length=255, blank=True, null=True)
     date = models.DateTimeField(blank=True, null=True)
     preview = models.URLField(max_length=1000, blank=True, null=True)
     duration = models.IntegerField(blank=True, null=True, default=None)
-    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name='videos')
-    
+
     def __str__(self):
         return self.title or self.url
-    
+
 
 class PlaylistIPMapping(models.Model):
-    playlist = models.ForeignKey(
-        Playlist,
-        on_delete=models.CASCADE,
-        related_name='ip_mappings_playlist'
-    )
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="ip_mappings_playlist")
     ip_address = models.GenericIPAddressField()
-    
+
     def __str__(self):
         return f"{self.ip_address} → Playlist {self.playlist.id} : {self.playlist.title}"
+
+
+# -----------------
+# --- RECEIVERS ---
+# -----------------
+
+
+@receiver(post_save, sender=Playlist)
+def on_playlist_created(sender, instance, created, **kwargs):
+    if created:
+        from common_parser.tasks import parse_vk_videos_async, parse_youtube_videos_async
+
+        if "youtube" in instance.url:
+            on_commit(lambda: parse_youtube_videos_async.delay(instance.id))
+        elif "vk" in instance.url:
+            on_commit(lambda: parse_vk_videos_async.delay(instance.id))
+
+
+@receiver(post_save, sender=Branch)
+def on_branch_created(sender, instance, created, **kwargs):
+    if created:
+        from common_parser.tasks import parse_all_providers_async_on_create
+
+        on_commit(lambda: parse_all_providers_async_on_create.delay(instance.organization.id, instance.address))

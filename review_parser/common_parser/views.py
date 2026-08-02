@@ -1,249 +1,194 @@
+from celery.result import AsyncResult
+from django.shortcuts import get_object_or_404
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
-from vl_parser.tools.parser import create_vlru_reviews
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
-from django.http import JsonResponse
-from .models import Branch, Review, BranchIPMapping, PlaylistIPMapping, Video, Playlist
-import json
-from rest_framework import serializers
-from .serializers import ReviewSerializer, BranchSerializer, VideoSerializer, PlaylistSerializer
-from django.db.models import Count, Q
+from rest_framework.viewsets import ModelViewSet
 
-from common_parser.services.reviews_query import (
-    get_reviews_response_for_branches,
-    parse_providers_param,
+from common_parser.models import Branch, BranchPlatform, Organization, Review
+from common_parser.serializers import (
+    GetReviewsSerializer,
+    ReviewSerializer,
+    SyncReviewsSerializer,
+    TaskQuerySerializer,
+)
+from common_parser.tasks import parse_providers_async
+
+SYNC_ACCEPTED_SCHEMA = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    required=["task_id", "status"],
+    properties={
+        "task_id": openapi.Schema(
+            type=openapi.TYPE_STRING,
+            format=openapi.FORMAT_UUID,
+            description="ID Celery-задачи для отслеживания статуса",
+        ),
+        "status": openapi.Schema(
+            type=openapi.TYPE_STRING,
+            enum=["PENDING", "STARTED", "SUCCESS", "FAILURE", "RETRY", "REVOKED"],
+            description="Начальный статус задачи",
+        ),
+    },
+    example={"task_id": "a3f2c1b0-4d8d-4e2a-9f1b-2c8d7e6f5a4b", "status": "pending"},
 )
 
-class ProviderSerializer(serializers.Serializer):
-    provider = serializers.CharField()
-    count = serializers.IntegerField()
+TASK_STATUS_SCHEMA = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    required=["task_id", "status"],
+    properties={
+        "task_id": openapi.Schema(
+            type=openapi.TYPE_STRING,
+            format=openapi.FORMAT_UUID,
+            description="ID Celery-задачи",
+        ),
+        "status": openapi.Schema(
+            type=openapi.TYPE_STRING,
+            enum=["PENDING", "STARTED", "SUCCESS", "FAILURE", "RETRY", "REVOKED"],
+            description="Текущий статус задачи в Celery",
+        ),
+    },
+    example={"task_id": "a3f2c1b0-4d8d-4e2a-9f1b-2c8d7e6f5a4b", "status": "SUCCESS"},
+)
 
-PROVIDER_CHOICES = ['yandex', 'google', '2gis', 'vlru']
 
 @swagger_auto_schema(
     method="GET",
+    operation_summary="Получить отзывы филиала",
+    operation_description=(
+        "Возвращает список отзывов для указанного филиала и провайдера. "
+        "Поддерживается пагинация через параметры `limit` и `offset`."
+    ),
+    query_serializer=GetReviewsSerializer,
+    responses={
+        200: ReviewSerializer(many=True),
+        400: "Некорректные query-параметры",
+        404: "Филиал или платформа не найдены",
+    },
+)
+@api_view(["GET"])
+def get_reviews(request) -> Response:
+    serializer = GetReviewsSerializer(data=request.query_params)
+    serializer.is_valid(raise_exception=True)
+
+    branch = get_object_or_404(Branch, pk=serializer.validated_data["branch_id"])
+    branch_platform = get_object_or_404(
+        BranchPlatform,
+        branch=branch,
+        provider=serializer.validated_data["provider"],
+    )
+
+    limit = serializer.validated_data["limit"]
+    offset = serializer.validated_data["offset"]
+
+    reviews = Review.objects.filter(branch_platform=branch_platform).order_by("-published_date")[
+        offset : offset + limit
+    ]
+
+    return Response(ReviewSerializer(reviews, many=True).data)
+
+
+@swagger_auto_schema(
+    method="POST",
+    operation_summary="Запустить синхронизацию отзывов (async)",
+    operation_description=(
+        "Ставит в очередь Celery-задачу парсинга отзывов для указанных провайдеров филиала.\n\n"
+        "Ответ **202 Accepted** содержит `task_id` — статус можно проверить через `GET /api/v1/tasks/?task_id=...` "
+        "или Celery result backend (`django_celery_results` / `AsyncResult`).\n\n"
+        "Ошибки по отдельным провайдерам не отменяют задачу целиком. "
+        "Пример смешанного результата:\n"
+        "```json\n"
+        "{\n"
+        '  "2gis": {"parsed": 10, "created": 3},\n'
+        '  "vlru": {"parsed": 5, "created": 1},\n'
+        '  "yandex": {"error": "branch_platform_not_found", "provider": "yandex"}\n'
+        "}\n"
+        "```\n\n"
+        "Если организация или филиал не найдены, задача завершится с объектом "
+        '`{"error": "organization_not_found", ...}` или `{"error": "branch_not_found", ...}`.'
+    ),
+    request_body=SyncReviewsSerializer,
+    responses={
+        202: openapi.Response(
+            description="Задача принята в обработку",
+            schema=SYNC_ACCEPTED_SCHEMA,
+        ),
+        400: "Некорректное тело запроса",
+    },
+    tags=["sync"],
+)
+@api_view(["POST"])
+def sync_reviews(request) -> Response:
+    serializer = SyncReviewsSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+
+    task: AsyncResult = parse_providers_async(
+        providers=serializer.validated_data["providers"],
+        organization_id=serializer.validated_data["organization_id"],
+        branch_id=serializer.validated_data["branch_id"],
+    )
+
+    return Response(
+        {
+            "task_id": task.id,
+            "status": task.status,
+        },
+        status=status.HTTP_202_ACCEPTED,
+    )
+
+
+@swagger_auto_schema(
+    method="GET",
+    operation_summary="Получить статус Celery-задачи",
+    operation_description=(
+        "Возвращает текущий статус фоновой задачи по query-параметру `task_id`, "
+        "полученному из `POST /api/v1/sync/`.\n\n"
+        "**Статусы Celery:**\n"
+        "- `PENDING` — в очереди или worker ещё не отметил старт\n"
+        "- `STARTED` — выполняется\n"
+        "- `SUCCESS` — завершена успешно\n"
+        "- `FAILURE` — завершена с ошибкой\n"
+        "- `RETRY` — повторная попытка\n"
+        "- `REVOKED` — отменена\n\n"
+        "Результат выполненной задачи (`parse_providers_async`) доступен через Celery result backend "
+        "(`AsyncResult(task_id).result` / таблица `django_celery_results_taskresult`)."
+    ),
     manual_parameters=[
-        openapi.Parameter('branch_id', openapi.IN_QUERY, description="Идентификатор филиала", type=openapi.TYPE_STRING, required=True),
-        openapi.Parameter('only_providers', openapi.IN_QUERY, description="Только из списка провайдеров", type=openapi.TYPE_BOOLEAN, required=False),
-        openapi.Parameter('limit', openapi.IN_QUERY, description="Пагинация: количество отзывов", type=openapi.TYPE_INTEGER, required=False),
-        openapi.Parameter('offset', openapi.IN_QUERY, description="Пагинация: смещение", type=openapi.TYPE_INTEGER, required=False),
-        openapi.Parameter('provider', openapi.IN_QUERY, description="Новый формат: один провайдер (yandex/2gis/vlru)", type=openapi.TYPE_STRING, required=False),
-        openapi.Parameter('count', openapi.IN_QUERY, description="Новый формат: лимит на провайдера (если providers=csv)", type=openapi.TYPE_INTEGER, required=False),
-        openapi.Parameter('providers', openapi.IN_QUERY,
-                  description="Список провайдеров",
-                  type=openapi.TYPE_ARRAY,
-                  items=openapi.Items(
-                      type=openapi.TYPE_OBJECT,
-                      properties={
-                          'provider': openapi.Schema(type=openapi.TYPE_STRING, title="Название провайдера", enum=PROVIDER_CHOICES),
-                          'count': openapi.Schema(type=openapi.TYPE_INTEGER, title="Количество записей"),
-                          'filters': openapi.Schema(type=openapi.TYPE_STRING, title="Фильтры"),
-                      },),
-                  required=False),
+        openapi.Parameter(
+            "task_id",
+            openapi.IN_QUERY,
+            description="ID Celery-задачи (UUID)",
+            type=openapi.TYPE_STRING,
+            format=openapi.FORMAT_UUID,
+            required=True,
+        ),
     ],
-    responses={200: '''
-                        "branch": {
-                            "id", "address", "organization",
-                            "google_map_url", "yandex_map_url", "twogis_map_url", "vlru_url", "vlru_org_id",
-                            "google_review_count", "google_review_avg", "google_parse_date",
-                            "yandex_review_count", "yandex_review_avg", "yandex_parse_date",
-                            "twogis_review_count", "twogis_review_avg", "twogis_parse_date",
-                            "vlru_review_count", "vlru_review_avg", "vlru_parse_date"
-                        },
-                        "provider_reviews_count": [{"provider", "review_count"}],
-                        "reviews": [
-                            {"id", "author", "avatar", "video", "photos", "published_date",
-                             "rating", "content", "provider", "branch", "review_url"}
-                        ]
-                                ''', 400: "Некорректные данные"}
+    responses={
+        200: openapi.Response(
+            description="Статус задачи",
+            schema=TASK_STATUS_SCHEMA,
+        ),
+        400: "Некорректные query-параметры",
+    },
+    tags=["sync"],
 )
-@api_view(['GET'])
-def get_reviews(request):
-    branch_id = request.query_params.get('branch_id')
-    if not branch_id:
-        return Response({"detail": "branch_id is required"}, status=status.HTTP_400_BAD_REQUEST)
-
-    try:
-        branch = Branch.objects.get(id=branch_id)
-    except Branch.DoesNotExist:
-        return Response({"detail": "Branch not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    service_result = get_reviews_response_for_branches(branches=[branch], query_params=request.query_params)
-    reviews_data = ReviewSerializer(service_result["reviews"], many=True).data
+@api_view(["GET"])
+def tasks(request) -> Response:
+    serializer = TaskQuerySerializer(data=request.query_params)
+    serializer.is_valid(raise_exception=True)
+    task_id = serializer.validated_data["task_id"]
+    task = AsyncResult(task_id)
+    return Response({"task_id": task_id, "status": task.status})
 
 
-    branch_serializer = BranchSerializer(branch)
-
-    data = {         
-            'branch': branch_serializer.data,
-            'provider_reviews_count' : service_result["provider_reviews_count"],
-            'reviews': reviews_data,
-            }
-    
-    return Response(data)
+class OrganizationView(ModelViewSet):
+    queryset = Organization.objects.all()
 
 
-@swagger_auto_schema(
-    method="GET",
-        manual_parameters=[
-            openapi.Parameter('only_providers', openapi.IN_QUERY, description="Только из списка провайдеров", type=openapi.TYPE_BOOLEAN, required=False),
-            openapi.Parameter('providers', openapi.IN_QUERY,
-                    description="Список провайдеров",
-                    type=openapi.TYPE_ARRAY,
-                    items=openapi.Schema(
-                        type=openapi.TYPE_OBJECT,
-                        properties={
-                            'provider': openapi.Schema(type=openapi.TYPE_STRING, title="Название провайдера", enum=PROVIDER_CHOICES),
-                            'count': openapi.Schema(type=openapi.TYPE_INTEGER, title="Количество записей"),
-                            'filters': openapi.Schema(type=openapi.TYPE_STRING, title="Фильтры"),
-                        },),
-                    required=False),
-        ],
-        responses={200: '''
-                        "ip",
-                        "branches": [{
-                            "id", "address", "organization",
-                            "google_map_url", "yandex_map_url", "twogis_map_url", "vlru_url", "vlru_org_id",
-                            "google_review_count", "google_review_avg", "google_parse_date",
-                            "yandex_review_count", "yandex_review_avg", "yandex_parse_date",
-                            "twogis_review_count", "twogis_review_avg", "twogis_parse_date",
-                            "vlru_review_count", "vlru_review_avg", "vlru_parse_date"
-                        }],
-                        "provider_reviews_count": [{"provider", "review_count"}],
-                        "reviews": [
-                            {"id", "author", "avatar", "video", "photos", "published_date",
-                             "rating", "content", "provider", "branch", "review_url"}
-                        ]
-                                ''', 400: "Некорректные данные"}
-)
-@api_view(['GET'])
-def get_reviews_by_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-
-    objects_with_ip = BranchIPMapping.objects.filter(ip_address=ip)
-    branches = []
-    for mapping in objects_with_ip:
-        branches.append(mapping.branch)
-
-    service_result = get_reviews_response_for_branches(branches=branches, query_params=request.query_params)
-    reviews_data = ReviewSerializer(service_result["reviews"], many=True).data
-
-    branch_serializer = BranchSerializer(branches, many=True)
-
-    data = {
-            'ip': ip,
-            'branches': branch_serializer.data,
-            'provider_reviews_count' : service_result["provider_reviews_count"],
-            'reviews': reviews_data,
-            }
-    
-    return Response(data)
+class BranchView(ModelViewSet):
+    queryset = Branch.objects.all()
 
 
-
-@swagger_auto_schema(
-    method="GET",
-        manual_parameters=[
-            ],
-        responses={200: '''
-                        "ip",
-                        "playlists": [{"id", "title", "count", "url", "parse_date", "provider"}],
-                        "provider_videos_count": [{"playlist__provider", "review_count"}],
-                        "videos": [
-                            {"id", "url", "title", "author", "date", "preview", "duration", "playlist"}
-                        ]
-                                ''', 400: "Некорректные данные"}
-)
-@api_view(['GET'])
-def get_videos_by_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-
-    objects_with_ip = PlaylistIPMapping.objects.filter(ip_address=ip)
-    playlists = []
-    for mapping in objects_with_ip:
-        playlists.append(mapping.playlist)
-
-    videos_data = []
-
-    videos = Video.objects.filter(playlist__in=playlists)
-    videos_serializer = VideoSerializer(videos, many=True)
-    videos_data = videos_serializer.data
-
-    playlist_serializer = PlaylistSerializer(playlists, many=True)
-
-    data = {
-            'ip': ip,
-            'playlists': playlist_serializer.data,
-            'provider_videos_count' : Video.objects.filter(playlist__in=playlists).values('playlist__provider').annotate(review_count=Count('id')),
-            'videos': videos_data,
-            }
-    
-    return Response(data)
-
-def parse_filter_string(filter_str):
-    """
-    Парсит строку фильтра в Q-объекты для Django ORM.
-    Поддерживает:
-    - равенство: field=value → Q(field=value)
-    - не равно: field!=value → ~Q(field=value)
-    - другие операторы: field__operator=value → Q(field__operator=value)
-    - отрицание операторов: !field__operator=value → ~Q(field__operator=value)
-    """
-    conditions = Q()
-    
-    if not filter_str:
-        return conditions
-    
-    for part in filter_str.split('&'):
-        if not part:
-            continue
-        
-        if '!=' in part:
-            key, value = part.split('!=', 1)
-            q_object = ~Q(**{key: value})
-        elif '=' in part:
-            key, value = part.split('=', 1)
-            negate = False
-            
-            if key.startswith('!'):
-                negate = True
-                key = key[1:]
-            
-            if key.endswith('__in'):
-                value_list = [v.strip() for v in value.split(',') if v.strip()]
-                q_object = Q(**{key: value_list})
-
-            elif key.endswith('__isnull'):
-                q_object = Q(**{key: value.lower() == 'true'})
-            else:
-                q_object = Q(**{key: value})
-            if negate:
-                q_object = ~q_object
-        else:
-            continue 
-            
-        conditions &= q_object
-    
-    return conditions
-
-
-
-from django.http import HttpResponse
-
-from django.views.decorators.csrf import csrf_exempt
-
-@csrf_exempt
-def webhook(request):
-    from loguru import logger
-    logger.info(f"webhook received: body={request.body.decode('utf-8')}")
-    return HttpResponse(status=200)
+class BranchPlatformView(ModelViewSet):
+    queryset = BranchPlatform.objects.all()

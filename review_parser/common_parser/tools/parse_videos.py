@@ -1,2 +1,0 @@
-from youtube_parser.tools.parser import parse_youtube_videos
-from vkvideo_parser.tools.parser import parse_vk_videos

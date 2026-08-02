@@ -3,3 +3,44 @@ name = "actualreviewmicroservice-main"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit>=4.0.0",
+    "ruff>=0.11.0",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+src = ["review_parser"]
+exclude = [
+    ".venv",
+    "**/migrations/**",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # bugbear
+    "SIM", # simplify
+    "RUF", # ruff-specific
+]
+ignore = [
+    "RUF001", # омоглифы в строках (кириллица vs латиница: В/B, с/c и т.д.)
+    "RUF002", # омоглифы в docstring
+    "RUF003", # омоглифы в комментариях
+    "SIM108", # не навязывать тернарный оператор вместо if/else
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/migrations/*.py" = ["ALL"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

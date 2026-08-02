@@ -2,4 +2,3 @@
 
 Keep views thin; put reusable business logic here.
 """
-

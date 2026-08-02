@@ -1,0 +1,1960 @@
+{
+  "success": true,
+  "message": "OK",
+  "total": 596,
+  "data": {
+    "content": "    <div class=\"tabs cmt-thread-subscription cmt-hidden-subscription\">\n    <span class=\"tab hidden\" data-index=\"0\" data-types=\"review\">\n        <span class=\"title\">Отзывы <span class=\"count\">309</span></span>\n    </span>\n    <span class=\"tab hidden\" data-index=\"1\" data-types=\"question,complaint,proposal\">\n        <span class=\"title\">Обсуждения <span class=\"count\">15</span></span>\n    </span>\n\t\t\t\t<span class=\"thread-subscription flat subscription-aware\" id=\"global_subscribe\" text_subscribe=\"Подписаться на комментарии\" text_unsubscribe=\"Отписаться от комментариев\" action=\"subscribe\"></span>\n\t</div>\t\t<div class=\"commentBase\"><!-- wrapper -->\n\t\t<div id=\"CommentForm\" data-project-id=1>\n\t\t\t<a name=\"commentForm\"></a>\n\t\t\t<form class=\"form\" method=\"POST\">\n\t\t\t\t<div class=\"cmt-form-wrapper\">\n\t\t\t\t\t<div class=\"clearfix\">\n\t\t\t\t\t\t<a name=\"notificationRules\"></a>\n<div class=\"notification-rules cmt-jumbotron hidden\">\n\t<div class=\"hide\"></div>\n\t<p>Пожалуйста, оставляйте конструктивный, аргументированный и содержательный текст, относящийся к качеству работы компании, на примере личного опыта.</p>\n\t<p><b>Не допускается:</b> использование нецензурных выражений, угроз или оскорблений; прямое сравнение с другими компаниями-конкурентами;\n\tразмещение ссылки на сторонние интернет ресурсы; реклама и самореклама; высказывания, не относящиеся к деятельности компании.</p>\n</div>\t\t\t\t\t\t<div class=\"action company\" action=\"cancel-reply\" type=\"reply\"></div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"cmt-form-login\">\n\t\t\t\t\t\t<div class=\"cmt-user-info\">\n    \t<div class=\"cmt-user-info-avatar\">\n\t\t<img src=\"https://comments.vl.ru/images/catalog/people.png\" alt=\"\" />\n\t</div>\n\t<div class=\"cmt-user-info-name\">\n\t\t\t\t\t\t\t\t\t<!-- Input [, (:focus|.active), .error] -->\n\t\t\t\t<div class=\"cmt-user-info-name-input\">\n\t\t\t\t\t<input id=\"login\" type=\"text\" name=\"name\" value=\"\" placeholder=\"Введите имя\"  class=\"cmt-input\" />\n\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n</div>\n\t\t\t\t\t\t<div class=\"cmt-auth-block\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-auth-block-login\">\n\t\t\t<ul class=\"cmt-auth-list\">\n\t\t\t\t<li class=\"cmt-auth-list-item\"><span>Войти<span>, используя</span></span></li>\n\t\t\t\t<li class=\"cmt-auth-list-item\"><a\n\t\t\thref=\"/login/farpost?returnUrl=%2Fcompany%2Ftrinity\"\n\t\t\tclass=\"open-auth-link login-link cmt-auth-ico cmt-auth-ico-farpost\"\n\t\t\tname=\"FarPost\"\n\t\t\trel=\"nofollow\"\n\t\t></a></li><li class=\"cmt-auth-list-item\"><a\n\t\t\thref=\"/login/vkontakte?returnUrl=%2Fcompany%2Ftrinity\"\n\t\t\tclass=\"open-auth-link login-link cmt-auth-ico cmt-auth-ico-vkontakte\"\n\t\t\tname=\"ВКонтакте\"\n\t\t\trel=\"nofollow\"\n\t\t></a></li><li class=\"cmt-auth-list-item\"><a\n\t\t\thref=\"/login/odnoklassniki?returnUrl=%2Fcompany%2Ftrinity\"\n\t\t\tclass=\"open-auth-link login-link cmt-auth-ico cmt-auth-ico-odnoklassniki\"\n\t\t\tname=\"Одноклассники\"\n\t\t\trel=\"nofollow\"\n\t\t></a></li><li class=\"cmt-auth-list-item\"><a\n\t\t\thref=\"/login/MyMailru?returnUrl=%2Fcompany%2Ftrinity\"\n\t\t\tclass=\"open-auth-link login-link cmt-auth-ico cmt-auth-ico-mymailru\"\n\t\t\tname=\"MyMail\"\n\t\t\trel=\"nofollow\"\n\t\t></a></li>\n\t\t\t</ul>\n\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-form-types\">\n\t\t\t<input type=\"hidden\" name=\"commentType\" value=\"review\" />\n\t\t\t<div class=\"cmt-types\">\n\t\t\t\t<ul class=\"cmt-types-list\">\n\t\t\t\t\t\t\t\t\t\t\t<li class=\"cmt-types-list-item active\" data-key=\"review\">\n\t\t\t\t\t\t\t<span class=\"cmt-type\">Отзыв</span>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t\t\t\t<li class=\"cmt-types-list-item\" data-key=\"question\">\n\t\t\t\t\t\t\t<span class=\"cmt-type\">Вопрос</span>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t\t\t\t<li class=\"cmt-types-list-item\" data-key=\"complaint\">\n\t\t\t\t\t\t\t<span class=\"cmt-type\">Жалоба</span>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t\t\t<li class=\"cmt-types-list-item cmt-types-list-item-last\"> </li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-form-stars\">\n\t<div class=\"cmt-fields-wrapper\">\n\t\t<div class=\"cmt-field\">\n\t\t\t<div class=\"cmt-field-label\">\n\t\t\t\tВаша оценка:\n\t\t\t</div>\n\t\t\t<div class=\"cmt-field-data\">\n\t\t\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"\" style=\"width: 2px;\"></div>\n</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\t\t<div class=\"cmt-form-branch\">\n\t<div class=\"cmt-fields-wrapper\">\n\t\t<div class=\"cmt-field\">\n\t\t\t<label for=\"cmt-branch\" class=\"cmt-field-label\">\n\t\t\t\tФилиал:\n\t\t\t</label>\n\t\t\t<div class=\"cmt-field-data\">\n\t\t\t\t<div class=\"cmt-autocomplete-wrapper\">\n\t\t\t\t\t<input id=\"cmt-branch\"\n\t\t\t\t\t\t   class=\"cmt-autocomplete\"\n\t\t\t\t\t\t   placeholder=\"не имеет значения\"\n\t\t\t\t\t\t   name=\"companyBranch\"\n\t\t\t\t\t\t   value=\"\"\n\t\t\t\t\t/>\n\t\t\t\t\t<input id=\"cmt-branch-id\"\n                           type=\"hidden\" name=\"companyBranchId\"\n                                               />\n                    <span class=\"cmt-autocomplete-menu\">\n                        <span class=\"cmt-autocomplete-dropdown\"><i></i></span>\n                        <span class=\"cmt-autocomplete-search-clear\"><i></i></span>\n                    </span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>        \t<div class=\"cmt-form-text\">\n\t\t<div class=\"cmt-fields-wrapper\">\n                                                                                                    \t\t\t\t\t\t\t<label class=\"cmt-field\" style=\"display: table-row\">\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-label\">\n\t\t\t\t\t\t\t\t\tДостоинства:\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-data\">\n\t\t\t\t\t\t\t\t\t<textarea name=\"comment\" class=\"cmt-input\" data-key=\"review\" rows=\"1\" style=\"resize:none\"></textarea>\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t</label>\n                                                                                                \t\t\t\t\t\t\t<label class=\"cmt-field\" style=\"display: table-row\">\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-label\">\n\t\t\t\t\t\t\t\t\tНедостатки:\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-data\">\n\t\t\t\t\t\t\t\t\t<textarea name=\"comment\" class=\"cmt-input\" data-key=\"review\" rows=\"1\" style=\"resize:none\"></textarea>\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t</label>\n                                                                                                \t\t\t\t\t\t\t<label class=\"cmt-field\" style=\"display: table-row\">\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-label\">\n\t\t\t\t\t\t\t\t\tКомментарий:\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-data\">\n\t\t\t\t\t\t\t\t\t<textarea name=\"comment\" class=\"cmt-input\" data-key=\"review\" rows=\"1\" style=\"resize:none\"></textarea>\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t</label>\n                                                                                                                                                                \t\t\t\t\t\t\t<label class=\"cmt-field\" style=\"display: table-row\">\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-label\">\n\t\t\t\t\t\t\t\t\tЧто интересует?\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-data\">\n\t\t\t\t\t\t\t\t\t<textarea name=\"comment\" class=\"cmt-input\" data-key=\"question\" rows=\"1\" style=\"resize:none\"></textarea>\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t</label>\n                                                                                                                                                                \t\t\t\t\t\t\t<label class=\"cmt-field\" style=\"display: table-row\">\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-label\">\n\t\t\t\t\t\t\t\t\tВаш ответ:\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-data\">\n\t\t\t\t\t\t\t\t\t<textarea name=\"comment\" class=\"cmt-input\" data-key=\"answer\" rows=\"1\" style=\"resize:none\"></textarea>\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t</label>\n                                                                                                                                                                \t\t\t\t\t\t\t<label class=\"cmt-field\" style=\"display: table-row\">\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-label\">\n\t\t\t\t\t\t\t\t\tДата посещения:\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-data\">\n\t\t\t\t\t\t\t\t\t<textarea name=\"comment\" class=\"cmt-input\" data-key=\"complaint\" rows=\"1\" style=\"resize:none\"></textarea>\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t</label>\n                                                                                                \t\t\t\t\t\t\t<label class=\"cmt-field\" style=\"display: table-row\">\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-label\">\n\t\t\t\t\t\t\t\t\tНе понравилось:\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-data\">\n\t\t\t\t\t\t\t\t\t<textarea name=\"comment\" class=\"cmt-input\" data-key=\"complaint\" rows=\"1\" style=\"resize:none\"></textarea>\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t</label>\n                                                                                                                                                                                                            \t\t\t\t\t\t\t<label class=\"cmt-field\" style=\"display: table-row\">\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-label\">\n\t\t\t\t\t\t\t\t\tПредлагаю:\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t<span class=\"cmt-field-data\">\n\t\t\t\t\t\t\t\t\t<textarea name=\"comment\" class=\"cmt-input\" data-key=\"proposal\" rows=\"1\" style=\"resize:none\"></textarea>\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t</label>\n                                                                                                                                        \t\t</div>\n\t</div>\n<div class=\"cmt-form-images\">\n\t<div class=\"image-container\">\n\t<a class=\"add-images cmt-button marisa company\" href=\"#\">+ Фото</a>\n\t\t<div class=\"upload-form-wrapper\">\n\t\t<div class=\"upload-form\">\n\t\t</div>\n\t</div>\n\t</div>\n</div>\n<div class=\"cmt-form-errors\" id=\"formErrCont\">\n\t<div class=\"commentError\" style=\"display: none;\"></div>\n\t<div class=\"nameError\" style=\"display: none;\"></div>\n\t<div class=\"subscribeEmailError\" style=\"display: none;\"></div>\n\t<div class=\"othersError\" style=\"display: none;\"></div>\n</div>\n\n\t\t\t\t\t<!-- Errors end -->\n\t\t\t\t\t<div class=\"clearfix\">\n\t\t\t\t\t\t<div class=\"cmt-rules\"><a href=\"/help/comments\" target=\"_blank\">Правила публикации</a></div>\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Bottom start -->\n\t\t\t\t\t<div class=\"cmt-form-bottom clearfix\">\n\t\t\t\t\t\t<div class=\"subscriptionForm subscription\">\n\t\t    <div class=\"subscribe-check-container cmt-hidden-subscription\">\n\t        <label>\n\t            <input type=\"checkbox\" name=\"subscribeCheck\" id=\"subscribeCheck\" value=\"1\"  />\n\t            <span>уведомить об ответах</span>\n\t        </label>\n\t        <input type=\"text\" name=\"subscribeEmail\" id=\"subscribeEmail\" value=\"\" placeholder=\"Введите e-mail\" class=\"cmt-input cmt-subscribe-email \"/>\n\t    </div>\n\t    </div>\n\t\t\t\t\t\t<a class=\"cmt-button marisa\" type=\"submit\" action=\"ajaxSubmit\" href=\"#\">Отправить</a>\n\t\t\t\t\t\t<a class=\"cmt-button marisa\" type=\"submit\" action=\"ajaxUpdate\" href=\"#\">Сохранить</a>\n\t\t\t\t\t\t<input type=\"hidden\" name=\"parentId\" id=\"parentId\" value=\"0\"/>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Bottom end -->\n\t\t\t\t\t<div class=\"clearfix\"></div>\n\t\t\t\t</div>\n\t\t\t</form>\n\t\t</div>\n\t</div>\n\t<div class=\"best-comments\">\n    <div class=\"cmt-header\">\n        <h2>Популярные отзывы</h2>\n        <div class=\"triangle\"></div>\n    </div>\n    <ul class=\"comments-list\">\n                    <li comment=\"16254894\"\n                data-profile-id=\"40813099\"                >\n                <div class=\"hr\"></div>\n\t\t\t\t                \t\t\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__3_1\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40813099\" data-content=\"avatar\" data-show-profile-info class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t<img src=\"https://i-comments.vl.ru/vlcomments/1775053278663_f100100\" alt=\"user pic\" class=\"avatar\"/>\n</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40813099\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Релокант</span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>3</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t<span class=\"cmt-badge__small\" data-profile-id=\"40813099\">\n                    <span class=\"cmt-badge__small__img cmt-badge__small__1\" title=\"Новичок\"></span>\n\t\t                    <span class=\"cmt-badge__small__img cmt-badge__small__19\" title=\"Ответственный\"></span>\n\t\t    </span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t\t\t\t            \t<span class=\"time\">4 июля 2026 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"0.8\" style=\"width: 70px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n\t\n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text\"><b>Комментарий:</b> Отдыхали с друзьями. Понравился бар. Пиво отличное!</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                                    \n                            <span\n            class=\"likes likes_disabled likes_like-only\"\n            data-like-token=\"39bd96b0ca0fabcdc6ece34243916536bcc7378d\"\n            data-like-count=\"2\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\" title=\"Голосовать за комментарии можно только в общей ленте\"></span>\n            <span class=\"likes__text\" title=\"Голосовать за комментарии можно только в общей ленте\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">2</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n                            </li>\n                    <li comment=\"16224476\"\n                data-profile-id=\"40812395\"                class=\"last-child\">\n                <div class=\"hr\"></div>\n\t\t\t\t                \t\t\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__1_0\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40812395\" data-content=\"avatar\" data-show-profile-info class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t<img src=\"https://i-comments.vl.ru/vlcomments/1772018765927_f100100\" alt=\"user pic\" class=\"avatar\"/>\n</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40812395\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Надежда </span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>2</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t<span class=\"cmt-badge__small\" data-profile-id=\"40812395\">\n                    <span class=\"cmt-badge__small__img cmt-badge__small__1\" title=\"Новичок\"></span>\n\t\t                    <span class=\"cmt-badge__small__img cmt-badge__small__19\" title=\"Ответственный\"></span>\n\t\t    </span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t\t\t\t            \t<span class=\"time\">25 февраля 2026 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"1\" style=\"width: 87px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n\t\n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text\"><b>Достоинства:</b> Вкусная еда, атмосфера, персонал, живая музыка<br />\n<b>Недостатки:</b> Нету<br />\n<b>Комментарий:</b> Здравствуйте, решили с друзьями сходить в бар в пятницу. Всё понравилось: еда, напитки,персонал, но особенно запомнилась живая музыка.</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                                    \n                            <span\n            class=\"likes likes_disabled likes_like-only\"\n            data-like-token=\"0b75eef8a557c6d935e223f818aff4d5b67c1fe2\"\n            data-like-count=\"2\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\" title=\"Голосовать за комментарии можно только в общей ленте\"></span>\n            <span class=\"likes__text\" title=\"Голосовать за комментарии можно только в общей ленте\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">2</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n                            </li>\n            </ul>\n</div><div id=\"CommentsMessagesBlock\"></div>\n<ul id=\"CommentsList\" class=\"comments-list\">\n\t\t        \t\t<li comment=\"16254894\" level=\"0\" isSubscribed=\"0\" data-profile-id=\"40813099\" data-type=\"review\" user-rating=\"0.8\" data-timestamp=\"1783092066\" >\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<a name=\"p16254894\" type=\"anchor\"></a>\n\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__0_4\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40813099\" data-content=\"avatar\" data-show-profile-info class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t<img src=\"https://i-comments.vl.ru/vlcomments/1775053278663_f100100\" alt=\"user pic\" class=\"avatar\"/>\n</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40813099\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Релокант</span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>3</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t<span class=\"cmt-badge__small\" data-profile-id=\"40813099\">\n                    <span class=\"cmt-badge__small__img cmt-badge__small__1\" title=\"Новичок\"></span>\n\t\t                    <span class=\"cmt-badge__small__img cmt-badge__small__19\" title=\"Ответственный\"></span>\n\t\t    </span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action complex subscription cmt-hidden-subscription subscription-aware cmt-skip-bind\" text_subscribe=\"подписаться\" text_unsubscribe=\"отписаться\" href=\"#\" action=\"subscribe\" data-comment-id=\"16254894\"><span action=\"subscribe\"  class=\"cmt-skip-bind\"\">подписаться</span></a><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16254894\" type=\"link\" data-comment-id=\"16254894\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16254894\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16254894&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%9E%D1%82%D0%B4%D1%8B%D1%85%D0%B0%D0%BB%D0%B8%20%D1%81%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%D0%BC%D0%B8.%20%D0%9F%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D1%81%D1%8F%20%D0%B1%D0%B0%D1%80.%20%D0%9F%D0%B8%D0%B2%D0%BE%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B5%21&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16254894&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%9E%D1%82%D0%B4%D1%8B%D1%85%D0%B0%D0%BB%D0%B8%20%D1%81%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%D0%BC%D0%B8.%20%D0%9F%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D1%81%D1%8F%20%D0%B1%D0%B0%D1%80.%20%D0%9F%D0%B8%D0%B2%D0%BE%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B5%21&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t            \t<span class=\"time\">4 июля 2026 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"0.8\" style=\"width: 70px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\"><b>Комментарий:</b> Отдыхали с друзьями. Понравился бар. Пиво отличное!</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n                            <span\n            class=\"likes active likes_like-only\"\n            data-like-token=\"39bd96b0ca0fabcdc6ece34243916536bcc7378d\"\n            data-like-count=\"2\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__text\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">2</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n        \t\t<li comment=\"16229834\" level=\"0\" isSubscribed=\"0\" data-profile-id=\"40815638\" data-type=\"review\" user-rating=\"1\" data-timestamp=\"1774271907\" >\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<a name=\"p16229834\" type=\"anchor\"></a>\n\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__2_0\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40815638\" data-content=\"avatar\" data-show-profile-info class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t<img src=\"https://i-comments.vl.ru/vlcomments/1774532809507_f100100\" alt=\"user pic\" class=\"avatar\"/>\n</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40815638\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Сергуня</span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>2</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t<span class=\"cmt-badge__small\" data-profile-id=\"40815638\">\n                    <span class=\"cmt-badge__small__img cmt-badge__small__1\" title=\"Новичок\"></span>\n\t\t                    <span class=\"cmt-badge__small__img cmt-badge__small__19\" title=\"Ответственный\"></span>\n\t\t    </span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action complex subscription cmt-hidden-subscription subscription-aware cmt-skip-bind\" text_subscribe=\"подписаться\" text_unsubscribe=\"отписаться\" href=\"#\" action=\"subscribe\" data-comment-id=\"16229834\"><span action=\"subscribe\"  class=\"cmt-skip-bind\"\">подписаться</span></a><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16229834\" type=\"link\" data-comment-id=\"16229834\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16229834\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16229834&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%9C%D0%BD%D0%BE%D0%B3%D0%BE.%20%20%D0%9D%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8%3A%20%D0%92%D1%81%D1%91%20%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C.%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%9F%D0%B0%D0%B1%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BD%D1%8B%D0%B9%20%D0%B4%D0%BB%D1%8F%20%D1%82%D0%BE%D0%B3%D0%BE%20%D1%87%D1%82%D0%BE%D0%B1%D1%8B%20%D0%BE%D1%82%D0%B4%D0%BE%D1%85%D0%BD%D1%83%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%B8%D0%B4%D0%B5%D1%82%D1%8C%20%D1%81%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%D0%BC%D0%B8.%20%D0%9F%D0%B8%D0%B2%D0%BE%20%D0%B8%20%D0%B5%D0%B4%D0%B0%20%D0%BF%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BF%D0%BE%20%D0%B4%D1%83%D1%88%D0%B5.&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16229834&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%9C%D0%BD%D0%BE%D0%B3%D0%BE.%20%20%D0%9D%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8%3A%20%D0%92%D1%81%D1%91%20%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C.%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%9F%D0%B0%D0%B1%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BD%D1%8B%D0%B9%20%D0%B4%D0%BB%D1%8F%20%D1%82%D0%BE%D0%B3%D0%BE%20%D1%87%D1%82%D0%BE%D0%B1%D1%8B%20%D0%BE%D1%82%D0%B4%D0%BE%D1%85%D0%BD%D1%83%D1%82%D1%8C%20%D0%BF%D0%BE%D1%81%D0%B8%D0%B4%D0%B5%D1%82%D1%8C%20%D1%81%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%D0%BC%D0%B8.%20%D0%9F%D0%B8%D0%B2%D0%BE%20%D0%B8%20%D0%B5%D0%B4%D0%B0%20%D0%BF%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%81%D1%8C%20%D0%BF%D0%BE%20%D0%B4%D1%83%D1%88%D0%B5.&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t            \t<span class=\"time\">23 марта 2026 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"1\" style=\"width: 87px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\"><b>Достоинства:</b> Много.<br />\n<b>Недостатки:</b> Всё понравилось.<br />\n<b>Комментарий:</b> Паб классный для того чтобы отдохнуть посидеть с друзьями. Пиво и еда пришлись по душе.</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n                            <span\n            class=\"likes active likes_like-only\"\n            data-like-token=\"1aa6548041973bca9045c3c16e2ede1dc9fa034b\"\n            data-like-count=\"1\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__text\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">1</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n        \t\t<li comment=\"16224476\" level=\"0\" isSubscribed=\"0\" data-profile-id=\"40812395\" data-type=\"review\" user-rating=\"1\" data-timestamp=\"1772019094\" >\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<a name=\"p16224476\" type=\"anchor\"></a>\n\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__3_2\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40812395\" data-content=\"avatar\" data-show-profile-info class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t<img src=\"https://i-comments.vl.ru/vlcomments/1772018765927_f100100\" alt=\"user pic\" class=\"avatar\"/>\n</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40812395\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Надежда </span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>2</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t<span class=\"cmt-badge__small\" data-profile-id=\"40812395\">\n                    <span class=\"cmt-badge__small__img cmt-badge__small__1\" title=\"Новичок\"></span>\n\t\t                    <span class=\"cmt-badge__small__img cmt-badge__small__19\" title=\"Ответственный\"></span>\n\t\t    </span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action complex subscription cmt-hidden-subscription subscription-aware cmt-skip-bind\" text_subscribe=\"подписаться\" text_unsubscribe=\"отписаться\" href=\"#\" action=\"subscribe\" data-comment-id=\"16224476\"><span action=\"subscribe\"  class=\"cmt-skip-bind\"\">подписаться</span></a><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16224476\" type=\"link\" data-comment-id=\"16224476\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16224476\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16224476&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%92%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B5%D0%B4%D0%B0%2C%20%D0%B0%D1%82%D0%BC%D0%BE%D1%81%D1%84%D0%B5%D1%80%D0%B0%2C%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%2C%20%D0%B6%D0%B8%D0%B2%D0%B0%D1%8F%20%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0%20%20%D0%9D%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8%3A%20%D0%9D%D0%B5%D1%82%D1%83%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%80%D0%B5%D1%88%D0%B8%D0%BB%D0%B8%20%D1%81%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%D0%BC%D0%B8%20%D1%81%D1%85%D0%BE%D0%B4%D0%B8%D1%82%D1%8C%20%D0%B2%20%D0%B1%D0%B0%D1%80%20%D0%B2%20%D0%BF%D1%8F%D1%82%D0%BD%D0%B8%D1%86%D1%83.%20%D0%92%D1%81%D1%91%20%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C%3A%20%D0%B5%D0%B4%D0%B0%2C%20%D0%BD%D0%B0%D0%BF%D0%B8%D1%82%D0%BA%D0%B8%2C%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%2C%20%D0%BD%D0%BE%20%D0%BE%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%20%D0%B7%D0%B0%D0%BF%D0%BE%D0%BC%D0%BD%D0%B8%D0%BB%D0%B0%D1%81%D1%8C%20%D0%B6%D0%B8%D0%B2%D0%B0%D1%8F%20%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0.&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16224476&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%92%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B5%D0%B4%D0%B0%2C%20%D0%B0%D1%82%D0%BC%D0%BE%D1%81%D1%84%D0%B5%D1%80%D0%B0%2C%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%2C%20%D0%B6%D0%B8%D0%B2%D0%B0%D1%8F%20%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0%20%20%D0%9D%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8%3A%20%D0%9D%D0%B5%D1%82%D1%83%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%80%D0%B5%D1%88%D0%B8%D0%BB%D0%B8%20%D1%81%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%D0%BC%D0%B8%20%D1%81%D1%85%D0%BE%D0%B4%D0%B8%D1%82%D1%8C%20%D0%B2%20%D0%B1%D0%B0%D1%80%20%D0%B2%20%D0%BF%D1%8F%D1%82%D0%BD%D0%B8%D1%86%D1%83.%20%D0%92%D1%81%D1%91%20%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C%3A%20%D0%B5%D0%B4%D0%B0%2C%20%D0%BD%D0%B0%D0%BF%D0%B8%D1%82%D0%BA%D0%B8%2C%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%2C%20%D0%BD%D0%BE%20%D0%BE%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%20%D0%B7%D0%B0%D0%BF%D0%BE%D0%BC%D0%BD%D0%B8%D0%BB%D0%B0%D1%81%D1%8C%20%D0%B6%D0%B8%D0%B2%D0%B0%D1%8F%20%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0.&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t            \t<span class=\"time\">25 февраля 2026 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"1\" style=\"width: 87px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\"><b>Достоинства:</b> Вкусная еда, атмосфера, персонал, живая музыка<br />\n<b>Недостатки:</b> Нету<br />\n<b>Комментарий:</b> Здравствуйте, решили с друзьями сходить в бар в пятницу. Всё понравилось: еда, напитки,персонал, но особенно запомнилась живая музыка.</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n                            <span\n            class=\"likes active likes_like-only\"\n            data-like-token=\"0b75eef8a557c6d935e223f818aff4d5b67c1fe2\"\n            data-like-count=\"2\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__text\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">2</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n        \t\t<li comment=\"16215011\" level=\"0\" isSubscribed=\"0\" data-profile-id=\"40806578\" data-type=\"review\" user-rating=\"1\" data-timestamp=\"1768656878\" >\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<a name=\"p16215011\" type=\"anchor\"></a>\n\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__0_2\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40806578\" data-content=\"avatar\" class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40806578\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Елизавета</span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>1</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action complex subscription cmt-hidden-subscription subscription-aware cmt-skip-bind\" text_subscribe=\"подписаться\" text_unsubscribe=\"отписаться\" href=\"#\" action=\"subscribe\" data-comment-id=\"16215011\"><span action=\"subscribe\"  class=\"cmt-skip-bind\"\">подписаться</span></a><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16215011\" type=\"link\" data-comment-id=\"16215011\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16215011\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16215011&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%92%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B5%D0%B4%D0%B0%2C%20%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B5%D0%B5%20%D0%BF%D0%B8%D0%B2%D0%BE%2C%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B5%20%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%20%D0%9D%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8%3A%20%D0%9D%D0%B5%D1%82%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%9E%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B7%D0%B0%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%21%20%D0%9E%D1%87%D0%B5%D0%BD%D1%8C%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%B8%D0%B2%D0%BE%20%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B7%D0%BB%D0%B8%D0%B2%2C%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B5%D0%B4%D0%B0%20%D0%B8%20%D0%BE%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C%20%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5.&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16215011&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%92%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B5%D0%B4%D0%B0%2C%20%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B5%D0%B5%20%D0%BF%D0%B8%D0%B2%D0%BE%2C%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B5%20%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%20%D0%9D%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8%3A%20%D0%9D%D0%B5%D1%82%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%9E%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B7%D0%B0%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%21%20%D0%9E%D1%87%D0%B5%D0%BD%D1%8C%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%B8%D0%B2%D0%BE%20%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B7%D0%BB%D0%B8%D0%B2%2C%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B5%D0%B4%D0%B0%20%D0%B8%20%D0%BE%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C%20%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5.&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t            \t<span class=\"time\">17 января 2026 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"1\" style=\"width: 87px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\"><b>Достоинства:</b> Вкусная еда, хорошее пиво, отличное обслуживание<br />\n<b>Недостатки:</b> Нет<br />\n<b>Комментарий:</b> Отлично заведение! Очень вкусное пиво на разлив, вкусная еда и очень понравилось обслуживание.</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n                            <span\n            class=\"likes active likes_like-only\"\n            data-like-token=\"c12d1a90313ce3ad1853b937de66af944d513314\"\n            data-like-count=\"3\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__text\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">3</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n        \t\t<li comment=\"16177844\" level=\"0\" isSubscribed=\"0\" data-profile-id=\"40783477\" data-type=\"review\" user-rating=\"1\" data-timestamp=\"1756893477\" >\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<a name=\"p16177844\" type=\"anchor\"></a>\n\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__1_4\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40783477\" data-content=\"avatar\" data-show-profile-info class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t<img src=\"https://i-comments.vl.ru/vlcomments/1756828624812_f100100\" alt=\"user pic\" class=\"avatar\"/>\n</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40783477\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Шустрый тип</span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>2</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t<span class=\"cmt-badge__small\" data-profile-id=\"40783477\">\n                    <span class=\"cmt-badge__small__img cmt-badge__small__1\" title=\"Новичок\"></span>\n\t\t    </span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action complex subscription cmt-hidden-subscription subscription-aware cmt-skip-bind\" text_subscribe=\"подписаться\" text_unsubscribe=\"отписаться\" href=\"#\" action=\"subscribe\" data-comment-id=\"16177844\"><span action=\"subscribe\"  class=\"cmt-skip-bind\"\">подписаться</span></a><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16177844\" type=\"link\" data-comment-id=\"16177844\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16177844\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16177844&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%91%D0%B0%D1%80%D0%BC%D0%B5%D0%BD%D1%8B%20%D0%B7%D0%BD%D0%B0%D1%8E%D1%82%20%D1%81%D0%B2%D0%BE%D1%8E%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%83.%20%20%D0%9D%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8%3A%20%D0%9D%D0%B5%D1%82%D1%83%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%97%D0%B0%D0%BA%D1%83%D1%81%D0%BA%D0%B8%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D1%8B%D0%B5%2C%20%D0%BF%D0%B8%D0%B2%D0%BE%20%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B5%D0%B5.%20%D0%9F%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%20%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9%2C%20%D0%B7%D0%B0%D0%B3%D0%BB%D1%8F%D0%BD%D1%83%20%D0%B5%D1%89%D1%91%21&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16177844&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%91%D0%B0%D1%80%D0%BC%D0%B5%D0%BD%D1%8B%20%D0%B7%D0%BD%D0%B0%D1%8E%D1%82%20%D1%81%D0%B2%D0%BE%D1%8E%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%83.%20%20%D0%9D%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8%3A%20%D0%9D%D0%B5%D1%82%D1%83%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%97%D0%B0%D0%BA%D1%83%D1%81%D0%BA%D0%B8%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D1%8B%D0%B5%2C%20%D0%BF%D0%B8%D0%B2%D0%BE%20%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B5%D0%B5.%20%D0%9F%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%20%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9%2C%20%D0%B7%D0%B0%D0%B3%D0%BB%D1%8F%D0%BD%D1%83%20%D0%B5%D1%89%D1%91%21&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t            \t<span class=\"time\">3 сентября 2025 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"1\" style=\"width: 87px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\"><b>Достоинства:</b> Бармены знают свою работу.<br />\n<b>Недостатки:</b> Нету<br />\n<b>Комментарий:</b> Закуски вкусные, пиво хорошее. Персонал приветливый, загляну ещё!</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n                            <span\n            class=\"likes active likes_like-only\"\n            data-like-token=\"a2aa8184a880bf66ae4b7b471b92a1b22b82b1cd\"\n            data-like-count=\"5\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__text\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">5</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n                            \t\t<li comment=\"16214704\" level=\"1\" isSubscribed=\"0\" isOwner=\"1\" data-parent-id=\"16177844\" data-root-parent-id=\"16177844\" data-profile-id=\"2958\" data-timestamp=\"1768549421\"  class=\"cmt-reply\">\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t\t\t\t<a name=\"p16214704\" type=\"anchor\"></a>\n\n<div class=\"comment feed-item premoderate answer\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t<div >\n\t\t\t<div class=\"user-avatar cmt-friends-cat default owner \">\n\t</div>\n\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16214704\" type=\"link\" data-comment-id=\"16214704\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16214704\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16214704&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B2%D0%B5%D1%87%D0%B5%D1%80%21%20%D0%A8%D1%83%D1%81%D1%82%D1%80%D1%8B%D0%B9%20%D0%A2%D0%B8%D0%BF%2C%20%D0%A1%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE%20%D0%B7%D0%B0%20%D0%B2%D0%B0%D1%88%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2.%20%D0%91%D1%83%D0%B4%D0%B5%D0%BC%20%D0%B6%D0%B4%D0%B0%D1%82%D1%8C%20%D0%B2%D0%B0%D1%81%20%D1%81%D0%BD%D0%BE%D0%B2%D0%B0&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16214704&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B2%D0%B5%D1%87%D0%B5%D1%80%21%20%D0%A8%D1%83%D1%81%D1%82%D1%80%D1%8B%D0%B9%20%D0%A2%D0%B8%D0%BF%2C%20%D0%A1%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE%20%D0%B7%D0%B0%20%D0%B2%D0%B0%D1%88%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2.%20%D0%91%D1%83%D0%B4%D0%B5%D0%BC%20%D0%B6%D0%B4%D0%B0%D1%82%D1%8C%20%D0%B2%D0%B0%D1%81%20%D1%81%D0%BD%D0%BE%D0%B2%D0%B0&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t\t\t\t\t    \t<span class=\"user-name owner\">Тринити</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"time\">16 января 2026 г.</span>\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-conversation\">\n\t\t<div class=\"cmt-show-parent\">\n\t\t\tответ на <a href=\"#\" class=\"cmt-show-parent-action closed\" data-parent-id=\"16177844\"><span class=\"triangle\"></span><span class=\"text\">комментарий</span></a>\n\t\t\tШустрый тип\n\t\t</div>\n\t\t\t</div>\n\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\">Добрый вечер! Шустрый Тип, Спасибо за ваш отзыв. Будем ждать вас снова</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n            <span\n            class=\"likes active\"\n            data-like-token=\"aa560fe4c93a374b9324dbf58135d88a1718842c\"\n            data-like-count=\"1\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__counter  likes__counter_more-like \" data-comment-id=\"16214704\">1</span>\n                            <span class=\"likes__dislike\" data-action=\"vote-against\"></span>\n                    </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n        \t\t<li comment=\"16176135\" level=\"0\" isSubscribed=\"0\" data-profile-id=\"40782540\" data-type=\"review\" user-rating=\"1\" data-timestamp=\"1756426832\" >\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<a name=\"p16176135\" type=\"anchor\"></a>\n\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__2_0\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40782540\" data-content=\"avatar\" class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40782540\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Владимир</span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>1</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action complex subscription cmt-hidden-subscription subscription-aware cmt-skip-bind\" text_subscribe=\"подписаться\" text_unsubscribe=\"отписаться\" href=\"#\" action=\"subscribe\" data-comment-id=\"16176135\"><span action=\"subscribe\"  class=\"cmt-skip-bind\"\">подписаться</span></a><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16176135\" type=\"link\" data-comment-id=\"16176135\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16176135\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16176135&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%92%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B5%D0%B4%D0%B0%2C%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%B8%D0%B2%D0%BE%20%D0%B8%20%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B8%D0%B9%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%9E%D1%82%D0%B4%D1%8B%D1%85%D0%B0%D0%BB%D0%B8%20%D1%81%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%D0%BC%D0%B8%20%D0%BD%D0%B0%20%D0%B4%D0%BD%D1%8F%D1%85%2C%20%D0%B2%D1%81%D0%B5%20%D0%B1%D1%8B%D0%BB%D0%BE%20%D1%81%D1%83%D0%BF%D0%B5%D1%80%2C%20%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16176135&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%92%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B5%D0%B4%D0%B0%2C%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%B8%D0%B2%D0%BE%20%D0%B8%20%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B8%D0%B9%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%9E%D1%82%D0%B4%D1%8B%D1%85%D0%B0%D0%BB%D0%B8%20%D1%81%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%D0%BC%D0%B8%20%D0%BD%D0%B0%20%D0%B4%D0%BD%D1%8F%D1%85%2C%20%D0%B2%D1%81%D0%B5%20%D0%B1%D1%8B%D0%BB%D0%BE%20%D1%81%D1%83%D0%BF%D0%B5%D1%80%2C%20%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t            \t<span class=\"time\">29 августа 2025 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"1\" style=\"width: 87px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\"><b>Достоинства:</b> Вкусная еда, отличное пиво и хороший сервис<br />\n<b>Комментарий:</b> Отдыхали с друзьями на днях, все было супер, спасибо</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n                            <span\n            class=\"likes active likes_like-only\"\n            data-like-token=\"77277608ed694b45568401a4a2563fafda3cffed\"\n            data-like-count=\"5\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__text\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">5</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n                            \t\t<li comment=\"16214703\" level=\"1\" isSubscribed=\"0\" isOwner=\"1\" data-parent-id=\"16176135\" data-root-parent-id=\"16176135\" data-profile-id=\"2958\" data-timestamp=\"1768549383\"  class=\"cmt-reply\">\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t\t\t\t<a name=\"p16214703\" type=\"anchor\"></a>\n\n<div class=\"comment feed-item premoderate answer\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t<div >\n\t\t\t<div class=\"user-avatar cmt-friends-cat default owner \">\n\t</div>\n\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16214703\" type=\"link\" data-comment-id=\"16214703\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16214703\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16214703&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B2%D0%B5%D1%87%D0%B5%D1%80%21%20%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80%2C%20%D0%A1%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE%20%D0%B7%D0%B0%20%D0%B2%D0%B0%D1%88%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2.%20%D0%91%D1%83%D0%B4%D0%B5%D0%BC%20%D0%B6%D0%B4%D0%B0%D1%82%D1%8C%20%D0%B2%D0%B0%D1%81%20%D1%81%D0%BD%D0%BE%D0%B2%D0%B0&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16214703&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B2%D0%B5%D1%87%D0%B5%D1%80%21%20%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80%2C%20%D0%A1%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE%20%D0%B7%D0%B0%20%D0%B2%D0%B0%D1%88%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2.%20%D0%91%D1%83%D0%B4%D0%B5%D0%BC%20%D0%B6%D0%B4%D0%B0%D1%82%D1%8C%20%D0%B2%D0%B0%D1%81%20%D1%81%D0%BD%D0%BE%D0%B2%D0%B0&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t\t\t\t\t    \t<span class=\"user-name owner\">Тринити</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"time\">16 января 2026 г.</span>\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-conversation\">\n\t\t<div class=\"cmt-show-parent\">\n\t\t\tответ на <a href=\"#\" class=\"cmt-show-parent-action closed\" data-parent-id=\"16176135\"><span class=\"triangle\"></span><span class=\"text\">комментарий</span></a>\n\t\t\tВладимир\n\t\t</div>\n\t\t\t</div>\n\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\">Добрый вечер! Владимир, Спасибо за ваш отзыв. Будем ждать вас снова</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n            <span\n            class=\"likes active\"\n            data-like-token=\"6c919a4b0142ae99beec0c2e96b8a1a832155999\"\n            data-like-count=\"1\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__counter  likes__counter_more-like \" data-comment-id=\"16214703\">1</span>\n                            <span class=\"likes__dislike\" data-action=\"vote-against\"></span>\n                    </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n        \t\t<li comment=\"16165312\" level=\"0\" isSubscribed=\"0\" data-profile-id=\"40775938\" data-type=\"review\" user-rating=\"1\" data-timestamp=\"1753776941\" >\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<a name=\"p16165312\" type=\"anchor\"></a>\n\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__0_0\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40775938\" data-content=\"avatar\" class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40775938\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Илья</span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>1</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action complex subscription cmt-hidden-subscription subscription-aware cmt-skip-bind\" text_subscribe=\"подписаться\" text_unsubscribe=\"отписаться\" href=\"#\" action=\"subscribe\" data-comment-id=\"16165312\"><span action=\"subscribe\"  class=\"cmt-skip-bind\"\">подписаться</span></a><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16165312\" type=\"link\" data-comment-id=\"16165312\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16165312\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16165312&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%A5%D0%BE%D1%80%D0%BE%D1%88%D0%B5%D0%B5%20%D0%BC%D0%B5%D1%81%D1%82%D0%BE%2C%20%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C%20%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BE%D1%84%D0%B8%D1%86%D0%B8%D0%B0%D0%BD%D1%82%D0%B0%20%D0%90%D0%BD%D0%B0%D1%81%D1%82%D0%B0%D1%81%D0%B8%D0%B8%2C%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D1%8B%D0%B9%20%D0%B1%D0%BE%D1%80%D1%89%2C%20%D1%81%D0%B0%D0%BB%D0%B0%D1%82%20%D1%81%20%D1%80%D0%BE%D1%81%D1%82%D0%B1%D0%B8%D1%84%D0%BE%D0%BC%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D1%8B%D0%B9&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16165312&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%A5%D0%BE%D1%80%D0%BE%D1%88%D0%B5%D0%B5%20%D0%BC%D0%B5%D1%81%D1%82%D0%BE%2C%20%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C%20%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BE%D1%84%D0%B8%D1%86%D0%B8%D0%B0%D0%BD%D1%82%D0%B0%20%D0%90%D0%BD%D0%B0%D1%81%D1%82%D0%B0%D1%81%D0%B8%D0%B8%2C%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D1%8B%D0%B9%20%D0%B1%D0%BE%D1%80%D1%89%2C%20%D1%81%D0%B0%D0%BB%D0%B0%D1%82%20%D1%81%20%D1%80%D0%BE%D1%81%D1%82%D0%B1%D0%B8%D1%84%D0%BE%D0%BC%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D1%8B%D0%B9&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t            \t<span class=\"time\">29 июля 2025 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"1\" style=\"width: 87px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\"><b>Достоинства:</b> Хорошее место, понравилось обслуживание официанта Анастасии, вкусный борщ, салат с ростбифом отличный</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n                            <span\n            class=\"likes active likes_like-only\"\n            data-like-token=\"c8b586b79c64c4d3b21055498337f1af9df48976\"\n            data-like-count=\"7\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__text\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">7</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n                            \t\t<li comment=\"16168500\" level=\"1\" isSubscribed=\"0\" isOwner=\"1\" data-parent-id=\"16165312\" data-root-parent-id=\"16165312\" data-profile-id=\"2958\" data-timestamp=\"1754546983\"  class=\"cmt-reply\">\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t\t\t\t<a name=\"p16168500\" type=\"anchor\"></a>\n\n<div class=\"comment feed-item premoderate answer\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t<div >\n\t\t\t<div class=\"user-avatar cmt-friends-cat default owner \">\n\t</div>\n\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16168500\" type=\"link\" data-comment-id=\"16168500\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16168500\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16168500&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%21%20%D0%98%D0%BB%D1%8C%D1%8F%2C%20%D0%B1%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D0%B8%D0%BC%20%D0%B2%D0%B0%D1%81%20%D0%B7%D0%B0%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%2C%20%D0%B6%D0%B4%D0%B5%D0%BC%20%D0%B2%D0%B0%D1%81%20%D1%81%D0%BD%D0%BE%D0%B2%D0%B0&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16168500&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%21%20%D0%98%D0%BB%D1%8C%D1%8F%2C%20%D0%B1%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D0%B8%D0%BC%20%D0%B2%D0%B0%D1%81%20%D0%B7%D0%B0%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%2C%20%D0%B6%D0%B4%D0%B5%D0%BC%20%D0%B2%D0%B0%D1%81%20%D1%81%D0%BD%D0%BE%D0%B2%D0%B0&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t\t\t\t\t    \t<span class=\"user-name owner\">Тринити</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"time\">7 августа 2025 г.</span>\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-conversation\">\n\t\t<div class=\"cmt-show-parent\">\n\t\t\tответ на <a href=\"#\" class=\"cmt-show-parent-action closed\" data-parent-id=\"16165312\"><span class=\"triangle\"></span><span class=\"text\">комментарий</span></a>\n\t\t\tИлья\n\t\t</div>\n\t\t\t</div>\n\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\">Добрый день! Илья, благодарим вас за отзыв, ждем вас снова</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n            <span\n            class=\"likes active\"\n            data-like-token=\"3e133a8b7e01b60351d206987c7847d15a63eada\"\n            data-like-count=\"7\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__counter  likes__counter_more-like \" data-comment-id=\"16168500\">7</span>\n                            <span class=\"likes__dislike\" data-action=\"vote-against\"></span>\n                    </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n        \t\t<li comment=\"16157356\" level=\"0\" isSubscribed=\"0\" data-profile-id=\"40770621\" data-type=\"review\" user-rating=\"1\" data-timestamp=\"1751699955\" >\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<a name=\"p16157356\" type=\"anchor\"></a>\n\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__2_0\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40770621\" data-content=\"avatar\" class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40770621\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Крис</span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>1</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action complex subscription cmt-hidden-subscription subscription-aware cmt-skip-bind\" text_subscribe=\"подписаться\" text_unsubscribe=\"отписаться\" href=\"#\" action=\"subscribe\" data-comment-id=\"16157356\"><span action=\"subscribe\"  class=\"cmt-skip-bind\"\">подписаться</span></a><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16157356\" type=\"link\" data-comment-id=\"16157356\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16157356\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16157356&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%9A%D1%83%D1%85%D0%BD%D1%8F%2C%20%D0%A1%D0%B5%D1%80%D0%B2%D0%B8%D1%81%20%20%D0%9D%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8%3A%20%D0%9D%D0%B5%D1%82%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%9E%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B5%20%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5.%20%D0%9A%D1%83%D1%85%D0%BD%D1%8F%20%D0%B2%D1%8B%D1%88%D0%B5%20%D0%B2%D1%81%D1%8F%D0%BA%D0%B8%D1%85%20%D0%BF%D0%BE%D1%85%D0%B2%D0%B0%D0%BB%20-%20%D0%B1%D1%80%D0%B0%D0%BB%D0%B8%20%D1%81%D0%B0%D0%BB%D0%BE%2C%20%D0%B3%D0%BE%D1%80%D1%8F%D1%87%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BA%D1%83%D1%81%D0%BA%D0%B8%20%D0%B8%20%D0%BA%D0%BE%D0%BB%D0%B1%D0%B0%D1%81%D1%8B.%20%D0%9F%D1%80%D0%B8%D1%8F%D1%82%D0%BD%D0%BE%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%BB%D0%B8%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%2C%20%D0%BF%D0%BE%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D0%BC%20%D0%B8%D0%B3%D1%80%D0%B0%D1%8E%D1%82%20%D0%BA%D0%B0%D0%B2%D0%B5%D1%80%20%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D1%8B%2C%20%D0%B2%20%D0%BE%D0%B1%D1%89%D0%B5%D0%BC%2C%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%2C%20%D0%BE%D1%82%20%D0%B4%D1%83%D1%88%D0%B8%20%D1%81%D0%BE%D0%B2%D0%B5%D1%82%D1%83%D1%8E%20%D1%8D%D1%82%D0%BE%D1%82%20%D0%BF%D0%B0%D0%B1%21&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16157356&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%9A%D1%83%D1%85%D0%BD%D1%8F%2C%20%D0%A1%D0%B5%D1%80%D0%B2%D0%B8%D1%81%20%20%D0%9D%D0%B5%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BA%D0%B8%3A%20%D0%9D%D0%B5%D1%82%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%9E%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B5%20%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5.%20%D0%9A%D1%83%D1%85%D0%BD%D1%8F%20%D0%B2%D1%8B%D1%88%D0%B5%20%D0%B2%D1%81%D1%8F%D0%BA%D0%B8%D1%85%20%D0%BF%D0%BE%D1%85%D0%B2%D0%B0%D0%BB%20-%20%D0%B1%D1%80%D0%B0%D0%BB%D0%B8%20%D1%81%D0%B0%D0%BB%D0%BE%2C%20%D0%B3%D0%BE%D1%80%D1%8F%D1%87%D0%B8%D0%B5%20%D0%B7%D0%B0%D0%BA%D1%83%D1%81%D0%BA%D0%B8%20%D0%B8%20%D0%BA%D0%BE%D0%BB%D0%B1%D0%B0%D1%81%D1%8B.%20%D0%9F%D1%80%D0%B8%D1%8F%D1%82%D0%BD%D0%BE%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%BB%D0%B8%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9%2C%20%D0%BF%D0%BE%20%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D0%BC%20%D0%B8%D0%B3%D1%80%D0%B0%D1%8E%D1%82%20%D0%BA%D0%B0%D0%B2%D0%B5%D1%80%20%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D1%8B%2C%20%D0%B2%20%D0%BE%D0%B1%D1%89%D0%B5%D0%BC%2C%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%2C%20%D0%BE%D1%82%20%D0%B4%D1%83%D1%88%D0%B8%20%D1%81%D0%BE%D0%B2%D0%B5%D1%82%D1%83%D1%8E%20%D1%8D%D1%82%D0%BE%D1%82%20%D0%BF%D0%B0%D0%B1%21&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t            \t<span class=\"time\">5 июля 2025 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"1\" style=\"width: 87px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\"><b>Достоинства:</b> Кухня, Сервис<br />\n<b>Недостатки:</b> Нет<br />\n<b>Комментарий:</b> Отличное обслуживание. Кухня выше всяких похвал - брали сало, горячие закуски и колбасы. Приятно провели выходной, по выходным играют кавер группы, в общем, друзья, от души советую этот паб!</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n                            <span\n            class=\"likes active likes_like-only\"\n            data-like-token=\"f97f1ca931d7c103d824832c661f2905d341fb57\"\n            data-like-count=\"6\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__text\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">6</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n                            \t\t<li comment=\"16161693\" level=\"1\" isSubscribed=\"0\" isOwner=\"1\" data-parent-id=\"16157356\" data-root-parent-id=\"16157356\" data-profile-id=\"2958\" data-timestamp=\"1752851529\"  class=\"cmt-reply\">\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t\t\t\t<a name=\"p16161693\" type=\"anchor\"></a>\n\n<div class=\"comment feed-item premoderate answer\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t<div >\n\t\t\t<div class=\"user-avatar cmt-friends-cat default owner \">\n\t</div>\n\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16161693\" type=\"link\" data-comment-id=\"16161693\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16161693\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16161693&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%21%20%D0%9A%D1%80%D0%B8%D1%81%2C%20%D0%B1%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D0%B8%D0%BC%20%D0%B2%D0%B0%D1%81%20%D0%B7%D0%B0%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%2C%20%D0%B6%D0%B4%D0%B5%D0%BC%20%D0%B2%D0%B0%D1%81%20%D1%81%D0%BD%D0%BE%D0%B2%D0%B0&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16161693&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%21%20%D0%9A%D1%80%D0%B8%D1%81%2C%20%D0%B1%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D0%B8%D0%BC%20%D0%B2%D0%B0%D1%81%20%D0%B7%D0%B0%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%2C%20%D0%B6%D0%B4%D0%B5%D0%BC%20%D0%B2%D0%B0%D1%81%20%D1%81%D0%BD%D0%BE%D0%B2%D0%B0&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t\t\t\t\t    \t<span class=\"user-name owner\">Тринити</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"time\">19 июля 2025 г.</span>\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-conversation\">\n\t\t<div class=\"cmt-show-parent\">\n\t\t\tответ на <a href=\"#\" class=\"cmt-show-parent-action closed\" data-parent-id=\"16157356\"><span class=\"triangle\"></span><span class=\"text\">комментарий</span></a>\n\t\t\tКрис\n\t\t</div>\n\t\t\t</div>\n\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\">Добрый день! Крис, благодарим вас за отзыв, ждем вас снова</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n            <span\n            class=\"likes active\"\n            data-like-token=\"f06a3fb7c8f92d3205852631eb2a44e17d9a58f5\"\n            data-like-count=\"5\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__counter  likes__counter_more-like \" data-comment-id=\"16161693\">5</span>\n                            <span class=\"likes__dislike\" data-action=\"vote-against\"></span>\n                    </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n        \t\t<li comment=\"16157338\" level=\"0\" isSubscribed=\"0\" data-profile-id=\"40682245\" data-type=\"review\" user-rating=\"1\" data-timestamp=\"1751694123\" >\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<a name=\"p16157338\" type=\"anchor\"></a>\n\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__3_0\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40682245\" data-content=\"avatar\" class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40682245\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Станислав</span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>3</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action complex subscription cmt-hidden-subscription subscription-aware cmt-skip-bind\" text_subscribe=\"подписаться\" text_unsubscribe=\"отписаться\" href=\"#\" action=\"subscribe\" data-comment-id=\"16157338\"><span action=\"subscribe\"  class=\"cmt-skip-bind\"\">подписаться</span></a><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16157338\" type=\"link\" data-comment-id=\"16157338\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16157338\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16157338&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%9E%D1%82%D0%B4%D1%8B%D1%85%D0%B0%D0%BB%D0%B8%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B5%D0%B9%2C%20%D0%B2%D1%81%D0%B5%20%D0%BE%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C%21%20%D0%9F%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%20%D0%BE%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%D1%87%D0%B8%D0%B2%D1%8B%D0%B9%20%D0%B8%20%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9%2C%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%BA%D1%83%D1%85%D0%BD%D1%8F%20%D0%B8%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%B8%D0%B2%D0%BE%2C%20%D0%B2%D1%8B%D0%B1%D0%BE%D1%80%20%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D0%BE%D0%B3%D0%BE%20%D0%B2%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%BE%D0%BC%20%D0%BF%D0%B0%D0%B1%D0%B5%20%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BE%D1%87%D0%BD%D0%BE%20%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9.%20%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%83%D1%8E%20%D0%BF%D0%BE%D1%81%D0%B5%D1%82%D0%B8%D1%82%D1%8C%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%B7%D0%B0%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%2C%20%D0%BD%D0%B5%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D0%B5%D0%B5%D1%82%D0%B5%29&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16157338&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%9E%D1%82%D0%B4%D1%8B%D1%85%D0%B0%D0%BB%D0%B8%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B5%D0%B9%2C%20%D0%B2%D1%81%D0%B5%20%D0%BE%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C%21%20%D0%9F%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%20%D0%BE%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%D1%87%D0%B8%D0%B2%D1%8B%D0%B9%20%D0%B8%20%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9%2C%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%BA%D1%83%D1%85%D0%BD%D1%8F%20%D0%B8%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%B8%D0%B2%D0%BE%2C%20%D0%B2%D1%8B%D0%B1%D0%BE%D1%80%20%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D0%BE%D0%B3%D0%BE%20%D0%B2%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%BE%D0%BC%20%D0%BF%D0%B0%D0%B1%D0%B5%20%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D1%82%D0%BE%D1%87%D0%BD%D0%BE%20%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9.%20%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%83%D1%8E%20%D0%BF%D0%BE%D1%81%D0%B5%D1%82%D0%B8%D1%82%D1%8C%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%B7%D0%B0%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%2C%20%D0%BD%D0%B5%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D0%B5%D0%B5%D1%82%D0%B5%29&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t            \t<span class=\"time\">5 июля 2025 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"1\" style=\"width: 87px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\"><b>Достоинства:</b> Отдыхали компанией, все очень понравилось! Персонал очень отзывчивый и приветливый, вкусная кухня и отличное пиво, выбор которого в данном пабе достаточно большой. Советую посетить данное заведение, не пожалеете)</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n                            <span\n            class=\"likes active likes_like-only\"\n            data-like-token=\"d49704f4e7d9a4ecdb5bbf1c7fafcabe474d1cbd\"\n            data-like-count=\"7\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__text\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">7</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n                            \t\t<li comment=\"16161694\" level=\"1\" isSubscribed=\"0\" isOwner=\"1\" data-parent-id=\"16157338\" data-root-parent-id=\"16157338\" data-profile-id=\"2958\" data-timestamp=\"1752851590\"  class=\"cmt-reply\">\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t\t\t\t<a name=\"p16161694\" type=\"anchor\"></a>\n\n<div class=\"comment feed-item premoderate answer\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t<div >\n\t\t\t<div class=\"user-avatar cmt-friends-cat default owner \">\n\t</div>\n\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16161694\" type=\"link\" data-comment-id=\"16161694\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16161694\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16161694&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%21%20%D0%A1%D1%82%D0%B0%D0%BD%D0%B8%D1%81%D0%BB%D0%B0%D0%B2%2C%20%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE%20%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B5%20%D0%B7%D0%B0%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%2C%20%D0%BD%D0%B0%D0%BC%20%D0%BE%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%BD%D0%BE&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16161694&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%21%20%D0%A1%D1%82%D0%B0%D0%BD%D0%B8%D1%81%D0%BB%D0%B0%D0%B2%2C%20%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE%20%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B5%20%D0%B7%D0%B0%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%2C%20%D0%BD%D0%B0%D0%BC%20%D0%BE%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%BD%D0%BE&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t\t\t\t\t    \t<span class=\"user-name owner\">Тринити</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"time\">19 июля 2025 г.</span>\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-conversation\">\n\t\t<div class=\"cmt-show-parent\">\n\t\t\tответ на <a href=\"#\" class=\"cmt-show-parent-action closed\" data-parent-id=\"16157338\"><span class=\"triangle\"></span><span class=\"text\">комментарий</span></a>\n\t\t\tСтанислав\n\t\t</div>\n\t\t\t</div>\n\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\">Добрый день! Станислав, спасибо большое за отзыв, нам очень приятно</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n            <span\n            class=\"likes active\"\n            data-like-token=\"3ef2876e80993049336a62cf9642e2c2cc1d7997\"\n            data-like-count=\"5\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__counter  likes__counter_more-like \" data-comment-id=\"16161694\">5</span>\n                            <span class=\"likes__dislike\" data-action=\"vote-against\"></span>\n                    </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n        \t\t<li comment=\"16157312\" level=\"0\" isSubscribed=\"0\" data-profile-id=\"40770593\" data-type=\"review\" user-rating=\"1\" data-timestamp=\"1751686401\" >\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<a name=\"p16157312\" type=\"anchor\"></a>\n\t\t\n<div class=\"comment feed-item premoderate review cmt-cat__0_5\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div data-profile-id=\"40770593\" data-content=\"avatar\" class=\"cmt-profile__link cmt-profile__name\">\n\t\t\t<div class=\"user-avatar cmt-friends-cat default \">\n\t</div>\n\t\t</div>\n\t\t\t\t\t<div class=\"cmt-user-data\">\n\t\t\t\t<div class=\"cmt-user-name\">\n\t\t\t\t\t                                    \t<span data-profile-id=\"40770593\" data-content=\"name\" class=\"user-name cmt-profile__link cmt-profile__name marisa\">Анна</span>\n\t\t\t\t</div>\n\t\t\t\t                                <div class=\"cmt-user-stat\">\n                <div>Отзывов <b>1</b></div>\n            </div>\n            \t\t\t\t<div class=\"cmt-achievements\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action complex subscription cmt-hidden-subscription subscription-aware cmt-skip-bind\" text_subscribe=\"подписаться\" text_unsubscribe=\"отписаться\" href=\"#\" action=\"subscribe\" data-comment-id=\"16157312\"><span action=\"subscribe\"  class=\"cmt-skip-bind\"\">подписаться</span></a><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16157312\" type=\"link\" data-comment-id=\"16157312\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16157312\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16157312&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%2C%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B5%D0%B4%D0%B0%20%D0%B8%20%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%BD%D0%B0%D1%8F%20%D0%B0%D1%82%D0%BC%D0%BE%D1%81%D1%84%D0%B5%D1%80%D0%B0%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%AD%D1%82%D0%BE%20%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE%20%D0%BD%D0%B0%D1%85%D0%BE%D0%B4%D0%BA%D0%B0%21%20%D0%97%D0%B0%D1%88%D0%BB%D0%B8%20%D1%81%D1%8E%D0%B4%D0%B0%20%D1%81%D0%BB%D1%83%D1%87%D0%B0%D0%B9%D0%BD%D0%BE%20%D1%81%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%D0%BC%D0%B8%20%D0%B8%20%D0%BE%D1%81%D1%82%D0%B0%D0%BB%D0%B8%D1%81%D1%8C%20%D0%B2%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%BE%D0%BC%20%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D1%80%D0%B3%D0%B5.%20%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%2C%20%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B0%D1%8F%20%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0%20%D0%B8%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%BA%D1%83%D1%85%D0%BD%D1%8F%2C%20%D0%BE%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%BD%D0%B0%D1%8F%20%D0%B0%D1%82%D0%BC%D0%BE%D1%81%D1%84%D0%B5%D1%80%D0%B0.%20%D0%A2%D0%B5%D0%BF%D0%B5%D1%80%D1%8C%20%D1%8D%D1%82%D0%BE%20%D0%BD%D0%B0%D1%88%20%D0%BB%D1%8E%D0%B1%D0%B8%D0%BC%D1%8B%D0%B9%20%D0%BF%D0%B0%D0%B1%21&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16157312&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D0%B2%D0%B0%3A%20%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%2C%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B5%D0%B4%D0%B0%20%D0%B8%20%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%BD%D0%B0%D1%8F%20%D0%B0%D1%82%D0%BC%D0%BE%D1%81%D1%84%D0%B5%D1%80%D0%B0%20%20%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%3A%20%D0%AD%D1%82%D0%BE%20%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE%20%D0%BD%D0%B0%D1%85%D0%BE%D0%B4%D0%BA%D0%B0%21%20%D0%97%D0%B0%D1%88%D0%BB%D0%B8%20%D1%81%D1%8E%D0%B4%D0%B0%20%D1%81%D0%BB%D1%83%D1%87%D0%B0%D0%B9%D0%BD%D0%BE%20%D1%81%20%D0%B4%D1%80%D1%83%D0%B7%D1%8C%D1%8F%D0%BC%D0%B8%20%D0%B8%20%D0%BE%D1%81%D1%82%D0%B0%D0%BB%D0%B8%D1%81%D1%8C%20%D0%B2%20%D0%BF%D0%BE%D0%BB%D0%BD%D0%BE%D0%BC%20%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D1%80%D0%B3%D0%B5.%20%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%2C%20%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B0%D1%8F%20%D0%BC%D1%83%D0%B7%D1%8B%D0%BA%D0%B0%20%D0%B8%20%D0%B2%D0%BA%D1%83%D1%81%D0%BD%D0%B0%D1%8F%20%D0%BA%D1%83%D1%85%D0%BD%D1%8F%2C%20%D0%BE%D1%87%D0%B5%D0%BD%D1%8C%20%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%BD%D0%B0%D1%8F%20%D0%B0%D1%82%D0%BC%D0%BE%D1%81%D1%84%D0%B5%D1%80%D0%B0.%20%D0%A2%D0%B5%D0%BF%D0%B5%D1%80%D1%8C%20%D1%8D%D1%82%D0%BE%20%D0%BD%D0%B0%D1%88%20%D0%BB%D1%8E%D0%B1%D0%B8%D0%BC%D1%8B%D0%B9%20%D0%BF%D0%B0%D0%B1%21&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t            \t<span class=\"time\">5 июля 2025 г.</span>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-rating-wrapper\">\n\t\t<span class=\"cmt-text-rating\">Оценка: </span>\n\t\t<div class=\"star-rating\">\n    <div class=\"inactive\"></div>\n    <div class=\"active\" data-value=\"1\" style=\"width: 87px;\"></div>\n</div>\n\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\"><b>Достоинства:</b> Приветливый персонал, вкусная еда и приятная атмосфера<br />\n<b>Комментарий:</b> Это просто находка! Зашли сюда случайно с друзьями и остались в полном восторге. Приветливый персонал, хорошая музыка и вкусная кухня, очень приятная атмосфера. Теперь это наш любимый паб!</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n                            <span\n            class=\"likes active likes_like-only\"\n            data-like-token=\"905ef952769bc130c6d8e30f61ea172d9d9e3031\"\n            data-like-count=\"7\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__text\">Спасибо</span>\n            <span class=\"likes__counter  likes__counter_more-like \">7</span>\n        </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n                            \t\t<li comment=\"16161695\" level=\"1\" isSubscribed=\"0\" isOwner=\"1\" data-parent-id=\"16157312\" data-root-parent-id=\"16157312\" data-profile-id=\"2958\" data-timestamp=\"1752851628\"  class=\"cmt-reply\">\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t\t\t\t<a name=\"p16161695\" type=\"anchor\"></a>\n\n<div class=\"comment feed-item premoderate answer\">\n\t<div class=\"sidebar\">\n\t\t\t\t\t\t\t\t\t\t<div >\n\t\t\t<div class=\"user-avatar cmt-friends-cat default owner \">\n\t</div>\n\t\t</div>\n\t\t\t</div>\n\t<div class=\"cmt-content\">\n\t\t<div class=\"line\">\n\t\t\t\t\t\t<div class=\"comment-menu\"><div class=\"comment-menu-popup cmt-hidden\"><a class=\"action copy-link\" action=\"copy-link\" href=\"https://www.vl.ru/trinity#p16161695\" type=\"link\" data-comment-id=\"16161695\" data-thread-type=\"company\" data-thread-name=\"trinity\"><span>ссылка на комментарий</span></a><a class=\"action cmt-complaint-create need-login\" href=\"#\" data-comment-id=\"16161695\"><span>пожаловаться</span></a><hr class=\"cmt-share-delimiter\" /><div class=\"cmt-share-comment\"><div class=\"cmt-share-text\">\n\t                    поделиться:\n\t                </div><div class=\"cmt-share-socials\"><a href=\"http://vk.com/share.php?url=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16161695&title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%21%20%D0%90%D0%BD%D0%BD%D0%B0%2C%20%D0%BE%D0%B3%D1%80%D0%BE%D0%BC%D0%BD%D0%BE%D0%B5%20%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE%20%D0%B7%D0%B0%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%20%D0%B8%20%D0%B2%D1%8B%D1%81%D0%BE%D0%BA%D1%83%D1%8E%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BA%D1%83&image=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-vk\" target=\"_blank\"></a><a href=\"https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&st.shareUrl=https%3A%2F%2Fwww.vl.ru%2Ftrinity%23p16161695&st.title=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9%20%D0%BD%D0%B0%20%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B5%20%22%D0%A2%D1%80%D0%B8%D0%BD%D0%B8%D1%82%D0%B8%22&st.description=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%21%20%D0%90%D0%BD%D0%BD%D0%B0%2C%20%D0%BE%D0%B3%D1%80%D0%BE%D0%BC%D0%BD%D0%BE%D0%B5%20%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE%20%D0%B7%D0%B0%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%20%D0%B8%20%D0%B2%D1%8B%D1%81%D0%BE%D0%BA%D1%83%D1%8E%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BA%D1%83&st.imageUrl=https%3A%2F%2Fstatic.vl.ru%2Fcatalog%2F1728027167259_logo.jpg\" class=\"cmt-share-icon cmt-share-ok\" target=\"_blank\"></a></div></div></div></div>\t\t\t\t\t\t\t    \t<span class=\"user-name owner\">Тринити</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"time\">19 июля 2025 г.</span>\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"cmt-conversation\">\n\t\t<div class=\"cmt-show-parent\">\n\t\t\tответ на <a href=\"#\" class=\"cmt-show-parent-action closed\" data-parent-id=\"16157312\"><span class=\"triangle\"></span><span class=\"text\">комментарий</span></a>\n\t\t\tАнна\n\t\t</div>\n\t\t\t</div>\n\t\t<div class=\"comment-body\">\n\t\t\t\n\n\n\n    \n\n\n<blockquote type=\"text\">\n\t\t\t<p class=\"comment-text cmt-collapse-comment\">Добрый день! Анна, огромное спасибо за отзыв и высокую оценку</p>\n\t\t\t\t\t\t</blockquote>\n\t\t\t\t\t\t<p class=\"user-actions\">\n\t\t\t\t        \n                            \n                        \n            <span\n            class=\"likes active\"\n            data-like-token=\"9cd44f2f71458488e7989954e0044d2fef812056\"\n            data-like-count=\"6\"\n            data-dislike-count=\"0\"\n        >\n            <span class=\"likes__like\" data-action=\"vote-for\"></span>\n            <span class=\"likes__counter  likes__counter_more-like \" data-comment-id=\"16161695\">6</span>\n                            <span class=\"likes__dislike\" data-action=\"vote-against\"></span>\n                    </span>\n                    \t\t<a class=\"action reply marisa hidden\" action=\"reply\" href=\"#\">\n\t\t<span>ответить</span> \t</a>\n\t\t\t\t\t\t\t</p>\n            \t\t</div>\n\t\t\t</div>\n</div>\n\t</li>\n</ul>\n    \t\t\t<p class=\"loadMoreComments loading cmt-more-comments\" action=\"loadMoreComments\">Загрузить еще...</p>\n\t\t<div class=\"noMoreComments\">\n\t\t<div class=\"hr\"></div>\n\t\t\t\t\t<div class=\"note\">Больше комментариев нет. <a href=\"#commentForm\" class=\"to-comment-form dotted\">Добавить свой комментарий</a></div>\n\t\t\t</div>\n    <script type=\"text/x-handlebars-template\" id=\"CommentSubscSubmitModal\">\n        <div id=\"subscribeModal\" class=\"commentsvlru-modal-box subscribe-form company marisa\">\n            <p class=\"notice\">\n                На Вашу почту будут приходить уведомления о новых комментариях в этом обсуждении\n            </p>\n            <input type=\"text\" value=\"{{email}}\" id=\"subscEmail\" placeholder=\"Введите e-mail\"/>\n            <p id=\"subscError\" class=\"notice error cmt-hidden\"></p>\n            <a id=\"subscButton\" comment=\"{{comment}}\" href=\"#\" class=\"cmt-button company marisa\">Согласен</a>\n        </div>\n    </script>\n\n    <script type=\"text/x-handlebars-template\" id=\"CommentUnsubscSubmitModal\">\n        <div id=\"unsubscribeModal\" class=\"commentsvlru-modal-box subscribe-form unsubscribe company marisa\">\n            <p class=\"notice\">Уведомления о новых комментариях в этом обсуждении больше не будут вас беспокоить</p>\n            <p id=\"subscError\" class=\"notice error cmt-hidden\"></p>\n            <a id=\"unsubscButton\" comment=\"{{comment}}\" href=\"#\" class=\"cmt-button company marisa\">Отписываюсь</a>\n        </div>\n    </script>\n\n<script type=\"text/x-handlebars-template\" id=\"AuthModalForm\">\n    <div id=\"anonymousLikeModal\" class=\"commentsvlru-modal-box company marisa\">\n        <p class=\"notice\">\n            {{ message }}\n        </p>\n        <div class=\"auth-block anon-image-post\">\n            <div class=\"cmt-auth-list\">\n                <li class=\"cmt-auth-list-item\"><a\n\t\t\thref=\"/login/farpost?returnUrl=%2Fcompany%2Ftrinity\"\n\t\t\tclass=\"open-auth-link login-link cmt-auth-ico cmt-auth-ico-farpost\"\n\t\t\tname=\"FarPost\"\n\t\t\trel=\"nofollow\"\n\t\t></a></li><li class=\"cmt-auth-list-item\"><a\n\t\t\thref=\"/login/vkontakte?returnUrl=%2Fcompany%2Ftrinity\"\n\t\t\tclass=\"open-auth-link login-link cmt-auth-ico cmt-auth-ico-vkontakte\"\n\t\t\tname=\"ВКонтакте\"\n\t\t\trel=\"nofollow\"\n\t\t></a></li><li class=\"cmt-auth-list-item\"><a\n\t\t\thref=\"/login/odnoklassniki?returnUrl=%2Fcompany%2Ftrinity\"\n\t\t\tclass=\"open-auth-link login-link cmt-auth-ico cmt-auth-ico-odnoklassniki\"\n\t\t\tname=\"Одноклассники\"\n\t\t\trel=\"nofollow\"\n\t\t></a></li><li class=\"cmt-auth-list-item\"><a\n\t\t\thref=\"/login/MyMailru?returnUrl=%2Fcompany%2Ftrinity\"\n\t\t\tclass=\"open-auth-link login-link cmt-auth-ico cmt-auth-ico-mymailru\"\n\t\t\tname=\"MyMail\"\n\t\t\trel=\"nofollow\"\n\t\t></a></li>\n            </div>\n        </div>\n    </div>\n</script>\n<script type=\"text/x-handlebars-template\" id=\"TextError\">\n    <div>\n        <div class=\"writeComment\">Пожалуйста, напишите комментарий.</div>\n        <div class=\"writeName\">Пожалуйста, укажите Ваше имя.</div>\n        <div class=\"writeEmail\">Пожалуйста, укажите e-mail для уведомлений.</div>\n        <div class=\"writeRightEmail\">Неправильный формат e-mail.</div>\n    </div>\n</script>\n\n<script type=\"text/x-handlebars-template\" id=\"ReplyToComment\">\n    <div id=\"replyModal\" class=\"commentsvlru-modal-box dialog company marisa\">\n        <div>Вы действительно хотите перейти к ответу? <br/>Уже набранный Вами комментарий не будет сохранён.</div>\n        <a id=\"cancelModal\" href=\"#\" class=\"cmt-button company marisa\">Отмена</a>\n        <a id=\"okModal\" href=\"#\" class=\"cmt-button company marisa\">OK</a>\n    </div>\n</script>\n\n<script type=\"text/x-handlebars-template\" id=\"NoteModalForm\">\n    <div class=\"commentsvlru-modal-box company marisa\">\n        <p class=\"notice\">\n            {{ message}}\n        </p>\n        <div class=\"button-block\">\n            <button class=\"close-modal-box\">Ок</button>\n        </div>\n    </div>\n</script>\n\n<script type=\"text/x-handlebars-template\" id=\"conversation\">\n\t<div class=\"commentsvlru-modal-box cmt-conversation-modal dialog content-overflow\">\n\t\t<div class=\"cmt-icon-hide\"></div>\n\t\t<div class=\"cmt-header cmt-no-border\">История беседы</div>\n\t\t<div class=\"cmt-content  cmt-no-border\">\n            {{{ html}}}\n\t\t</div>\n\t</div>\n</script>\n\n\n<script type=\"text/x-handlebars-template\" id=\"DeleteCommentCause\">\n\t<div id=\"deleteModal\" class=\"commentsvlru-modal-box dialog company marisa\">\n\t\t<div><b>Вы действительно хотите удалить комментарий?</b></div>\n\t\t<div>\n\t\t\t<div class=\"delete-cause-info\">\n\t\t\t\t<div class=\"delete-cause-text\">Причина удаления:</div>\n\t\t\t\t<div class=\"attention\">Данная причина удаления будет видна автору комментария!</div>\n\t\t\t</div>\n\t\t\t{{{deleteCauses}}}\n\t\t</div>\n\t\t<div>\n\t\t\t<a href=\"#\" class=\"edit-reasons\">Редактировать причины</a>\n\t\t</div>\n\t\t<div>\n\t\t\t<span>Другая причина:</span>\n\t\t\t<input name=\"alternative-cause\" type=\"text\"/>\n\t\t</div>\n\t\t<div class=\"error hidden\">Выберите причину удаления</div>\n\t\t<a id=\"cancelModal\" href=\"#\" class=\"cmt-button company marisa\">Отмена</a>\n\t\t<a id=\"okModal\" href=\"#\" class=\"cmt-button company marisa\">OK</a>\n\t</div>\n</script>\n\n<script type=\"text/x-handlebars-template\" id=\"DeleteComment\">\n\t<div id=\"deleteModal\" class=\"commentsvlru-modal-box dialog company marisa\">\n\t\t<div>Вы действительно хотите удалить комментарий?</div>\n\t\t<a id=\"cancelModal\" href=\"#\" class=\"cmt-button company marisa\">Отмена</a>\n\t\t<a id=\"okModal\" href=\"#\" class=\"cmt-button company marisa\">OK</a>\n\t</div>\n</script>\n\n<script type=\"text/x-handlebars-template\" id=\"DeleteCause\">\n\t<div class=\"delete-cause-list\">\n\t\t{{{ reasons }}}\n\t</div>\n</script>\n<script type=\"text/x-handlebars-template\" id=\"DeleteReasons\">\n\t\t\t\t\t\tОтзыв должен быть информативным и содержательным, включающим описание полученных услуг, и основанным на личном опыте работы с компанией.\n\t\t\t\t\tРазмещение отзывов под разными именами на странице одной компании приравнивается к недостоверной информации.\n\t\t\t\t\tОскорбление.\n\t\t\t\t\tИнформация, указанная в комментарии, должна быть достоверной.\n\t\t\t\t\tПовторная публикация комментария.\n\t\t\t\t\tУказание в тексте отзыва наименований и/или контактных данных любых организаций, кроме той, на которую поступает отзыв, подлежит редактированию или удалению.\n\t\t\t\t\tОтзыв о работе компании может оставлять только клиент компании.\n\t\t\t\t\tПо запросу автора.\n\t\t\t\t\tКомментарии, не относящиеся к деятельности компании, подлежат удалению.\n\t\t\t\t\tЗапрещено использование нецензурной и/или оскорбительной лексики.\n\t\t\t\t\tВ связи с тем, что вами не была предоставлена запрошенная подтверждающая информация, ваш отзыв был удален.\n\t\t\t\t\tЗапрещено размещение рекламных материалов.\n\t\t\t\t\tКонтактные данные не допускаются к публикации.\n\t\t\t\t\tОтзывы, дискриминирующие группы людей на основании их расовой, этнической, национальной или политической принадлежности, нетрудоспособности, религиозных убеждений, пола, возраста, сексуальной ориентации или половой идентификации, не допускаются к размещению.\n\t\t\t\t\tНе допускается размещение полностью идентичных отзывов на страницах разных компаний.\n\t\t\t\t\tЗдравствуйте! Контактная информация указана наверху страницы.\n\t\t\t\t\tПубликация отзывов через устройства, предоставленные заведением, запрещена.\n\t\t\t\t\tКомментарии могут оставлять бывшие или действующие сотрудники, а также владелец компании. В таком случае в комментарии необходимо указывать на свою принадлежность к этой компании, иначе комментарий подлежит удалению.\n\t\t\t\t\tДанная информация не является отзывом.\n\t\t\t\t\tДобрый день! Вы можете дополнить свой отзыв, нажав кнопку \"Ответить\" под своим отзывом.\n\t\t\t</script>\n<script type=\"text/x-handlebars-template\" id=\"DeleteReasonTemplate\">\n\t<p title=\"{{ reason }}\"><label><input type=\"checkbox\">{{{ reason }}}</label></p>\n</script>\n\n<script type=\"text/x-handlebars-template\" id=\"BlockComments\">\n\t<div id=\"blockModal\" class=\"commentsvlru-modal-box dialog company marisa\">\n\t\t<div>Время ожидания модерации сообщений истекло. Все неотмодерированные сообщения <br/>разблокированы. <a href='javascript:location.reload()'>Перезагрузить страницу и продолжить проверку сообщений.</a></div>\n\t\t<a id=\"okModal\" href=\"#\" class=\"cmt-button company marisa\">OK</a>\n\t</div>\n</script>\n<script type=\"text/x-handlebars-template\" class=\"comments-autosave-block\">\n\n</script>\n\n<script type=\"text/x-handlebars-template\" id=\"Annotation\">\n\t<div id=\"annotationModal\" class=\"commentsvlru-modal-box dialog company marisa\">\n\t\t<div><b>Аннотация к отзыву</b></div>\n\t\t<div>\n\t\t\t<textarea name=\"annotation\" maxlength=\"80\"></textarea>\n\t\t</div>\n\t\t<div>Осталось <span class=\"symbols-counter\"></span> символов</div>\n\t\t<div class=\"error hidden\"></div>\n\t\t<a id=\"cancelModal\" href=\"#\" class=\"cmt-button company marisa\">Отмена</a>\n\t\t<a id=\"okModal\" href=\"#\" class=\"cmt-button company marisa\">OK</a>\n\t</div>\n</script>\n\n<script type=\"text/x-handlebars-template\" id=\"ComplaintCreate\">\n\t<div id=\"complainModal\" class=\"commentsvlru-modal-box dialog company marisa\">\n\t\t<div><b>Укажите причину жалобы на комментарий</b></div>\n\t\t<div>\n\t\t\t<label><input type=\"radio\" name=\"complain\" value=\"2\" checked /> <span>Это спам</span></label>\n\t\t\t<label><input type=\"radio\" name=\"complain\" value=\"4\" /> <span>Оскорбление</span></label>\n\t\t\t<label><input type=\"radio\" name=\"complain\" value=\"8\" /> <span>Мат</span></label>\n\t\t\t<label><input type=\"radio\" name=\"complain\" value=\"16\" /> <span>Пропаганда наркотиков</span></label>\n\t\t\t<label><input type=\"radio\" name=\"complain\" value=\"32\" /> <span>Насилие / экстремизм</span></label>\n\t\t\t<div class=\"cmt-complaint-group\">\n\t\t\t\t<label><input type=\"radio\" name=\"complain\" value=\"1\" /> <span>Другая причина</span></label>\n\t\t\t\t<textarea name=\"complain-text\" cols=\"2\"></textarea>\n\t\t\t</div>\n\n\t\t</div>\n\t\t<div class=\"error hidden\"></div>\n\t\t<a id=\"cancelModal\" href=\"#\" class=\"cmt-button company marisa\">Отмена</a>\n\t\t<a id=\"okModal\" href=\"#\" class=\"cmt-button company marisa\">OK</a>\n\t</div>\n</script>\n<script type=\"text/x-handlebars-template\" id=\"ComplaintCreateOk\">\n\t<div id=\"complainOkModal\" class=\"commentsvlru-modal-box dialog company marisa\">\n\t\t<div>\n\t\t\tВаша жалоба будет рассмотрена модераторами\n\t\t</div>\n\t</div>\n</script>\n\n<script type=\"text/x-handlebars-template\" id=\"CmtMailAlert\">\n\t<div id=\"cmtMailOkModal\" class=\"commentsvlru-modal-box company marisa\">\n\t\t<div class=\"cmt-mail-icon\"></div>\n\t\t<div>\n\t\t\tВаш комментарий будет опубликован только после подтверждения подписки.<br/> <br/>\n\t\t\tНа указанную Вами почту была выслана подтверждающая ссылка. Пожалуйста, перейдите по ней\n\t\t</div>\n\t\t<a id=\"okModal\" href=\"#\" class=\"cmt-button company marisa\">Ок</a>\n\t</div>\n</script>\n\n\n    <script type=\"text/x-handlebars-template\" id=\"BranchCommentsHeader\">\n        <div id=\"branch-comments-header\" class=\"branch-comments-header\">\n            {{#if isReview }}\n            <span>Отзывы о филиале{{#if branchName }} &laquo;{{ branchName }}&raquo;{{/if}}</span>\n            {{else}}\n            <span>Обсуждения филиала{{#if branchName }} &laquo;{{ branchName }}&raquo;{{/if}}</span>\n            {{/if}}\n        </div>\n    </script>\n\n    <script type=\"text/x-handlebars-template\" id=\"CompanyCommentsHeader\">\n        <div id=\"company-comments-header\" class=\"branch-comments-header\">\n            {{#if isReview }}\n            <span>Отзывы о компании</span>\n            {{else}}\n            <span>Обсуждения компании</span>\n            {{/if}}\n        </div>\n    </script>\n",
+    "firstCommentId": 16254894,
+    "lastCommentId": 16157312,
+    "commentsCount": 16,
+    "threadId": 35,
+    "threadName": "trinity",
+    "threadType": "company",
+    "threadTitle": "Компания «Тринити»",
+    "projectId": 1,
+    "enableNotifications": false,
+    "pageTitle": "«Тринити» — мнения о компании",
+    "defaultPosterEmail": null,
+    "isThreadSubscribed": false,
+    "commentTemplate": "Дата посещения:\nПредлагаю:\nДата посещения:\nНе понравилось:\nДостоинства:\nНедостатки:\nКомментарий:\n",
+    "addShareUrl": "",
+    "addModeratorCtrl": false,
+    "showDeletedComments": false,
+    "storeNameOnClient": true,
+    "enableImages": true,
+    "enableImageUpload": true,
+    "endingCommentId": null,
+    "logoUrl": "https://static.vl.ru/catalog/1728027167259_logo.jpg",
+    "sortMode": 0,
+    "bindAnonymousCommentsDialog": false,
+    "profileId": null,
+    "userId": null,
+    "isAnonymousLayout": false,
+    "useAnonymousProfiles": true,
+    "socketServer": "https://parom.vl.ru/",
+    "prevPageId": null,
+    "enableSubscribe": true,
+    "enableModeratorEditing": true,
+    "enableSocketIO": true,
+    "authProviders": [
+      {
+        "id": "farpost",
+        "name": "farpost",
+        "title": "FarPost",
+        "iconUrl": "https://comments.vl.ru/images/auth/icon-farpost.svg",
+        "mobileIconUrl": "https://comments.vl.ru/images/catalog-mobile/farpost.png"
+      },
+      {
+        "id": "vkontakte",
+        "name": "vkontakte",
+        "title": "ВКонтакте",
+        "iconUrl": "https://comments.vl.ru/images/auth/icon-vk.svg",
+        "mobileIconUrl": "https://comments.vl.ru/images/catalog-mobile/vk.png"
+      },
+      {
+        "id": "odnoklassniki",
+        "name": "odnoklassniki",
+        "title": "Одноклассники",
+        "iconUrl": "https://comments.vl.ru/images/auth/icon-ok.svg",
+        "mobileIconUrl": "https://comments.vl.ru/images/catalog-mobile/ok.png"
+      },
+      {
+        "id": "mymailru",
+        "name": "MyMailru",
+        "title": "MyMail",
+        "iconUrl": "https://comments.vl.ru/images/auth/icon-mailru.svg",
+        "mobileIconUrl": "https://comments.vl.ru/images/catalog-mobile/g.png"
+      }
+    ],
+    "enableOnlineUsers": true,
+    "enableAds": false,
+    "followerProposalsInFeed": [
+      {
+        "id": 43,
+        "displayName": "Spirit of Ecstasy",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1472651062142_f100100",
+        "reason": "Эксперт Справочника компаний",
+        "achievements": [
+          {
+            "id": 4,
+            "title": "Маньяк",
+            "active": true,
+            "hint": "Даётся за 250 отзывов.",
+            "imageId": 4,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 7,
+            "title": "Тусовщик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о барах и ночных клубах.",
+            "imageId": 7,
+            "hyperlink": null
+          },
+          {
+            "id": 8,
+            "title": "Паназиат",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о китайской кухне и суши-барах.",
+            "imageId": 8,
+            "hyperlink": null
+          },
+          {
+            "id": 9,
+            "title": "Турист",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о туристических агентствах и базах отдыха.",
+            "imageId": 9,
+            "hyperlink": null
+          },
+          {
+            "id": 10,
+            "title": "Красотка",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о салонах красоты и соляриях.",
+            "imageId": 10,
+            "hyperlink": null
+          },
+          {
+            "id": 11,
+            "title": "Спортсмен",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о спортзалах, стадионах и секциях.",
+            "imageId": 11,
+            "hyperlink": null
+          },
+          {
+            "id": 12,
+            "title": "Автомобилист",
+            "active": true,
+            "hint": "Даётся за 10 отзывов по авто тематике, кроме такси и перевозок.",
+            "imageId": 12,
+            "hyperlink": null
+          },
+          {
+            "id": 13,
+            "title": "Медэксперт",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о медицине.",
+            "imageId": 13,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 1348775,
+        "displayName": "Si",
+        "avatar": null,
+        "reason": "Эксперт Справочника компаний",
+        "achievements": [
+          {
+            "id": 4,
+            "title": "Маньяк",
+            "active": true,
+            "hint": "Даётся за 250 отзывов.",
+            "imageId": 4,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 7,
+            "title": "Тусовщик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о барах и ночных клубах.",
+            "imageId": 7,
+            "hyperlink": null
+          },
+          {
+            "id": 8,
+            "title": "Паназиат",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о китайской кухне и суши-барах.",
+            "imageId": 8,
+            "hyperlink": null
+          },
+          {
+            "id": 9,
+            "title": "Турист",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о туристических агентствах и базах отдыха.",
+            "imageId": 9,
+            "hyperlink": null
+          },
+          {
+            "id": 10,
+            "title": "Красотка",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о салонах красоты и соляриях.",
+            "imageId": 10,
+            "hyperlink": null
+          },
+          {
+            "id": 11,
+            "title": "Спортсмен",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о спортзалах, стадионах и секциях.",
+            "imageId": 11,
+            "hyperlink": null
+          },
+          {
+            "id": 12,
+            "title": "Автомобилист",
+            "active": true,
+            "hint": "Даётся за 10 отзывов по авто тематике, кроме такси и перевозок.",
+            "imageId": 12,
+            "hyperlink": null
+          },
+          {
+            "id": 13,
+            "title": "Медэксперт",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о медицине.",
+            "imageId": 13,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 61113,
+        "displayName": "Ангелвсахарномсиропе",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1673853991351_f100100",
+        "reason": "Эксперт Справочника компаний",
+        "achievements": [
+          {
+            "id": 4,
+            "title": "Маньяк",
+            "active": true,
+            "hint": "Даётся за 250 отзывов.",
+            "imageId": 4,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 7,
+            "title": "Тусовщик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о барах и ночных клубах.",
+            "imageId": 7,
+            "hyperlink": null
+          },
+          {
+            "id": 8,
+            "title": "Паназиат",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о китайской кухне и суши-барах.",
+            "imageId": 8,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 4191,
+        "displayName": "Katerina",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1564803585256_f100100",
+        "reason": "Эксперт Справочника компаний",
+        "achievements": [
+          {
+            "id": 4,
+            "title": "Маньяк",
+            "active": true,
+            "hint": "Даётся за 250 отзывов.",
+            "imageId": 4,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 7,
+            "title": "Тусовщик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о барах и ночных клубах.",
+            "imageId": 7,
+            "hyperlink": null
+          },
+          {
+            "id": 8,
+            "title": "Паназиат",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о китайской кухне и суши-барах.",
+            "imageId": 8,
+            "hyperlink": null
+          },
+          {
+            "id": 10,
+            "title": "Красотка",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о салонах красоты и соляриях.",
+            "imageId": 10,
+            "hyperlink": null
+          },
+          {
+            "id": 11,
+            "title": "Спортсмен",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о спортзалах, стадионах и секциях.",
+            "imageId": 11,
+            "hyperlink": null
+          },
+          {
+            "id": 13,
+            "title": "Медэксперт",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о медицине.",
+            "imageId": 13,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 210,
+        "displayName": "Н а с т а с ь Я",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1591058889136_f100100",
+        "reason": "Эксперт Справочника компаний",
+        "achievements": [
+          {
+            "id": 4,
+            "title": "Маньяк",
+            "active": true,
+            "hint": "Даётся за 250 отзывов.",
+            "imageId": 4,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 9,
+            "title": "Турист",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о туристических агентствах и базах отдыха.",
+            "imageId": 9,
+            "hyperlink": null
+          },
+          {
+            "id": 10,
+            "title": "Красотка",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о салонах красоты и соляриях.",
+            "imageId": 10,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 757,
+        "displayName": "Щучка",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1472651065238_f100100",
+        "reason": "Эксперт Справочника компаний",
+        "achievements": [
+          {
+            "id": 3,
+            "title": "Эксперт",
+            "active": true,
+            "hint": "Даётся за 50 отзывов.",
+            "imageId": 3,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 7,
+            "title": "Тусовщик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о барах и ночных клубах.",
+            "imageId": 7,
+            "hyperlink": null
+          },
+          {
+            "id": 8,
+            "title": "Паназиат",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о китайской кухне и суши-барах.",
+            "imageId": 8,
+            "hyperlink": null
+          },
+          {
+            "id": 10,
+            "title": "Красотка",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о салонах красоты и соляриях.",
+            "imageId": 10,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 232,
+        "displayName": "Здравый Смысл",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1490078589153_f100100",
+        "reason": "Эксперт Справочника компаний",
+        "achievements": [
+          {
+            "id": 3,
+            "title": "Эксперт",
+            "active": true,
+            "hint": "Даётся за 50 отзывов.",
+            "imageId": 3,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 7,
+            "title": "Тусовщик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о барах и ночных клубах.",
+            "imageId": 7,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 67717,
+        "displayName": "Katalystka",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1472651105872_f100100",
+        "reason": "Эксперт Справочника компаний",
+        "achievements": [
+          {
+            "id": 3,
+            "title": "Эксперт",
+            "active": true,
+            "hint": "Даётся за 50 отзывов.",
+            "imageId": 3,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 7,
+            "title": "Тусовщик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о барах и ночных клубах.",
+            "imageId": 7,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 659,
+        "displayName": "Натали",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1527662376197_f100100",
+        "reason": "Эксперт Справочника компаний",
+        "achievements": [
+          {
+            "id": 3,
+            "title": "Эксперт",
+            "active": true,
+            "hint": "Даётся за 50 отзывов.",
+            "imageId": 3,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 58507,
+        "displayName": "Dolmatik",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1472651117049_f100100",
+        "reason": "Эксперт Справочника компаний",
+        "achievements": [
+          {
+            "id": 2,
+            "title": "Знающий толк",
+            "active": true,
+            "hint": "Даётся за 10 отзывов.",
+            "imageId": 2,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 1217541,
+        "displayName": "Белла и Евгений",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1516953063643_f100100",
+        "reason": "Комментарии нравятся другим пользователям",
+        "achievements": [
+          {
+            "id": 4,
+            "title": "Маньяк",
+            "active": true,
+            "hint": "Даётся за 250 отзывов.",
+            "imageId": 4,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 8,
+            "title": "Паназиат",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о китайской кухне и суши-барах.",
+            "imageId": 8,
+            "hyperlink": null
+          },
+          {
+            "id": 11,
+            "title": "Спортсмен",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о спортзалах, стадионах и секциях.",
+            "imageId": 11,
+            "hyperlink": null
+          },
+          {
+            "id": 13,
+            "title": "Медэксперт",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о медицине.",
+            "imageId": 13,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 957,
+        "displayName": "kotilinekot",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1472651113876_f100100",
+        "reason": "Комментарии нравятся другим пользователям",
+        "achievements": [
+          {
+            "id": 3,
+            "title": "Эксперт",
+            "active": true,
+            "hint": "Даётся за 50 отзывов.",
+            "imageId": 3,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 7,
+            "title": "Тусовщик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о барах и ночных клубах.",
+            "imageId": 7,
+            "hyperlink": null
+          },
+          {
+            "id": 9,
+            "title": "Турист",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о туристических агентствах и базах отдыха.",
+            "imageId": 9,
+            "hyperlink": null
+          },
+          {
+            "id": 11,
+            "title": "Спортсмен",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о спортзалах, стадионах и секциях.",
+            "imageId": 11,
+            "hyperlink": null
+          },
+          {
+            "id": 12,
+            "title": "Автомобилист",
+            "active": true,
+            "hint": "Даётся за 10 отзывов по авто тематике, кроме такси и перевозок.",
+            "imageId": 12,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 56948,
+        "displayName": "Альбина",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1491094738785_f100100",
+        "reason": "Комментарии нравятся другим пользователям",
+        "achievements": [
+          {
+            "id": 3,
+            "title": "Эксперт",
+            "active": true,
+            "hint": "Даётся за 50 отзывов.",
+            "imageId": 3,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 7,
+            "title": "Тусовщик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о барах и ночных клубах.",
+            "imageId": 7,
+            "hyperlink": null
+          },
+          {
+            "id": 8,
+            "title": "Паназиат",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о китайской кухне и суши-барах.",
+            "imageId": 8,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          },
+          {
+            "id": 22,
+            "title": "Ваше экспертшество",
+            "active": true,
+            "hint": "Эксперт Справочника компаний.",
+            "imageId": 22,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 83997,
+        "displayName": "Правовой холдинг \"Профиль-Владивосток\"",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1578616393597_f100100",
+        "reason": "Комментарии нравятся другим пользователям",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 395719,
+        "displayName": "Бармалей",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1489300139274_f100100",
+        "reason": "Комментарии нравятся другим пользователям",
+        "achievements": [
+          {
+            "id": 3,
+            "title": "Эксперт",
+            "active": true,
+            "hint": "Даётся за 50 отзывов.",
+            "imageId": 3,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 9,
+            "title": "Турист",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о туристических агентствах и базах отдыха.",
+            "imageId": 9,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 7414060,
+        "displayName": "Shum_PILOK",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1713144922568_f100100",
+        "reason": "Комментарии нравятся другим пользователям",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 13938739,
+        "displayName": "Crown Auto",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1658558064373_f100100",
+        "reason": "Комментарии нравятся другим пользователям",
+        "achievements": [
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 298393,
+        "displayName": "sanas1",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1529284020322_f100100",
+        "reason": "Комментарии нравятся другим пользователям",
+        "achievements": [
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 424224,
+        "displayName": "Татьяна",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1488682406716_f100100",
+        "reason": "Комментарии нравятся другим пользователям",
+        "achievements": [
+          {
+            "id": 2,
+            "title": "Знающий толк",
+            "active": true,
+            "hint": "Даётся за 10 отзывов.",
+            "imageId": 2,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 1957525,
+        "displayName": "Expert ✅",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1678606278214_f100100",
+        "reason": "Комментарии нравятся другим пользователям",
+        "achievements": [
+          {
+            "id": 4,
+            "title": "Маньяк",
+            "active": true,
+            "hint": "Даётся за 250 отзывов.",
+            "imageId": 4,
+            "hyperlink": null
+          },
+          {
+            "id": 5,
+            "title": "Ресторанный критик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о ресторанах.",
+            "imageId": 5,
+            "hyperlink": null
+          },
+          {
+            "id": 6,
+            "title": "Кафеман",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о кафе, пиццериях, и кофейнях.",
+            "imageId": 6,
+            "hyperlink": null
+          },
+          {
+            "id": 7,
+            "title": "Тусовщик",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о барах и ночных клубах.",
+            "imageId": 7,
+            "hyperlink": null
+          },
+          {
+            "id": 8,
+            "title": "Паназиат",
+            "active": true,
+            "hint": "Даётся за 10 отзывов о китайской кухне и суши-барах.",
+            "imageId": 8,
+            "hyperlink": null
+          },
+          {
+            "id": 15,
+            "title": "Писатель",
+            "active": true,
+            "hint": "Даётся за 10 отзывов длиною более 1000 символов.",
+            "imageId": 15,
+            "hyperlink": null
+          },
+          {
+            "id": 16,
+            "title": "Признание",
+            "active": true,
+            "hint": "Даётся за 100 лайков за вычетом дизлайков.",
+            "imageId": 16,
+            "hyperlink": null
+          },
+          {
+            "id": 17,
+            "title": "Учитель",
+            "active": true,
+            "hint": "Даётся за 100 лайков и дизлайков, проставленных другим комментариям.",
+            "imageId": 17,
+            "hyperlink": null
+          },
+          {
+            "id": 18,
+            "title": "Ценитель",
+            "active": true,
+            "hint": "Даётся за 100 оцененных компаний.",
+            "imageId": 18,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          },
+          {
+            "id": 20,
+            "title": "Фотограф",
+            "active": true,
+            "hint": "Даётся за 10 опубликованных фотографий в комментариях.",
+            "imageId": 20,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 40834744,
+        "displayName": "M Kriss",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1784536925741_f5050",
+        "reason": "Новый пользователь",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 40834320,
+        "displayName": "Наталья Бондарева",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1784383864764_f100100",
+        "reason": "Новый пользователь",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 38345273,
+        "displayName": "A23nna",
+        "avatar": null,
+        "reason": "Новый пользователь",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 40781000,
+        "displayName": "Катерина Морозова",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1755811024694_f100100",
+        "reason": "Новый пользователь",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 40835303,
+        "displayName": "polishchuknast",
+        "avatar": null,
+        "reason": "Новый пользователь",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 12353155,
+        "displayName": "Anketa",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1640847511406_f100100",
+        "reason": "Новый пользователь",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 40834632,
+        "displayName": "5915556",
+        "avatar": null,
+        "reason": "Новый пользователь",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 40835095,
+        "displayName": "Дарья Бирюкова",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1784690901726_f100100",
+        "reason": "Новый пользователь",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 40834302,
+        "displayName": "dragmet_vl",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1784373838973_f100100",
+        "reason": "Новый пользователь",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          },
+          {
+            "id": 19,
+            "title": "Ответственный",
+            "active": true,
+            "hint": "Даётся за заполненный профиль.",
+            "imageId": 19,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      },
+      {
+        "id": 40834581,
+        "displayName": "Иван Стрельников",
+        "avatar": "https://i-comments.vl.ru/vlcomments/1496227992239_f100100",
+        "reason": "Новый пользователь",
+        "achievements": [
+          {
+            "id": 1,
+            "title": "Новичок",
+            "active": true,
+            "hint": "Даётся за 1 отзыв.",
+            "imageId": 1,
+            "hyperlink": null
+          }
+        ],
+        "following": false,
+        "needLogin": true
+      }
+    ],
+    "config": {
+      "importFriends": null
+    },
+    "onlineUsers": [
+      {
+        "profileId": null,
+        "avatar": null,
+        "username": null
+      }
+    ],
+    "onlineUsersText": "2 человека готовы вступить в обсуждение",
+    "onlineUsersTotal": 2,
+    "companyBranches": [
+      {
+        "id": 93639,
+        "display": "пр-т Океанский, 48А"
+      }
+    ]
+  }
+}
