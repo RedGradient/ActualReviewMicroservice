@@ -25,3 +25,4 @@ class ReviewAdmin(admin.ModelAdmin):
         "branch_platform",
     )
     ordering = ("-published_date",)
+    search_fields = ("author", "content")
