@@ -31,7 +31,11 @@ class Branch(models.Model):
         )
 
     def __str__(self):
-        return f"{self.id} : {self.organization}: {self.address[:50]}"
+        org = self.organization.name or f"ИНН {self.organization.inn}"
+        address = self.address.strip()
+        if len(address) > 60:
+            address = f"{address[:57]}..."
+        return f"#{self.pk} · {org} · {address}"
 
 
 class BranchPlatform(models.Model):
@@ -83,6 +87,9 @@ class BranchPlatform(models.Model):
     )
 
     created_at = models.DateTimeField(default=timezone.now, editable=False)
+
+    def __str__(self) -> str:
+        return f"{self.get_provider_display()} · {self.branch}"
 
 
 class Review(models.Model):
