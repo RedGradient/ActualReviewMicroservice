@@ -5,8 +5,9 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
-from common_parser.models import Branch, BranchPlatform, Review
+from common_parser.models import Branch, BranchPlatform, Organization, Review
 from common_parser.serializers import (
     GetReviewsSerializer,
     ReviewSerializer,
@@ -179,3 +180,15 @@ def tasks(request) -> Response:
     task_id = serializer.validated_data["task_id"]
     task = AsyncResult(task_id)
     return Response({"task_id": task_id, "status": task.status})
+
+
+class OrganizationView(ModelViewSet):
+    queryset = Organization.objects.all()
+
+
+class BranchView(ModelViewSet):
+    queryset = Branch.objects.all()
+
+
+class BranchPlatformView(ModelViewSet):
+    queryset = BranchPlatform.objects.all()
