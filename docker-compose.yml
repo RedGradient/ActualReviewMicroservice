@@ -3,11 +3,11 @@ version: '3.8'
 services:
   web:
     build: .
-    command: python review_parser/manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     working_dir: /code/review_parser
     env_file: .env
     volumes:
-      - .:/code/review_parser
+      - .:/code
     ports:
       - "8000:8000"
     environment:
