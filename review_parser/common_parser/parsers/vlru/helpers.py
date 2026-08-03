@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from loguru import logger
 
 from common_parser.models import BranchPlatform, Review
+from common_parser.tools.hash import normalize_and_hash
 
 
 def get_company_from_url(url: str) -> str | None:
@@ -19,7 +20,9 @@ def get_company_from_url(url: str) -> str | None:
 def _review_exists(branch_platform: BranchPlatform, review: dict[str, Any]) -> bool:
     return Review.objects.filter(
         branch_platform=branch_platform,
-        external_id=review["comment_id"],
+        author=review["author"],
+        content_hash=normalize_and_hash(review["content"]),
+        published_date=review["published_date"],
     ).exists()
 
 

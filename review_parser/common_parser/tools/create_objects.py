@@ -9,6 +9,8 @@ from common_parser.serializers import (
     ReviewSerializer,
     VideoSerializer,
 )
+from common_parser.tools.hash import get_content_hash
+from common_parser.tools.normalize_content import normalize_content
 
 
 def create_review(data: dict) -> bool:
@@ -21,12 +23,14 @@ def create_review(data: dict) -> bool:
     if existing_review:
         return False
 
+    normalized_content = normalize_content(data["content"])
     data_rewiew = {
         "branch_platform": branch_platform.id,
         "author": data["author"],
         "avatar": data["avatar"],
         "rating": data["rating"],
         "content": data["content"],
+        "content_hash": get_content_hash(normalized_content),
         "published_date": data["published_date"],
     }
 
