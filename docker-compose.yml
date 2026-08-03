@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: sh -c "python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
     working_dir: /code/review_parser
     env_file: .env
     volumes:

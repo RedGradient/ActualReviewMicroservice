@@ -51,6 +51,7 @@ ALLOWED_HOSTS = [host.strip() for host in os.getenv("ALLOWED_HOSTS", "127.0.0.1,
 
 INSTALLED_APPS = [
     "drf_yasg",
+    "rest_framework",
     "nested_admin",
     "django_celery_results",
     "django.contrib.admin",
@@ -151,6 +152,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

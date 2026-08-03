@@ -12,5 +12,6 @@ testim.py
 celerybeat-schedule
 celery@b32a73f14763
 .venv/
+staticfiles/
 celerybeat-schedule
 /uv.lock
