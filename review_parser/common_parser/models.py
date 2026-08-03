@@ -103,6 +103,8 @@ class Review(models.Model):
     rating = models.CharField(null=True, blank=True)
     content = models.TextField()
 
+    content_hash = models.CharField(max_length=64, db_index=True)
+
     review_url = models.URLField(max_length=250, null=True, blank=True)
 
     created_at = models.DateTimeField(default=timezone.now, editable=False)
