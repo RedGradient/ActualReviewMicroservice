@@ -179,6 +179,8 @@ def tasks(request) -> Response:
     serializer.is_valid(raise_exception=True)
     task_id = serializer.validated_data["task_id"]
     task = AsyncResult(task_id)
+    if task.result:
+        return Response({"task_id": task_id, "status": task.status, "result": task.result})
     return Response({"task_id": task_id, "status": task.status})
 
 
