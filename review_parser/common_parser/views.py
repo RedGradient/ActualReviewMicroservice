@@ -9,7 +9,10 @@ from rest_framework.viewsets import ModelViewSet
 
 from common_parser.models import Branch, BranchPlatform, Organization, Review
 from common_parser.serializers import (
+    BranchPlatformSerializer,
+    BranchSerializer,
     GetReviewsSerializer,
+    OrganizationSerializer,
     ReviewSerializer,
     SyncReviewsSerializer,
     TaskQuerySerializer,
@@ -186,11 +189,14 @@ def tasks(request) -> Response:
 
 class OrganizationView(ModelViewSet):
     queryset = Organization.objects.all()
+    serializer_class = OrganizationSerializer
 
 
 class BranchView(ModelViewSet):
     queryset = Branch.objects.all()
+    serializer_class = BranchSerializer
 
 
 class BranchPlatformView(ModelViewSet):
     queryset = BranchPlatform.objects.all()
+    serializer_class = BranchPlatformSerializer
