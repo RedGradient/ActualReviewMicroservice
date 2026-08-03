@@ -34,7 +34,7 @@ def parse_vlru_reviews(html_content: str) -> list[dict[str, Any]]:
             if review_item.get("data-parent-id"):
                 continue
 
-            if not (comment_id := review_item.get("comment")):
+            if not review_item.get("comment"):
                 continue
 
             timestamp = int(review_item.get("data-timestamp"))
@@ -64,7 +64,6 @@ def parse_vlru_reviews(html_content: str) -> list[dict[str, Any]]:
 
             reviews.append(
                 {
-                    "comment_id": comment_id,
                     "author": author,
                     "avatar": avatar,
                     "video": None,
