@@ -5,13 +5,16 @@ services:
     build: .
     command: python review_parser/manage.py runserver 0.0.0.0:8000
     working_dir: /code/review_parser
+    env_file: .env
     volumes:
       - .:/code/review_parser
     ports:
       - "8000:8000"
     environment:
       - PYTHONUNBUFFERED=1
-      
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   redis:
     image: redis:latest
@@ -27,17 +30,42 @@ services:
   celery:
     build: .
     command: celery -A review_parser worker --loglevel=info --concurrency=5
+    working_dir: /code/review_parser
+    env_file: .env
     volumes:
       - .:/code
-    depends_on: 
-      - redis
-      - web
+    depends_on:
+      web: {}
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
     environment:
       - PYTHONUNBUFFERED=1
-    
+
+
+  postgres:
+    image: postgres:18-alpine3.24
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-review}
+      POSTGRES_USER: ${POSTGRES_USER:-review_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-review_pass}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-review_user} -d ${POSTGRES_DB:-review}" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
   celery_beat:
     build: .
     command: celery -A review_parser beat --loglevel=info
+    working_dir: /code/review_parser
+    env_file: .env
     volumes:
       - .:/code
     depends_on:
@@ -46,3 +74,4 @@ services:
 
 volumes:
   redis_data:
+  postgres_data:

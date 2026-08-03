@@ -8,7 +8,7 @@ from requests import Response
 from common_parser.models import BranchPlatform, Review
 from common_parser.services.http_client import get as http_get
 
-TWOGIS_API_KEY = os.getenv("TWOGIS_API_KEY", "37c04fe6-a560-4549-b459-02309cf643ad")
+TWOGIS_API_KEY = os.getenv("TWOGIS_API_KEY", "")
 
 
 def get_reviews(firm_id: str, limit: int, offset: int = 0) -> Response:
