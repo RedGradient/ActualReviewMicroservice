@@ -9,4 +9,4 @@ def normalize_and_hash(content: str) -> str:
 
 
 def get_content_hash(content: str) -> str:
-    (hashlib.sha256(content.encode("utf-8")).hexdigest(),)
+    return hashlib.sha256(content.encode("utf-8")).hexdigest()
