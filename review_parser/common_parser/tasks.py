@@ -4,8 +4,8 @@ from celery import chord, shared_task
 from loguru import logger
 
 from common_parser.models import Branch, BranchPlatform, Organization
+from common_parser.parsers import REVIEW_PARSERS
 from common_parser.parsers.registry import get_review_parser
-from common_parser.tools.parse import parse_all_providers
 
 
 @shared_task(name="common_parser.tasks.weekly_parsing")
@@ -15,7 +15,13 @@ def weekly_parsing():
 
     dict_results = {}
     for branch in branches:
-        dict_results[f"{branch.id}"] = parse_all_providers(branch)
+        providers = [parser.provider for parser in REVIEW_PARSERS]
+        if not providers:
+            continue
+
+        async_result = parse_providers_async(providers, branch.organization.id, branch.id)
+        # Ждём завершения chord для каждого Branch (все провайдеры + merge)
+        dict_results[str(branch.id)] = async_result.get(timeout=3600)
 
     logger.info(
         f"weekly_parsing finished: branches={len(dict_results)} duration_ms={int((perf_counter() - t0) * 1000)}"
