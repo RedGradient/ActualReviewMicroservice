@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 
+from . import admin_index  # noqa: F401
 from .yasg import urlpatterns as doc_urls
 
 urlpatterns = [  # noqa: RUF005

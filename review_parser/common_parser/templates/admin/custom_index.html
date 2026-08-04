@@ -1,0 +1,12 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+<div style="margin-bottom: 1em;">
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" name="_weekly_parsing" value="{% trans 'Weekly parsing (все филиалы)' %}" class="button" />
+    </form>
+</div>
+{{ block.super }}
+{% endblock %}
