@@ -1,7 +1,4 @@
 from django.db import models
-from django.db.models.signals import post_save
-from django.db.transaction import on_commit
-from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.timezone import now
 
@@ -156,27 +153,3 @@ class PlaylistIPMapping(models.Model):
 
     def __str__(self):
         return f"{self.ip_address} → Playlist {self.playlist.id} : {self.playlist.title}"
-
-
-# -----------------
-# --- RECEIVERS ---
-# -----------------
-
-
-@receiver(post_save, sender=Playlist)
-def on_playlist_created(sender, instance, created, **kwargs):
-    if created:
-        from common_parser.tasks import parse_vk_videos_async, parse_youtube_videos_async
-
-        if "youtube" in instance.url:
-            on_commit(lambda: parse_youtube_videos_async.delay(instance.id))
-        elif "vk" in instance.url:
-            on_commit(lambda: parse_vk_videos_async.delay(instance.id))
-
-
-@receiver(post_save, sender=Branch)
-def on_branch_created(sender, instance, created, **kwargs):
-    if created:
-        from common_parser.tasks import parse_all_providers_async_on_create
-
-        on_commit(lambda: parse_all_providers_async_on_create.delay(instance.organization.id, instance.address))
