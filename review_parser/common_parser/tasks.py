@@ -23,24 +23,6 @@ def weekly_parsing():
     return dict_results
 
 
-@shared_task(name="parse_all_providers_async_on_create")
-def parse_all_providers_async_on_create(branch_org_id, branch_address):
-    t0 = perf_counter()
-    try:
-        branch = Branch.objects.get(organization_id=branch_org_id, address=branch_address)
-        result = parse_all_providers(branch)
-        logger.info(
-            "parse_all_providers_async_on_create finished: branch_id={} duration_ms={}",
-            branch.id,
-            int((perf_counter() - t0) * 1000),
-        )
-        return result
-    except Branch.DoesNotExist:
-        logger.error(f"Branch not found (org_id={branch_org_id}, address={branch_address})")
-    except Exception as e:
-        logger.exception(f"Error in parse_all_providers_async_on_create: {e}")
-
-
 @shared_task(name="parse_single_provider")
 def parse_single_provider(provider: str, organization_id: int, branch_id: int):
     try:
