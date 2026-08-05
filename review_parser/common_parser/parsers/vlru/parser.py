@@ -64,6 +64,7 @@ def parse_vlru_reviews(html_content: str) -> list[dict[str, Any]]:
 
             reviews.append(
                 {
+                    "external_id": review_item.get("comment"),
                     "author": author,
                     "avatar": avatar,
                     "video": None,

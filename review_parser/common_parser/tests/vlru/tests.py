@@ -1,4 +1,3 @@
-from datetime import datetime
 from unittest.mock import Mock, patch
 
 import bs4
@@ -21,6 +20,7 @@ from common_parser.tests.vlru.helpers import (
     vlru_thread_first_page,
     vlru_thread_last_page,
 )
+from common_parser.tools.hash import normalize_and_hash
 from common_parser.types import ReviewsBundle
 
 
@@ -130,11 +130,12 @@ class FetchNewReviewsTests(TestCase):
     def _save_vlru_review(branch_platform: BranchPlatform, review: dict) -> None:
         Review.objects.create(
             branch_platform=branch_platform,
-            external_id=review["comment_id"],
+            external_id=review["external_id"],
             author=review["author"],
             content=review["content"],
-            rating=int(review["rating"]),
-            published_date=datetime(2026, 1, 1),
+            content_hash=normalize_and_hash(review["content"]),
+            rating=str(review["rating"]),
+            published_date=review["published_date"],
         )
 
     def test_returns_all_when_db_empty(self) -> None:
@@ -156,11 +157,12 @@ class FetchNewReviewsTests(TestCase):
         existing = self.page_one_reviews[0]
         Review.objects.create(
             branch_platform=branch_platform,
-            external_id=existing["comment_id"],
+            external_id=existing["external_id"],
             author=existing["author"],
             content=existing["content"],
-            rating=int(existing["rating"]),
-            published_date=datetime(2026, 1, 1),
+            content_hash=normalize_and_hash(existing["content"]),
+            rating=str(existing["rating"]),
+            published_date=existing["published_date"],
         )
 
         client = FakeVLClient(

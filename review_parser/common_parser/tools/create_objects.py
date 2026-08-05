@@ -43,6 +43,9 @@ def create_review(data: dict) -> bool:
     if "review_url" in data:
         data_rewiew["review_url"] = data["review_url"]
 
+    if "external_id" in data:
+        data_rewiew["external_id"] = data["external_id"]
+
     serializer_review = ReviewSerializer(data=data_rewiew)
 
     if serializer_review.is_valid():
