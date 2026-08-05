@@ -1,0 +1,18 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+
+{% block content %}
+<div style="margin-bottom: 1em;">
+    <form method="post" onsubmit="return confirm('{% trans "Удалить все отзывы? Это действие необратимо." %}');">
+        {% csrf_token %}
+        <input
+            type="submit"
+            name="_delete_all"
+            value="{% trans 'Удалить все записи' %}"
+            class="button"
+            style="background: #ba2121;"
+        />
+    </form>
+</div>
+{{ block.super }}
+{% endblock %}

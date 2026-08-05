@@ -1,4 +1,5 @@
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.shortcuts import redirect
 
 from .models import Branch, BranchPlatform, Organization, Review
 
@@ -31,6 +32,7 @@ class BranchPlatformAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
+    change_list_template = "admin/common_parser/review/change_list.html"
     list_display = (
         "id",
         "author",
@@ -43,3 +45,12 @@ class ReviewAdmin(admin.ModelAdmin):
     )
     ordering = ("-published_date",)
     search_fields = ("author", "content")
+
+    def changelist_view(self, request, extra_context=None):
+        if request.method == "POST" and "_delete_all" in request.POST:
+            count = Review.objects.count()
+            Review.objects.all().delete()
+            self.message_user(request, f"Удалено записей: {count}.", level=messages.SUCCESS)
+            return redirect("admin:common_parser_review_changelist")
+
+        return super().changelist_view(request, extra_context)
