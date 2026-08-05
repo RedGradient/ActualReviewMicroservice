@@ -13,7 +13,7 @@ from common_parser.tools.hash import normalize_and_hash
 
 def get_company_from_url(url: str) -> str | None:
     url = url.split("#", 1)[0].rstrip("/")
-    match = re.search(r"/([^/]+)$", url)
+    match = re.search(r"vl\.ru/([^/?#]+)$", url, re.IGNORECASE)
     return match.group(1) if match else None
 
 
