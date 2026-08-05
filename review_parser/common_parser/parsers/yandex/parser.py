@@ -4,7 +4,7 @@ from loguru import logger
 from playwright.sync_api import Locator, sync_playwright
 
 from common_parser.models import BranchPlatform
-from common_parser.parsers.helpers import _update_branch_platform
+from common_parser.parsers.helpers import _delete_overflow_reviews, _update_branch_platform
 from common_parser.parsers.yandex.helpers import (
     _build_url,
     _existing_review_keys,
@@ -17,6 +17,7 @@ from common_parser.tools.create_objects import (
     get_or_create_Organization,
 )
 from common_parser.types import ParseResult, ReviewsBundle
+from review_parser.settings import MAX_REVIEWS
 
 HEADERS = {
     "User-Agent": (
@@ -54,6 +55,8 @@ def create_yandex_reviews(
             created += 1
         else:
             logger.warning("Yandex parser, serialization error in {}", review)
+
+    _delete_overflow_reviews(branch_platform.id)
 
     parsed = len(bundle.reviews)
     logger.info(f"Yandex create finished: url={url} branch_address={address} parsed={parsed} created={created}")
@@ -162,6 +165,10 @@ def fetch_new_reviews(
                 review_key = (review["published_date"], review["content"])
                 if review_key in existing_keys:
                     logger.info("Yandex parser, Знакомый отзыв, совпадение по {}. Парсинг остановлен", review_key)
+                    return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
+
+                if len(new_reviews) >= MAX_REVIEWS:
+                    logger.info("Yandex parser; Достигнут предел в {} отзывов. Парсинг остановлен", MAX_REVIEWS)
                     return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
 
                 review["branch_platform"] = branch_platform

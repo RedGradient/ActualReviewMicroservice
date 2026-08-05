@@ -8,7 +8,7 @@ from loguru import logger
 from requests import Response
 
 from common_parser.models import BranchPlatform
-from common_parser.parsers.helpers import _update_branch_platform
+from common_parser.parsers.helpers import _delete_overflow_reviews, _update_branch_platform
 from common_parser.parsers.twogis.helpers import _review_exists, firm_id_from_url, get_reviews
 from common_parser.parsers.twogis.to_reviews import convert_2gis_reviews_to_model_data
 from common_parser.tools.create_objects import (
@@ -17,6 +17,7 @@ from common_parser.tools.create_objects import (
     get_or_create_Organization,
 )
 from common_parser.types import ParseResult, ReviewsBundle
+from review_parser.settings import MAX_REVIEWS
 
 
 def fetch_new_reviews(
@@ -38,6 +39,13 @@ def fetch_new_reviews(
 
         for review in bundle.reviews:
             if _review_exists(branch_platform, review):
+                return ReviewsBundle(
+                    rating=first.rating,
+                    count=first.count,
+                    reviews=all_reviews,
+                )
+            if len(all_reviews) >= MAX_REVIEWS:
+                logger.info("2GIS; Достигнут предел в {} отзывов. Парсинг остановлен", MAX_REVIEWS)
                 return ReviewsBundle(
                     rating=first.rating,
                     count=first.count,
@@ -89,6 +97,8 @@ def create_2gis_reviews(
             convert_2gis_reviews_to_model_data(branch_platform=branch_platform, review_data=review, firm_id=firm_id)
         ):
             created += 1
+
+    _delete_overflow_reviews(branch_platform.id)
 
     processed = len(bundle.reviews)
     logger.info(

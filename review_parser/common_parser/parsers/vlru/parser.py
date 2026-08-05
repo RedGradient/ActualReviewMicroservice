@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from loguru import logger
 
 from common_parser.models import BranchPlatform
-from common_parser.parsers.helpers import _update_branch_platform
+from common_parser.parsers.helpers import _delete_overflow_reviews, _update_branch_platform
 from common_parser.parsers.vlru.client import VLClient
 from common_parser.parsers.vlru.helpers import (
     _review_exists,
@@ -21,6 +21,7 @@ from common_parser.tools.create_objects import (
     get_or_create_Organization,
 )
 from common_parser.types import ParseResult, ReviewsBundle
+from review_parser.settings import MAX_REVIEWS
 
 
 def parse_vlru_reviews(html_content: str) -> list[dict[str, Any]]:
@@ -108,6 +109,10 @@ def fetch_new_reviews(
                 count = len(all_reviews)
                 logger.info("VL new reviews: company={} count={}", company, count)
                 return ReviewsBundle(rating=company_rating, count=company_review_count, reviews=all_reviews)
+
+            if len(all_reviews) >= MAX_REVIEWS:
+                logger.info("VLRU; Достигнут предел в {} отзывов. Парсинг остановлен", MAX_REVIEWS)
+                return ReviewsBundle(rating=company_rating, count=company_review_count, reviews=all_reviews)
             all_reviews.append(review)
 
         if not (data["data"]["lastCommentId"] and data["data"]["commentsCount"] and response.status_code == 200):
@@ -156,6 +161,8 @@ def create_vlru_reviews(
         review["branch_platform"] = branch_platform
         if create_review(review):
             created_count += 1
+
+    _delete_overflow_reviews(branch_platform.id)
 
     fetched_count = len(bundle.reviews)
     logger.info(

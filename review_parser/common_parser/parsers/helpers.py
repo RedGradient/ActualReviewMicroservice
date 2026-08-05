@@ -2,8 +2,11 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from common_parser.models import BranchPlatform
+from loguru import logger
+
+from common_parser.models import BranchPlatform, Review
 from common_parser.types import ReviewsBundle
+from review_parser.settings import MAX_REVIEWS
 
 
 def _update_branch_platform(branch_platform: BranchPlatform, bundle: ReviewsBundle) -> BranchPlatform:
@@ -15,3 +18,18 @@ def _update_branch_platform(branch_platform: BranchPlatform, bundle: ReviewsBund
     branch_platform.parsed_at = datetime.now()
 
     return branch_platform
+
+
+def _delete_overflow_reviews(branch_platform_id: int):
+    """Удаляет старые отзывы по overflow"""
+
+    old_count = Review.objects.filter(branch_platform_id=branch_platform_id).count()
+    overflow = old_count - MAX_REVIEWS
+    if overflow > 0:
+        ids_to_delete = (
+            Review.objects.filter(branch_platform_id=branch_platform_id)
+            .order_by("published_date")
+            .values_list("pk", flat=True)[:overflow]
+        )
+        Review.objects.filter(pk__in=ids_to_delete).delete()
+        logger.info("Удалено {} старых отзывов (branch_platform_id={})", overflow, branch_platform_id)

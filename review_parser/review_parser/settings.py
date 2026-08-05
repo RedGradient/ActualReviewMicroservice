@@ -168,3 +168,7 @@ CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "Europe/Moscow"
+
+
+# Максимальное количество Review у одного провайдера
+MAX_REVIEWS: int = 100
