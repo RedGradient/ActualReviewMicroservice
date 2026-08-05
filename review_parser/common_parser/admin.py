@@ -9,7 +9,7 @@ class BranchAdmin(admin.ModelAdmin):
 
 
 @admin.register(Organization)
-class Organization(admin.ModelAdmin):
+class OrganizationAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "inn", "created_at")
 
 
