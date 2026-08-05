@@ -32,4 +32,10 @@ def _delete_overflow_reviews(branch_platform_id: int):
             .values_list("pk", flat=True)[:overflow]
         )
         Review.objects.filter(pk__in=ids_to_delete).delete()
-        logger.info("Удалено {} старых отзывов (branch_platform_id={})", overflow, branch_platform_id)
+        remaining = Review.objects.filter(branch_platform_id=branch_platform_id).count()
+        logger.info(
+            "overflow deleted={} branch_platform_id={} remaining={}",
+            overflow,
+            branch_platform_id,
+            remaining,
+        )
