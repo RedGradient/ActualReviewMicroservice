@@ -13,7 +13,7 @@ from common_parser.serializers import (
     BranchSerializer,
     GetReviewsSerializer,
     OrganizationSerializer,
-    ReviewSerializer,
+    ReviewPublicSerializer,
     SyncReviewsSerializer,
     TaskQuerySerializer,
 )
@@ -65,7 +65,7 @@ TASK_STATUS_SCHEMA = openapi.Schema(
     ),
     query_serializer=GetReviewsSerializer,
     responses={
-        200: ReviewSerializer(many=True),
+        200: ReviewPublicSerializer(many=True),
         400: "Некорректные query-параметры",
         404: "Филиал или платформа не найдены",
     },
@@ -89,7 +89,7 @@ def get_reviews(request) -> Response:
         offset : offset + limit
     ]
 
-    return Response(ReviewSerializer(reviews, many=True).data)
+    return Response(ReviewPublicSerializer(reviews, many=True).data)
 
 
 @swagger_auto_schema(

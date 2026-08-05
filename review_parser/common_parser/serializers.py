@@ -8,13 +8,13 @@ VALID_PROVIDERS = [choice[0] for choice in BranchPlatform.PROVIDER_CHOICES]
 class OrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organization
-        fields = "__all__"
+        fields = ("name", "inn")
 
 
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
-        fields = "__all__"
+        fields = ("organization", "address")
 
 
 class BranchPlatformSerializer(serializers.ModelSerializer):
@@ -22,17 +22,49 @@ class BranchPlatformSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BranchPlatform
-        fields = "__all__"
+        fields = (
+            "branch",
+            "provider",
+            "url",
+            "org_id",
+            "review_count",
+            "review_avg",
+            "parsed_at",
+        )
 
 
-class ReviewSerializer(serializers.ModelSerializer):
-    rating = serializers.DecimalField(max_digits=5, decimal_places=1, coerce_to_string=True)
-    provider = serializers.CharField(source="branch_platform.provider", read_only=True)
-    branch = serializers.IntegerField(source="branch_platform.branch_id", read_only=True)
-
+class ReviewPublicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = "__all__"
+        fields = (
+            "external_id",
+            "author",
+            "rating",
+            "content",
+            "published_date",
+            "review_url",
+            "avatar",
+            "video",
+            "photos",
+        )
+
+
+class ReviewCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = (
+            "branch_platform",
+            "external_id",
+            "author",
+            "rating",
+            "content",
+            "content_hash",
+            "published_date",
+            "review_url",
+            "avatar",
+            "video",
+            "photos",
+        )
 
 
 class VideoSerializer(serializers.ModelSerializer):

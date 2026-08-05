@@ -6,7 +6,7 @@ from common_parser.models import Branch, BranchPlatform, Organization, Playlist,
 from common_parser.serializers import (
     BranchPlatformSerializer,
     OrganizationSerializer,
-    ReviewSerializer,
+    ReviewCreateSerializer,
     VideoSerializer,
 )
 from common_parser.tools.hash import get_content_hash
@@ -46,7 +46,7 @@ def create_review(data: dict) -> bool:
     if "external_id" in data:
         data_rewiew["external_id"] = data["external_id"]
 
-    serializer_review = ReviewSerializer(data=data_rewiew)
+    serializer_review = ReviewCreateSerializer(data=data_rewiew)
 
     if serializer_review.is_valid():
         serializer_review.save()
