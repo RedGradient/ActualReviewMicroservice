@@ -2,13 +2,30 @@ from django.contrib import admin
 
 from .models import Branch, BranchPlatform, Organization, Review
 
-admin.site.register(Branch)
-admin.site.register(BranchPlatform)
+
+@admin.register(Branch)
+class BranchAdmin(admin.ModelAdmin):
+    list_display = ("id", "organization", "address", "created_at")
 
 
 @admin.register(Organization)
-class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "inn")
+class Organization(admin.ModelAdmin):
+    list_display = ("id", "name", "inn", "created_at")
+
+
+@admin.register(BranchPlatform)
+class BranchPlatformAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "branch",
+        "provider",
+        "url",
+        "review_count",
+        "review_avg",
+        "parsed_at",
+        "created_at",
+    )
+    list_filter = ("provider",)
     ordering = ("id",)
 
 
