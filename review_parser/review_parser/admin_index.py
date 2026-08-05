@@ -9,7 +9,10 @@ _original_index = admin.site.index
 def custom_admin_index(request, extra_context=None):
     if request.method == "POST" and "_weekly_parsing" in request.POST:
         task = weekly_parsing.delay()
-        messages.success(request, f"Weekly parsing запущен. task_id={task.id}")
+        messages.success(
+            request,
+            f"Weekly parsing запущен. task_id={task.id} (финальный результат смотреть в merge_task_id)",
+        )
         return redirect("admin:index")
 
     return _original_index(request, extra_context)
