@@ -31,7 +31,7 @@ def get_company_rating(html: str) -> float | None:
     try:
         return float(rating.replace(",", "."))
     except ValueError:
-        logger.warning("VL company rating: invalid data-default={!r}", rating)
+        logger.warning("company rating invalid data-default={!r}", rating)
         return None
 
 
@@ -43,10 +43,10 @@ def get_company_review_count(html: str) -> int | None:
     text = rev_count_el.get_text(" ", strip=True)
     match = re.search(r"(\d+)", text)
     if not match:
-        logger.warning("VL company review count: no digits in {!r}", text)
+        logger.warning("company review count no digits in {!r}", text)
         return None
     try:
         return int(match.group(1))
     except ValueError:
-        logger.warning("VL company review count: invalid value {!r}", match.group(1))
+        logger.warning("company review count invalid value {!r}", match.group(1))
         return None

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from datetime import datetime
 from typing import Any
 
@@ -76,7 +77,7 @@ def parse_vlru_reviews(html_content: str) -> list[dict[str, Any]]:
                 }
             )
         except Exception as exc:
-            logger.warning("VL parse review failed: {}", exc)
+            logger.warning("parse review failed: {}", exc)
             continue
 
     return reviews
@@ -88,6 +89,7 @@ def fetch_new_reviews(
     *,
     client: VLClient | None = None,
 ) -> ReviewsBundle:
+    logger.debug("fetch started company={}", company)
     client = client or VLClient()
     all_reviews: list[dict[str, Any]] = []
 
@@ -96,6 +98,7 @@ def fetch_new_reviews(
 
     company_review_count = get_company_review_count(html=response.text)
     company_rating = get_company_rating(html=response.text)
+    logger.debug("company meta count={} rating={}", company_review_count, company_rating)
 
     response = client.get_thread(company)
     response.raise_for_status()
@@ -104,14 +107,29 @@ def fetch_new_reviews(
     thread_id = data["data"]["threadId"]
 
     while True:
-        for review in parse_vlru_reviews(data["data"]["content"]):
+        page_reviews = parse_vlru_reviews(data["data"]["content"])
+        before_id = data["data"].get("lastCommentId")
+        batch_size = len(page_reviews)
+        logger.debug("fetch page before={} batch={} total={}", before_id, batch_size, len(all_reviews))
+        if batch_size == 0:
+            logger.debug("fetch page empty before={}", before_id)
+
+        for review in page_reviews:
             if _review_exists(branch_platform, review):
-                count = len(all_reviews)
-                logger.info("VL new reviews: company={} count={}", company, count)
+                new_count = len(all_reviews)
+                logger.info(
+                    "fetch stopped reason=existing_review external_id={} new={}",
+                    review.get("external_id"),
+                    new_count,
+                )
                 return ReviewsBundle(rating=company_rating, count=company_review_count, reviews=all_reviews)
 
             if len(all_reviews) >= MAX_REVIEWS:
-                logger.info("VLRU; Достигнут предел в {} отзывов. Парсинг остановлен", MAX_REVIEWS)
+                logger.info(
+                    "fetch stopped reason=max_reviews limit={} new={}",
+                    MAX_REVIEWS,
+                    len(all_reviews),
+                )
                 return ReviewsBundle(rating=company_rating, count=company_review_count, reviews=all_reviews)
             all_reviews.append(review)
 
@@ -126,8 +144,12 @@ def fetch_new_reviews(
         response.raise_for_status()
         data = response.json()
 
-    count = len(all_reviews)
-    logger.info("VL new reviews: company={} count={}", company, count)
+    logger.info(
+        "fetch done new={} rating={} site_count={}",
+        len(all_reviews),
+        company_rating,
+        company_review_count,
+    )
     return ReviewsBundle(rating=company_rating, count=company_review_count, reviews=all_reviews)
 
 
@@ -139,8 +161,11 @@ def create_vlru_reviews(
     *,
     client: VLClient | None = None,
 ) -> tuple[int, int]:
+    started_at = time.monotonic()
     if (company := get_company_from_url(url)) is None:
         raise ValueError(f"Invalid VL.ru url: {url!r}")
+
+    logger.info("started url={} company={} org_inn={}", url, company, inn)
 
     client = client or VLClient()
 
@@ -156,23 +181,27 @@ def create_vlru_reviews(
     _update_branch_platform(branch_platform, bundle)
     branch_platform.save()
 
-    created_count = 0
+    created = 0
+    skipped = 0
     for review in bundle.reviews:
         review["branch_platform"] = branch_platform
         if create_review(review):
-            created_count += 1
+            created += 1
+        else:
+            skipped += 1
 
     _delete_overflow_reviews(branch_platform.id)
 
-    fetched_count = len(bundle.reviews)
+    parsed = len(bundle.reviews)
+    duration_ms = int((time.monotonic() - started_at) * 1000)
     logger.info(
-        "VL create finished: url={} branch_address={} parsed={} created={}",
-        url,
-        address,
-        fetched_count,
-        created_count,
+        "finished parsed={} created={} skipped={} duration_ms={}",
+        parsed,
+        created,
+        skipped,
+        duration_ms,
     )
-    return fetched_count, created_count
+    return parsed, created
 
 
 class VlruParser:
@@ -190,11 +219,12 @@ class VlruParser:
         address: str = "",
         limit: int = 50,
     ) -> ParseResult:
-        parsed, created = create_vlru_reviews(
-            url=url,
-            inn=inn,
-            org_name=org_name,
-            address=address,
-            client=self._client,
-        )
-        return ParseResult(parsed, created)
+        with logger.contextualize(provider=self.provider):
+            parsed, created = create_vlru_reviews(
+                url=url,
+                inn=inn,
+                org_name=org_name,
+                address=address,
+                client=self._client,
+            )
+            return ParseResult(parsed, created)
