@@ -1,3 +1,4 @@
+import time
 from datetime import datetime
 
 from loguru import logger
@@ -32,10 +33,11 @@ HEADERS = {
 def create_yandex_reviews(
     url: str, inn: str, org_name: str = "", address: str = "", count: str = 50
 ) -> tuple[int, int]:
-    if (ogr_id := _org_id_from_url(url)) is None:
+    started_at = time.monotonic()
+    if (org_id := _org_id_from_url(url)) is None:
         raise ValueError(f"Invalid Yandex Maps url: {url!r}")
 
-    logger.info("Yandex parser started for url: {}", url)
+    logger.info("started url={} org_id={} org_inn={}", url, org_id, inn)
 
     organization = get_or_create_Organization(inn, org_name)
     branch_platform = get_or_create_branch_platform(
@@ -45,21 +47,29 @@ def create_yandex_reviews(
         url=url,
     )
 
-    bundle = fetch_new_reviews(ogr_id, branch_platform)
+    bundle = fetch_new_reviews(org_id, branch_platform)
     _update_branch_platform(branch_platform, bundle)
     branch_platform.save()
 
     created = 0
+    skipped = 0
     for review in bundle.reviews:
         if create_review(review):
             created += 1
         else:
-            logger.warning("Yandex parser, serialization error in {}", review)
+            skipped += 1
 
     _delete_overflow_reviews(branch_platform.id)
 
     parsed = len(bundle.reviews)
-    logger.info(f"Yandex create finished: url={url} branch_address={address} parsed={parsed} created={created}")
+    duration_ms = int((time.monotonic() - started_at) * 1000)
+    logger.info(
+        "finished parsed={} created={} skipped={} duration_ms={}",
+        parsed,
+        created,
+        skipped,
+        duration_ms,
+    )
     return parsed, created
 
 
@@ -91,7 +101,7 @@ def parse_el(review: Locator) -> dict | None:
             timeout=5000,
         )
     except Exception as exc:
-        logger.warning(f"Failed to parse review element, skipping: {exc}")
+        logger.warning("parse review failed: {}", exc)
         return None
 
     published_date: datetime | None = None
@@ -113,24 +123,31 @@ def fetch_new_reviews(
     branch_platform: BranchPlatform,
 ) -> ReviewsBundle:
     existing_keys = _existing_review_keys(branch_platform)
+    logger.debug("fetch started org_id={} existing_keys={}", org_id, len(existing_keys))
 
     with sync_playwright() as p:
+        logger.debug("browser started headless={}", True)
         browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
         browser = browser.new_context(
             user_agent=HEADERS["User-Agent"],
         )
         page = browser.new_page()
-        page.goto(_build_url(org_id))
+        page_url = _build_url(org_id)
+        page.goto(page_url)
+        logger.debug("page loaded url={}", page_url)
 
         rating = _parse_global_rating(page)
+        if rating is None:
+            logger.warning("company rating not found org_id={}", org_id)
+
         scroll_container = page.locator(".scroll__container")
 
-        # Установить сортировку "сначала новые"
         page.locator(".rating-ranking-view").click()
         new_first_button = page.locator('.rating-ranking-view__popup-line[aria-label="New first"]')
         new_first_button.wait_for()
         new_first_button.click()
         page.wait_for_timeout(2000)
+        logger.debug("sort set to new_first")
 
         processed = 0
         new_reviews = []
@@ -143,15 +160,20 @@ def fetch_new_reviews(
             all_reviews_els = reviews.all()
             new_review_els = all_reviews_els[processed:]
 
-            # Прекращаем скроллить после трех неудачных попыток
             if not new_review_els:
                 scroll_container.evaluate("el => el.scrollTop = el.scrollHeight")
                 page.wait_for_timeout(1500)
                 no_new_batches += 1
-                logger.info(
-                    "Yandex parser, повторная попытка получить новые отзывы {}/{}", no_new_batches, no_new_batches_limit
+                logger.debug(
+                    "scroll retry {}/{}",
+                    no_new_batches,
+                    no_new_batches_limit,
                 )
-                if no_new_batches >= 3:
+                if no_new_batches >= no_new_batches_limit:
+                    logger.info(
+                        "fetch stopped reason=scroll_exhausted new={}",
+                        len(new_reviews),
+                    )
                     break
                 continue
 
@@ -164,11 +186,20 @@ def fetch_new_reviews(
                     continue
                 review_key = (review["published_date"], review["content"])
                 if review_key in existing_keys:
-                    logger.info("Yandex parser, Знакомый отзыв, совпадение по {}. Парсинг остановлен", review_key)
+                    logger.info(
+                        "fetch stopped reason=existing_review published_date={} content_len={} new={}",
+                        review.get("published_date"),
+                        len(review.get("content") or ""),
+                        len(new_reviews),
+                    )
                     return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
 
                 if len(new_reviews) >= MAX_REVIEWS:
-                    logger.info("Yandex parser; Достигнут предел в {} отзывов. Парсинг остановлен", MAX_REVIEWS)
+                    logger.info(
+                        "fetch stopped reason=max_reviews limit={} new={}",
+                        MAX_REVIEWS,
+                        len(new_reviews),
+                    )
                     return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
 
                 review["branch_platform"] = branch_platform
@@ -178,9 +209,10 @@ def fetch_new_reviews(
             scroll_container.evaluate("el => el.scrollTop = el.scrollHeight")
             page.wait_for_timeout(1500)
 
-            logger.info("Yandex parsing...page {}, parsed {}", pg, len(new_reviews))
+            logger.debug("fetch page page={} parsed={}", pg, len(new_reviews))
             pg += 1
 
+    logger.info("fetch done new={} rating={}", len(new_reviews), rating)
     return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
 
 
@@ -196,10 +228,11 @@ class YandexMapParser:
         address: str = "",
         limit: int = 50,
     ) -> ParseResult:
-        parsed, created = create_yandex_reviews(
-            url=url,
-            inn=inn,
-            org_name=org_name,
-            address=address,
-        )
-        return ParseResult(parsed, created)
+        with logger.contextualize(provider=self.provider):
+            parsed, created = create_yandex_reviews(
+                url=url,
+                inn=inn,
+                org_name=org_name,
+                address=address,
+            )
+            return ParseResult(parsed, created)
