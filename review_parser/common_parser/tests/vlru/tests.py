@@ -63,6 +63,7 @@ class CreateVlruReviewsTests(TestCase):
         with self.assertRaises(ValueError):
             create_vlru_reviews(url="https://www.vl.ru/", inn="123456789012")
 
+    @patch("common_parser.parsers.vlru.parser._delete_overflow_reviews")
     @patch("common_parser.parsers.vlru.parser.create_review", return_value=True)
     @patch("common_parser.parsers.vlru.parser.get_or_create_branch_platform")
     @patch("common_parser.parsers.vlru.parser.get_or_create_Organization")
@@ -73,6 +74,7 @@ class CreateVlruReviewsTests(TestCase):
         mock_get_org,
         mock_get_branch_platform,
         mock_create_review,
+        mock_delete_overflow,
     ) -> None:
         mock_fetch.return_value = ReviewsBundle(
             reviews=[
@@ -90,6 +92,7 @@ class CreateVlruReviewsTests(TestCase):
             rating=5,
         )
         branch_platform = Mock()
+        branch_platform.id = 1
         branch_platform.org_id = None
         mock_get_branch_platform.return_value = branch_platform
 
@@ -104,6 +107,7 @@ class CreateVlruReviewsTests(TestCase):
         mock_fetch.assert_called_once()
         mock_create_review.assert_called_once()
         mock_get_branch_platform.assert_called_once()
+        mock_delete_overflow.assert_called_once_with(1)
 
 
 class FetchNewReviewsTests(TestCase):

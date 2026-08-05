@@ -117,6 +117,7 @@ class Create2gisReviewsTests(TestCase):
         with self.assertRaises(ValueError):
             create_2gis_reviews(url="https://example.com/no-firm", inn="123456789012")
 
+    @patch("common_parser.parsers.twogis.parser._delete_overflow_reviews")
     @patch("common_parser.parsers.twogis.parser.create_review", return_value=True)
     @patch("common_parser.parsers.twogis.parser.get_or_create_branch_platform")
     @patch("common_parser.parsers.twogis.parser.get_or_create_Organization")
@@ -127,6 +128,7 @@ class Create2gisReviewsTests(TestCase):
         mock_get_org,
         mock_get_branch_platform,
         mock_create_review,
+        mock_delete_overflow,
     ) -> None:
         mock_fetch.return_value = ReviewsBundle(
             reviews=[{"id": "1", "text": "hi", "rating": 5, "user": {"name": "Ann"}}],
@@ -134,6 +136,7 @@ class Create2gisReviewsTests(TestCase):
             rating=4.5,
         )
         branch_platform = Mock()
+        branch_platform.id = 1
         mock_get_branch_platform.return_value = branch_platform
 
         fetched, created = create_2gis_reviews(
@@ -147,6 +150,7 @@ class Create2gisReviewsTests(TestCase):
         mock_fetch.assert_called_once_with("12345", branch_platform, limit=50)
         mock_create_review.assert_called_once()
         mock_get_branch_platform.assert_called_once()
+        mock_delete_overflow.assert_called_once_with(1)
 
 
 class FetchNewReviewsTests(TestCase):
