@@ -3,7 +3,8 @@ from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -18,6 +19,8 @@ from common_parser.serializers import (
     TaskQuerySerializer,
 )
 from common_parser.tasks import parse_providers_async
+
+BEARER_AUTH = [{"Bearer": []}]
 
 SYNC_ACCEPTED_SCHEMA = openapi.Schema(
     type=openapi.TYPE_OBJECT,
@@ -71,6 +74,7 @@ TASK_STATUS_SCHEMA = openapi.Schema(
     },
 )
 @api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def get_reviews(request) -> Response:
     serializer = GetReviewsSerializer(data=request.query_params)
     serializer.is_valid(raise_exception=True)
@@ -120,8 +124,10 @@ def get_reviews(request) -> Response:
         400: "Некорректное тело запроса",
     },
     tags=["sync"],
+    security=BEARER_AUTH,
 )
 @api_view(["POST"])
+@permission_classes([IsAuthenticated])
 def sync_reviews(request) -> Response:
     serializer = SyncReviewsSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
@@ -175,8 +181,10 @@ def sync_reviews(request) -> Response:
         400: "Некорректные query-параметры",
     },
     tags=["sync"],
+    security=BEARER_AUTH,
 )
 @api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def tasks(request) -> Response:
     serializer = TaskQuerySerializer(data=request.query_params)
     serializer.is_valid(raise_exception=True)
