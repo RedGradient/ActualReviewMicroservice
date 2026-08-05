@@ -96,18 +96,18 @@ class Convert2gisReviewsTests(TestCase):
         branch_platform = Mock()
         branch_platform.id = 1
         url = "https://2gis.ru/firm/12345"
+        firm_id = firm_id_from_url(url)
+        assert firm_id is not None
 
         data = convert_2gis_reviews_to_model_data(
-            branch_platform=branch_platform,
-            review_data=self.review_data,
-            url=url,
+            branch_platform=branch_platform, review_data=self.review_data, firm_id=firm_id
         )
 
         self.assertEqual(data["branch_platform"], branch_platform)
         self.assertEqual(data["author"], self.review_data["user"]["name"])
         self.assertEqual(data["rating"], self.review_data["rating"])
         self.assertEqual(data["content"], self.review_data["text"])
-        self.assertIn("/tab/reviews/review/", data["review_url"])
+        self.assertIn(f"https://2gis.ru/reviews/{firm_id}/", data["review_url"])
         self.assertNotIn("provider", data)
 
 

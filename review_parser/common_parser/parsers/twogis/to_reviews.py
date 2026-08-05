@@ -7,9 +7,7 @@ from common_parser.models import BranchPlatform
 
 
 def convert_2gis_reviews_to_model_data(
-    branch_platform: BranchPlatform,
-    review_data: dict[str, Any],
-    url: str,
+    branch_platform: BranchPlatform, review_data: dict[str, Any], firm_id: str
 ) -> dict[str, Any]:
     """Преобразует отзыв 2GIS API в dict для create_review."""
     try:
@@ -25,8 +23,8 @@ def convert_2gis_reviews_to_model_data(
         if preview_url:
             photos.append(preview_url)
 
-    review_id = review_data.get("id", "")
-    review_url = f"{url.rstrip('/')}/tab/reviews/review/{review_id}" if review_id else None
+    review_id = review_data.get("id")
+    review_url = f"https://2gis.ru/reviews/{firm_id}/review/{review_id}" if review_id else None
 
     return {
         "branch_platform": branch_platform,

@@ -86,11 +86,7 @@ def create_2gis_reviews(
     created = 0
     for review in bundle.reviews:
         if create_review(
-            convert_2gis_reviews_to_model_data(
-                branch_platform=branch_platform,
-                review_data=review,
-                url=url,
-            )
+            convert_2gis_reviews_to_model_data(branch_platform=branch_platform, review_data=review, firm_id=firm_id)
         ):
             created += 1
 
