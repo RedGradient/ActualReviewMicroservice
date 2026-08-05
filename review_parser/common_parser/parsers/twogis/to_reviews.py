@@ -28,6 +28,7 @@ def convert_2gis_reviews_to_model_data(
 
     return {
         "branch_platform": branch_platform,
+        "external_id": str(review_id) if review_id else None,
         "author": review_data.get("user", {}).get("name", "Аноним"),
         "avatar": avatar_url or None,
         "video": None,

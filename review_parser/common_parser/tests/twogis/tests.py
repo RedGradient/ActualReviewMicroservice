@@ -107,6 +107,7 @@ class Convert2gisReviewsTests(TestCase):
         self.assertEqual(data["author"], self.review_data["user"]["name"])
         self.assertEqual(data["rating"], self.review_data["rating"])
         self.assertEqual(data["content"], self.review_data["text"])
+        self.assertEqual(data["external_id"], self.review_data["id"])
         self.assertIn(f"https://2gis.ru/reviews/{firm_id}/", data["review_url"])
         self.assertNotIn("provider", data)
 
