@@ -10,12 +10,17 @@ schema_view = get_schema_view(
         description="""
 API для парсинга и получения отзывов с платформ (Yandex, 2GIS, VL.RU).
 
+**Аутентификация (JWT):**
+1. `POST /auth/token/` — username + password → `access` и `refresh`
+2. `POST /auth/token/refresh/` — обновить access по refresh
+3. `POST /auth/users/` — регистрация (без JWT)
+
 **Эндпоинты v1 (`/api/v1/`):**
 - `GET /api/v1/reviews/` — отзывы филиала по провайдеру (пагинация `limit`/`offset`)
 - `POST /api/v1/sync/` — асинхронный запуск парсинга (ответ 202 + `task_id`)
 - `GET /api/v1/tasks/` — статус Celery-задачи по query-параметру `task_id`
 
-**Провайдеры отзывов:** yandex, 2gis, vlru, google (google без парсера)
+**Провайдеры отзывов:** yandex, 2gis, vlru
 """,
         license=openapi.License(name="BSD License"),
     ),
