@@ -49,9 +49,11 @@ def parse_branch_providers(organization_id: int, branch_id: int) -> dict:
 
 @shared_task(name="merge_weekly_results")
 def merge_weekly_results(branch_payloads: list[dict], started_at: float) -> dict:
-    branches = {}
+    branches = []
     for item in branch_payloads:
-        branches[item["branch_id"]] = {"results": item["results"], "duration_ms": item["duration_ms"]}
+        branches.append(
+            {"branch_id": item["branch_id"], "results": item["results"], "duration_ms": item["duration_ms"]}
+        )
 
     duration_ms = int((perf_counter() - started_at) * 1000)
     report = {
