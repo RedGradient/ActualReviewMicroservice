@@ -11,7 +11,7 @@ def custom_admin_index(request, extra_context=None):
         task = weekly_parsing.delay()
         messages.success(
             request,
-            f"Weekly parsing запущен. task_id={task.id} (финальный результат смотреть в merge_task_id)",
+            f"Weekly parsing запущен. task_id={task.id} (финальный результат смотреть в merge_weekly_results)",
         )
         return redirect("admin:index")
 
