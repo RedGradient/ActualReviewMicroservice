@@ -71,32 +71,38 @@ def merge_weekly_results(branch_payloads: list[dict], started_at: float) -> dict
 
 @shared_task(name="parse_single_provider")
 def parse_single_provider(provider: str, organization_id: int, branch_id: int):
+    t0 = perf_counter()
     with logger.contextualize(provider=provider):
+
+        def result(data: dict) -> dict:
+            data["duration_ms"] = int((perf_counter() - t0) * 1000)
+            return {provider: data}
+
         try:
             organization = Organization.objects.get(pk=organization_id)
             branch = Branch.objects.get(pk=branch_id, organization=organization)
         except Organization.DoesNotExist:
             logger.error("Organization not found: id={}", organization_id)
-            return {provider: {"error": "organization_not_found", "organization_id": organization_id}}
+            return result({"error": "organization_not_found", "organization_id": organization_id})
         except Branch.DoesNotExist:
             logger.error("Branch not found: id={}", branch_id)
-            return {provider: {"error": "branch_not_found", "branch_id": branch_id}}
+            return result({"error": "branch_not_found", "branch_id": branch_id})
 
         try:
             branch_platform = BranchPlatform.objects.get(branch=branch, provider=provider)
         except BranchPlatform.DoesNotExist:
             logger.error("Branch {} has no {} provider", branch.id, provider)
-            return {provider: {"error": "branch_platform_not_found", "provider": provider}}
+            return result({"error": "branch_platform_not_found", "provider": provider})
 
         if not branch_platform.url:
             logger.error("Branch platform for provider {} has no url", provider)
-            return {provider: {"error": "branch_platform_has_no_url", "provider": provider}}
+            return result({"error": "branch_platform_has_no_url", "provider": provider})
 
         try:
             parser = get_review_parser(provider)
         except KeyError:
             logger.error("Unknown provider: {}", provider)
-            return {provider: {"error": "unknown_provider", "provider": provider}}
+            return result({"error": "unknown_provider", "provider": provider})
 
         try:
             parser_result = parser.run(
@@ -105,14 +111,14 @@ def parse_single_provider(provider: str, organization_id: int, branch_id: int):
                 inn=organization.inn,
                 address=branch.address,
             )
-            return {provider: {"parsed": parser_result.parsed, "created": parser_result.created}}
+            return result({"parsed": parser_result.parsed, "created": parser_result.created})
         except Exception:
             logger.exception(
                 "Failed to parse {} for branch_id={}",
                 provider,
                 branch.pk,
             )
-            return {provider: {"error": "unknown_error"}}
+            return result({"error": "unknown_error"})
 
 
 @shared_task(name="merge_provider_results")
