@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from celery.result import AsyncResult
 from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
@@ -195,16 +197,20 @@ def tasks(request) -> Response:
     return Response({"task_id": task_id, "status": task.status})
 
 
-class OrganizationView(ModelViewSet):
+class CreateReadDeleteModelViewSet(ModelViewSet):
+    http_method_names: ClassVar[list[str]] = ["get", "post", "delete"]
+
+
+class OrganizationView(CreateReadDeleteModelViewSet):
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
 
 
-class BranchView(ModelViewSet):
+class BranchView(CreateReadDeleteModelViewSet):
     queryset = Branch.objects.all()
     serializer_class = BranchSerializer
 
 
-class BranchPlatformView(ModelViewSet):
+class BranchPlatformView(CreateReadDeleteModelViewSet):
     queryset = BranchPlatform.objects.all()
     serializer_class = BranchPlatformSerializer
