@@ -1,12 +1,31 @@
 from django.contrib import admin, messages
 from django.shortcuts import redirect
 
+from common_parser.tasks import parse_branch_providers, parse_single_provider
+
 from .models import Branch, BranchPlatform, Organization, Review
 
 
 @admin.register(Branch)
 class BranchAdmin(admin.ModelAdmin):
+    change_form_template = "admin/common_parser/branch/change_form.html"
     list_display = ("id", "organization", "address", "created_at")
+
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        if request.method == "POST" and "_parse_all_providers" in request.POST:
+            branch = self.get_object(request, object_id)
+            if branch is None:
+                return redirect("admin:common_parser_branch_changelist")
+
+            task = parse_branch_providers.delay(branch.organization_id, branch.id)
+            self.message_user(
+                request,
+                f"Парсинг всех провайдеров филиала #{branch.id} запущен. task_id={task.id}",
+                level=messages.SUCCESS,
+            )
+            return redirect("admin:common_parser_branch_change", object_id)
+
+        return super().change_view(request, object_id, form_url, extra_context)
 
 
 @admin.register(Organization)
@@ -16,6 +35,7 @@ class OrganizationAdmin(admin.ModelAdmin):
 
 @admin.register(BranchPlatform)
 class BranchPlatformAdmin(admin.ModelAdmin):
+    change_form_template = "admin/common_parser/branchplatform/change_form.html"
     list_display = (
         "id",
         "branch",
@@ -28,6 +48,32 @@ class BranchPlatformAdmin(admin.ModelAdmin):
     )
     list_filter = ("provider",)
     ordering = ("id",)
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("branch", "branch__organization")
+
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        if request.method == "POST" and "_parse_provider" in request.POST:
+            branch_platform = self.get_object(request, object_id)
+            if branch_platform is None:
+                return redirect("admin:common_parser_branchplatform_changelist")
+
+            task = parse_single_provider.delay(
+                branch_platform.provider,
+                branch_platform.branch.organization_id,
+                branch_platform.branch_id,
+            )
+            self.message_user(
+                request,
+                (
+                    f"Парсинг {branch_platform.get_provider_display()} "
+                    f"для филиала #{branch_platform.branch_id} запущен. task_id={task.id}"
+                ),
+                level=messages.SUCCESS,
+            )
+            return redirect("admin:common_parser_branchplatform_change", object_id)
+
+        return super().change_view(request, object_id, form_url, extra_context)
 
 
 @admin.register(Review)
