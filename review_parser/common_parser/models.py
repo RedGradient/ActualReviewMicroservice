@@ -37,7 +37,6 @@ class Branch(models.Model):
 
 class BranchPlatform(models.Model):
     PROVIDER_CHOICES = (
-        ("google", "Google"),
         ("yandex", "Yandex"),
         ("2gis", "2GIS"),
         ("vlru", "VL.ru"),
