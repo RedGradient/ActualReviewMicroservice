@@ -1,5 +1,3 @@
-from typing import ClassVar
-
 from celery.result import AsyncResult
 from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
@@ -198,7 +196,7 @@ def tasks(request) -> Response:
 
 
 class CreateReadDeleteModelViewSet(ModelViewSet):
-    http_method_names: ClassVar[list[str]] = ["get", "post", "delete"]
+    http_method_names = ["get", "post", "delete"]  # noqa: RUF012
 
 
 class OrganizationView(CreateReadDeleteModelViewSet):
