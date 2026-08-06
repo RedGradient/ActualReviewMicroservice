@@ -84,6 +84,15 @@ class GetReviewsSerializer(serializers.Serializer):
     provider = serializers.ChoiceField(choices=VALID_PROVIDERS)
     limit = serializers.IntegerField(default=50, min_value=1, max_value=500)
     offset = serializers.IntegerField(default=0, min_value=0)
+    published_from = serializers.DateField(
+        required=False,
+        help_text="Начало периода (включительно). Формат: YYYY-MM-DD, например 2026-08-01.",
+    )
+    published_to = serializers.DateField(
+        required=False,
+        help_text="Конец периода (включительно). Формат: YYYY-MM-DD, например 2026-08-06.",
+    )
+    rating = serializers.CharField(required=False)
 
 
 class SyncReviewsSerializer(serializers.Serializer):

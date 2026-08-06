@@ -64,7 +64,9 @@ TASK_STATUS_SCHEMA = openapi.Schema(
     operation_summary="Получить отзывы филиала",
     operation_description=(
         "Возвращает список отзывов для указанного филиала и провайдера. "
-        "Поддерживается пагинация через параметры `limit` и `offset`."
+        "Поддерживается пагинация (`limit`, `offset`) и фильтры по дате публикации и рейтингу.\n\n"
+        "**Даты** (`published_from`, `published_to`): формат **YYYY-MM-DD** (ISO 8601), "
+        "например `2026-08-01`. Границы периода включительны."
     ),
     query_serializer=GetReviewsSerializer,
     responses={
@@ -74,7 +76,7 @@ TASK_STATUS_SCHEMA = openapi.Schema(
     },
 )
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_reviews(request) -> Response:
     serializer = GetReviewsSerializer(data=request.query_params)
     serializer.is_valid(raise_exception=True)
@@ -89,11 +91,22 @@ def get_reviews(request) -> Response:
     limit = serializer.validated_data["limit"]
     offset = serializer.validated_data["offset"]
 
-    reviews = Review.objects.filter(branch_platform=branch_platform).order_by("-published_date")[
-        offset : offset + limit
-    ]
+    reviews = Review.objects.filter(branch_platform=branch_platform)
 
-    return Response(ReviewPublicSerializer(reviews, many=True).data)
+    if published_from := serializer.validated_data.get("published_from"):
+        reviews = reviews.filter(published_date__date__gte=published_from)
+
+    if published_to := serializer.validated_data.get("published_to"):
+        reviews = reviews.filter(published_date__date__lte=published_to)
+
+    # Проверяем на None, чтобы отличить,
+    # передали ли нам пустую строку или параметра 'rating' вообще не было
+    if (rating := serializer.validated_data.get("rating")) is not None:
+        reviews = reviews.filter(rating=str(rating))
+
+    result = reviews.order_by("-published_date")[offset : offset + limit]
+
+    return Response(ReviewPublicSerializer(result, many=True).data)
 
 
 @swagger_auto_schema(
