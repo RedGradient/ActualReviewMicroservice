@@ -4,9 +4,9 @@ from datetime import datetime
 
 from loguru import logger
 
-from common_parser.models import BranchPlatform, Review
+from common_parser.models import BranchPlatform, Review, Video
 from common_parser.types import ReviewsBundle
-from review_parser.settings import MAX_REVIEWS
+from review_parser.settings import MAX_REVIEWS, MAX_VIDEO_COUNT
 
 
 def _update_branch_platform(branch_platform: BranchPlatform, bundle: ReviewsBundle) -> BranchPlatform:
@@ -37,5 +37,26 @@ def _delete_overflow_reviews(branch_platform_id: int):
             "overflow deleted={} branch_platform_id={} remaining={}",
             overflow,
             branch_platform_id,
+            remaining,
+        )
+
+
+def _delete_overflow_videos(playlist_db_id: int):
+    """Удаляет старые видео по overflow"""
+
+    old_count = Video.objects.filter(playlist_id=playlist_db_id).count()
+    overflow = old_count - MAX_VIDEO_COUNT
+    if overflow > 0:
+        ids_to_delete = (
+            Video.objects.filter(playlist_id=playlist_db_id)
+            .order_by("published_date")
+            .values_list("pk", flat=True)[:overflow]
+        )
+        Video.objects.filter(pk__in=ids_to_delete).delete()
+        remaining = Video.objects.filter(playlist_id=playlist_db_id).count()
+        logger.info(
+            "overflow deleted={} playlist_id={} remaining={}",
+            overflow,
+            playlist_db_id,
             remaining,
         )

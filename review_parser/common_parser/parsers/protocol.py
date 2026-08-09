@@ -17,3 +17,9 @@ class ReviewParser(Protocol):
         address: str = "",
         limit: int = 50,
     ) -> ParseResult: ...
+
+
+class VideoParser(Protocol):
+    provider: str
+
+    def run(self, playlist_url: str) -> ParseResult: ...

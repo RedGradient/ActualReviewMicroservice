@@ -175,6 +175,9 @@ CELERY_TIMEZONE = "Europe/Moscow"
 # Максимальное количество Review у одного провайдера
 MAX_REVIEWS: int = 100
 
+# Максимальное количество Video в одном Playlist
+MAX_VIDEO_COUNT = 20
+
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -198,3 +201,5 @@ SWAGGER_SETTINGS = {
     },
     "USE_SESSION_AUTH": False,
 }
+
+YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
