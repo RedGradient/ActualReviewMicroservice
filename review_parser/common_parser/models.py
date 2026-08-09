@@ -123,6 +123,7 @@ class Playlist(models.Model):
         ("vk", "Вк"),
     )
 
+    author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     count = models.PositiveIntegerField(blank=True, null=True, default=None)
     url = models.URLField(unique=True)
@@ -138,7 +139,7 @@ class Video(models.Model):
     url = models.URLField()
     title = models.CharField(max_length=255, blank=True, null=True)
     author = models.CharField(max_length=255, blank=True, null=True)
-    date = models.DateTimeField(blank=True, null=True)
+    published_date = models.DateTimeField(blank=True, null=True)
     preview = models.URLField(max_length=1000, blank=True, null=True)
     duration = models.IntegerField(blank=True, null=True, default=None)
 
