@@ -1,3 +1,4 @@
+import time
 from datetime import datetime
 from typing import Any
 
@@ -20,6 +21,8 @@ class YoutubeClient:
     def get_playlist_videos(self, playlist_id: str) -> list[dict[str, Any]]:
         """Возвращает список метаданных видео из плейлиста."""
 
+        logger.debug("fetch started playlist_id={} limit={}", playlist_id, MAX_VIDEO_COUNT)
+
         videos: list[dict[str, Any]] = []
         next_page_token = None
 
@@ -40,6 +43,14 @@ class YoutubeClient:
 
             if not (items := playlist_response.get("items", [])):
                 break
+
+            logger.debug(
+                "fetch page playlist_id={} page_token={} batch={} total={}",
+                playlist_id,
+                next_page_token,
+                len(items),
+                len(videos) + len(items),
+            )
 
             video_ids = [item["contentDetails"]["videoId"] for item in items]
 
@@ -77,17 +88,26 @@ class YoutubeClient:
             if not next_page_token:
                 break
 
+        logger.info("fetch done playlist_id={} videos={}", playlist_id, len(videos))
         return videos
 
     def get_playlist_data(self, playlist_url: str) -> dict:
         playlist_id = playlist_url.split("list=")[1].split("&")[0]
 
+        logger.info("started url={} playlist_id={}", playlist_url, playlist_id)
+
         playlist_response = self._youtube.playlists().list(part="snippet", id=playlist_id).execute()
         items = playlist_response.get("items", [])
         if not items:
+            logger.error("playlist not found playlist_id={}", playlist_id)
             raise ValueError(f"Playlist not found: {playlist_id}")
 
         snippet = items[0]["snippet"]
+        logger.debug(
+            "playlist metadata title={} author={}",
+            snippet.get("title"),
+            snippet.get("channelTitle"),
+        )
         playlist_videos = self.get_playlist_videos(playlist_id)
 
         return {
@@ -102,30 +122,41 @@ class YoutubeClient:
 
 
 def create_youtube_videos(playlist_url: str, youtube: YoutubeClient) -> ParseResult:
+    started_at = time.monotonic()
+    logger.info("started url={}", playlist_url)
+
     data = youtube.get_playlist_data(playlist_url)
     videos = data.pop("videos")
     url = data.pop("url")
 
-    # Получение только новых видео
+    playlist, _ = Playlist.objects.update_or_create(url=url, defaults=data)
+
     new_videos = []
     for video in videos:
-        if not Video.objects.filter(
-            url=video["url"],
-            playlist_id=data["playlist"],
-        ).exists():
+        if not Video.objects.filter(url=video["url"], playlist_id=playlist.id).exists():
             new_videos.append(video)
-
-    playlist, _ = Playlist.objects.update_or_create(url=url, defaults=data)
 
     for video in new_videos:
         video["playlist"] = playlist.id
 
     created = 0
+    skipped = 0
     for video in new_videos:
         if create_video(video):
             created += 1
+        else:
+            skipped += 1
 
     _delete_overflow_videos(playlist.id)
+
+    duration_ms = int((time.monotonic() - started_at) * 1000)
+    logger.info(
+        "finished parsed={} created={} skipped={} duration_ms={}",
+        len(videos),
+        created,
+        skipped,
+        duration_ms,
+    )
 
     return ParseResult(parsed=len(videos), created=created)
 
