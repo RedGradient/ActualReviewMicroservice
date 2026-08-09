@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 
 from common_parser.tasks import parse_branch_providers, parse_single_provider
 
-from .models import Branch, BranchPlatform, Organization, Review
+from .models import Branch, BranchPlatform, Organization, Playlist, Review, Video
 
 
 @admin.register(Branch)
@@ -100,3 +100,29 @@ class ReviewAdmin(admin.ModelAdmin):
             return redirect("admin:common_parser_review_changelist")
 
         return super().changelist_view(request, extra_context)
+
+
+@admin.register(Playlist)
+class PlaylistAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "url",
+        "title",
+        "count",
+        "provider",
+        "parse_date",
+    )
+
+
+@admin.register(Video)
+class VideoAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "playlist",
+        "url",
+        "title",
+        "author",
+        "published_date",
+        "preview",
+        "duration",
+    )
