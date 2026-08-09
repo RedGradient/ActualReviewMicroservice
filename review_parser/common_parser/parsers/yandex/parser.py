@@ -128,89 +128,90 @@ def fetch_new_reviews(
     with sync_playwright() as p:
         logger.debug("browser started headless={}", True)
         browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
-        browser = browser.new_context(
-            user_agent=HEADERS["User-Agent"],
-        )
-        page = browser.new_page()
-        page_url = _build_url(org_id)
-        page.goto(page_url)
-        logger.debug("page loaded url={}", page_url)
+        try:
+            context = browser.new_context(user_agent=HEADERS["User-Agent"])
+            page = context.new_page()
+            page_url = _build_url(org_id)
+            page.goto(page_url)
+            logger.debug("page loaded url={}", page_url)
 
-        rating = _parse_global_rating(page)
-        if rating is None:
-            logger.warning("company rating not found org_id={}", org_id)
+            rating = _parse_global_rating(page)
+            if rating is None:
+                logger.warning("company rating not found org_id={}", org_id)
 
-        scroll_container = page.locator(".scroll__container")
+            scroll_container = page.locator(".scroll__container")
 
-        page.locator(".rating-ranking-view").click()
-        new_first_button = page.locator('.rating-ranking-view__popup-line[aria-label="New first"]')
-        new_first_button.wait_for()
-        new_first_button.click()
-        page.wait_for_timeout(2000)
-        logger.debug("sort set to new_first")
+            page.locator(".rating-ranking-view").click()
+            new_first_button = page.locator('.rating-ranking-view__popup-line[aria-label="New first"]')
+            new_first_button.wait_for()
+            new_first_button.click()
+            page.wait_for_timeout(2000)
+            logger.debug("sort set to new_first")
 
-        processed = 0
-        new_reviews = []
-        no_new_batches = 0
-        no_new_batches_limit = 3
-        pg = 1
+            processed = 0
+            new_reviews = []
+            no_new_batches = 0
+            no_new_batches_limit = 3
+            pg = 1
 
-        while True:
-            reviews = page.locator(".business-reviews-card-view__review")
-            all_reviews_els = reviews.all()
-            new_review_els = all_reviews_els[processed:]
+            while True:
+                reviews = page.locator(".business-reviews-card-view__review")
+                all_reviews_els = reviews.all()
+                new_review_els = all_reviews_els[processed:]
 
-            if not new_review_els:
+                if not new_review_els:
+                    scroll_container.evaluate("el => el.scrollTop = el.scrollHeight")
+                    page.wait_for_timeout(1500)
+                    no_new_batches += 1
+                    logger.debug(
+                        "scroll retry {}/{}",
+                        no_new_batches,
+                        no_new_batches_limit,
+                    )
+                    if no_new_batches >= no_new_batches_limit:
+                        logger.info(
+                            "fetch stopped reason=scroll_exhausted new={}",
+                            len(new_reviews),
+                        )
+                        break
+                    continue
+
+                no_new_batches = 0
+
+                for review_el in new_review_els:
+                    review = parse_el(review_el)
+                    if review is None:
+                        processed += 1
+                        continue
+                    review_key = (review["published_date"], review["content"])
+                    if review_key in existing_keys:
+                        logger.info(
+                            "fetch stopped reason=existing_review published_date={} content_len={} new={}",
+                            review.get("published_date"),
+                            len(review.get("content") or ""),
+                            len(new_reviews),
+                        )
+                        return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
+
+                    if len(new_reviews) >= MAX_REVIEWS:
+                        logger.info(
+                            "fetch stopped reason=max_reviews limit={} new={}",
+                            MAX_REVIEWS,
+                            len(new_reviews),
+                        )
+                        return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
+
+                    review["branch_platform"] = branch_platform
+                    new_reviews.append(review)
+                    processed += 1
+
                 scroll_container.evaluate("el => el.scrollTop = el.scrollHeight")
                 page.wait_for_timeout(1500)
-                no_new_batches += 1
-                logger.debug(
-                    "scroll retry {}/{}",
-                    no_new_batches,
-                    no_new_batches_limit,
-                )
-                if no_new_batches >= no_new_batches_limit:
-                    logger.info(
-                        "fetch stopped reason=scroll_exhausted new={}",
-                        len(new_reviews),
-                    )
-                    break
-                continue
 
-            no_new_batches = 0
-
-            for review_el in new_review_els:
-                review = parse_el(review_el)
-                if review is None:
-                    processed += 1
-                    continue
-                review_key = (review["published_date"], review["content"])
-                if review_key in existing_keys:
-                    logger.info(
-                        "fetch stopped reason=existing_review published_date={} content_len={} new={}",
-                        review.get("published_date"),
-                        len(review.get("content") or ""),
-                        len(new_reviews),
-                    )
-                    return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
-
-                if len(new_reviews) >= MAX_REVIEWS:
-                    logger.info(
-                        "fetch stopped reason=max_reviews limit={} new={}",
-                        MAX_REVIEWS,
-                        len(new_reviews),
-                    )
-                    return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
-
-                review["branch_platform"] = branch_platform
-                new_reviews.append(review)
-                processed += 1
-
-            scroll_container.evaluate("el => el.scrollTop = el.scrollHeight")
-            page.wait_for_timeout(1500)
-
-            logger.debug("fetch page page={} parsed={}", pg, len(new_reviews))
-            pg += 1
+                logger.debug("fetch page page={} parsed={}", pg, len(new_reviews))
+                pg += 1
+        finally:
+            browser.close()
 
     logger.info("fetch done new={} rating={}", len(new_reviews), rating)
     return ReviewsBundle(count=len(new_reviews), rating=rating, reviews=new_reviews)
