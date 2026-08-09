@@ -3,9 +3,9 @@ from time import perf_counter
 from celery import chord, shared_task
 from loguru import logger
 
-from common_parser.models import Branch, BranchPlatform, Organization
+from common_parser.models import Branch, BranchPlatform, Organization, Playlist
 from common_parser.parsers import REVIEW_PARSERS
-from common_parser.parsers.registry import get_review_parser
+from common_parser.parsers.registry import get_review_parser, get_video_parser
 
 
 @shared_task(name="common_parser.tasks.weekly_parsing")
@@ -132,3 +132,30 @@ def merge_provider_results(provider_results: list[dict]) -> dict:
 def parse_providers_async(providers: list[str], organization_id: int, branch_id: int):
     header = [parse_single_provider.s(provider, organization_id, branch_id) for provider in providers]
     return chord(header)(merge_provider_results.s())
+
+
+@shared_task(name="parse_youtube_playlist")
+def parse_youtube_playlist(playlist_db_id: int):
+    provider = "youtube"
+    t0 = perf_counter()
+
+    with logger.contextualize(provider=provider):
+        try:
+            playlist = Playlist.objects.get(id=playlist_db_id)
+        except Playlist.DoesNotExist:
+            logger.error("Playlist not found: id={}", playlist_db_id)
+            return {"error": "playlist_not_found", "provider": provider}
+
+        try:
+            parser = get_video_parser(provider)
+            parse_result = parser.run(playlist.url)
+        except Exception:
+            logger.exception(
+                "Failed to parse {} for playlist_id={}",
+                provider,
+                playlist.pk,
+            )
+            return {"error": "unknown_error", "provider": provider}
+
+        duration = int((perf_counter() - t0) * 1000)
+        return {"parsed": parse_result.parsed, "created": parse_result.created, "duration_ms": duration}
