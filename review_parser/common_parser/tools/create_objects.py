@@ -124,9 +124,9 @@ def get_or_create_playlist(data: dict) -> Playlist:
 
 def create_video(data: dict) -> bool:
     """Создает видео, если уже есть такое возвращает False"""
-    existing_review = Video.objects.filter(url=data["url"]).exists()
+    existing_video = Video.objects.filter(playlist_id=data["playlist"], url=data["url"]).exists()
 
-    if existing_review:
+    if existing_video:
         return False
 
     serializer_video = VideoSerializer(data=data)
