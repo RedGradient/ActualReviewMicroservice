@@ -1,0 +1,10 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block form_top %}
+{% if original.pk %}
+<div class="submit-row">
+    <input type="submit" value="{% trans 'Парсинг YouTube' %}" name="_parse_youtube">
+</div>
+{% endif %}
+{% endblock %}
